@@ -1,0 +1,1413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GridCook AI Clean Cooking Dashboard</title>
+  <style>
+    :root {
+      --ink: #172026;
+      --muted: #5b6773;
+      --line: #d7dee5;
+      --panel: #ffffff;
+      --bg: #f4f7f8;
+      --teal: #0f766e;
+      --blue: #2563eb;
+      --orange: #c95f18;
+      --green: #17803d;
+      --red: #b43c1f;
+      --pale-teal: #e1f3f0;
+      --pale-blue: #e6efff;
+      --pale-orange: #fff0df;
+      --pale-red: #ffe8e1;
+      --shadow: 0 8px 24px rgba(23, 32, 38, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.35;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--teal);
+      color: white;
+      font-weight: 800;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 10px;
+      background: white;
+    }
+
+    main {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 24px 28px 48px;
+    }
+
+    section {
+      margin-top: 22px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .brief {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .brief h2 {
+      max-width: 840px;
+      font-size: 32px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .brief p {
+      color: var(--muted);
+      max-width: 820px;
+      font-size: 15px;
+    }
+
+    .idea-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .idea {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfd;
+    }
+
+    .idea strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .idea span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .scorecard {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .kpi {
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 14px;
+      min-height: 112px;
+      background: #fbfcfd;
+    }
+
+    .kpi:nth-child(1) { background: var(--pale-teal); }
+    .kpi:nth-child(2) { background: var(--pale-blue); }
+    .kpi:nth-child(3) { background: var(--pale-orange); }
+    .kpi:nth-child(4) { background: var(--pale-red); }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .kpi .value {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .kpi .note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      font-size: 20px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 720px;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .chart-panel {
+      padding: 16px;
+      min-height: 390px;
+    }
+
+    .chart-panel h3 {
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .chart-panel p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .chart {
+      width: 100%;
+      min-height: 300px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .axis text, .tick text {
+      fill: var(--muted);
+      font-size: 11px;
+    }
+
+    .gridline {
+      stroke: #dce3ea;
+      stroke-dasharray: 4 4;
+    }
+
+    .axis-line {
+      stroke: var(--line);
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .ai-card {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ai-card h3 {
+      font-size: 16px;
+    }
+
+    .ai-card .tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: var(--teal);
+      background: var(--pale-teal);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ai-card dl {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .ai-card dt {
+      font-weight: 800;
+    }
+
+    .ai-card dd {
+      color: var(--muted);
+      margin: 2px 0 0;
+    }
+
+    .reward-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .reward-card {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .reward-card h3 {
+      font-size: 16px;
+    }
+
+    .reward-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reward-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini-kpi {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfd;
+    }
+
+    .mini-kpi .value {
+      display: block;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .mini-kpi .label {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .leaderboard {
+      display: grid;
+      gap: 8px;
+    }
+
+    .leader-row {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 10px;
+      background: #fbfcfd;
+      font-size: 13px;
+    }
+
+    .rank {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      color: white;
+      background: var(--teal);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .leader-row strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .leader-row span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .points {
+      color: var(--green);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .reward-rules {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .rule {
+      border-radius: 8px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      font-size: 12px;
+      background: #fbfcfd;
+    }
+
+    .rule strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .rule.green { background: #e7f6ec; }
+    .rule.yellow { background: #fff6df; }
+    .rule.red { background: #ffe8e1; }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .phase {
+      padding: 16px;
+    }
+
+    .phase .num {
+      color: var(--orange);
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .phase h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .phase p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .table-panel {
+      overflow: auto;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      min-width: 980px;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--ink);
+      color: white;
+      font-size: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    td.num, th.num {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fbfc;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .risk {
+      padding: 16px;
+      border-left: 4px solid var(--orange);
+    }
+
+    .risk h3 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .risk p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .execution-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .runbook,
+    .training-box {
+      padding: 16px;
+    }
+
+    .step-list,
+    .model-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+    }
+
+    .step-list li {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step-list li:last-child,
+    .model-list li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .step-index {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--pale-blue);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .step-list strong,
+    .model-list strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .step-list span,
+    .model-list span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .model-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .model-tag {
+      display: inline-flex;
+      margin-bottom: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--pale-teal);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 1000px) {
+      header { align-items: flex-start; flex-direction: column; }
+      nav { justify-content: flex-start; }
+      .top-grid, .chart-grid, .ai-grid, .reward-grid, .roadmap, .risk-grid, .execution-grid { grid-template-columns: 1fr; }
+      .idea-grid, .scorecard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .brief h2 { font-size: 26px; }
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 18px 14px 36px; }
+      header { padding: 12px 14px; }
+      .idea-grid, .scorecard, .reward-kpis, .reward-rules { grid-template-columns: 1fr; }
+      .brief { padding: 16px; }
+      .chart-panel { padding: 12px; min-height: auto; }
+      nav a { font-size: 12px; padding: 6px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="mark">GC</div>
+      <div>
+        <h1>GridCook AI Dashboard</h1>
+        <p class="subtitle">Clean cooking proposal evidence pack for Kenya-first mini-grid pilots</p>
+      </div>
+    </div>
+    <nav aria-label="Dashboard sections">
+      <a href="#evidence">Evidence</a>
+      <a href="#profiles">Profiles</a>
+      <a href="#health">Health</a>
+      <a href="#ai">AI uses</a>
+      <a href="#rewards">Rewards</a>
+      <a href="#build">3-day build</a>
+      <a href="#kenya-plan">Kenya plan</a>
+      <a href="#pilot">Timeline</a>
+      <a href="#targets">Targets</a>
+      <a href="#risks">Risks</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="top-grid" id="overview">
+      <div class="panel brief">
+        <div>
+          <div class="eyebrow">Proposed concept</div>
+          <h2>Use AI to shift clean cooking from appliance pilots to grid-aware adoption at scale.</h2>
+        </div>
+        <p>
+          GridCook AI combines smart-plug e-cooker data, mini-grid telemetry, clean-cooking access indicators,
+          learned cooker profiles, and household preference signals to forecast cooking load, recommend clean-cooking windows, and help
+          operators deploy electric cooking without creating evening peaks or trust problems. A daytime rewards
+          layer gives households bill credits or vouchers for cooking when solar and battery headroom are strongest,
+          while a health proxy estimates whether e-cooking is actually replacing smoky fuel use.
+        </p>
+        <div class="idea-grid">
+          <div class="idea"><strong>Problem</strong><span>Kenya has 37.9M people without clean cooking access.</span></div>
+          <div class="idea"><strong>Pilot</strong><span>Start with Oloika-style mini-grids where telemetry exists.</span></div>
+          <div class="idea"><strong>AI lever</strong><span>Profile habits, forecast, schedule, reward daytime cooking, and estimate smoke-exposure reduction.</span></div>
+          <div class="idea"><strong>Ask</strong><span>Fund a 6-month field pilot after an 8-10 week MVP.</span></div>
+        </div>
+      </div>
+
+      <div class="panel scorecard" aria-label="Key metrics">
+        <div class="kpi">
+          <div class="label">Global clean-cooking gap</div>
+          <div class="value">2.06B</div>
+          <div class="note">people without clean cooking in 2023</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Sub-Saharan Africa gap</div>
+          <div class="value">972M</div>
+          <div class="note">largest regional concentration in the data</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Kenya clean-cooking access</div>
+          <div class="value">31.6%</div>
+          <div class="note">rural clean cooking was 10.4% in 2022</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Oloika e-cooker trial load</div>
+          <div class="value">46.0 kWh</div>
+          <div class="note">2.8% of June mini-grid AC consumption</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-head">
+        <div>
+          <h2>Evidence Dashboard</h2>
+          <p>Charts combine SDG/World Bank access data, Oloika smart-plug e-cooker data, and June 2025 mini-grid telemetry.</p>
+        </div>
+      </div>
+      <div class="chart-grid">
+        <div class="panel chart-panel">
+          <h3>Addressable Population</h3>
+          <p>Top countries by people without clean cooking access.</p>
+          <div id="top-unserved" class="chart"></div>
+        </div>
+        <div class="panel chart-panel">
+          <h3>Mini-Grid Energy Context</h3>
+          <p>Daily AC consumption, PV inverter generation, and DC solar yield in Oloika.</p>
+          <div id="energy-line" class="chart"></div>
+          <div class="legend">
+            <span><i class="swatch" style="background: var(--blue)"></i>AC consumption</span>
+            <span><i class="swatch" style="background: var(--orange)"></i>PV inverter</span>
+            <span><i class="swatch" style="background: var(--green)"></i>DC solar yield</span>
+          </div>
+        </div>
+        <div class="panel chart-panel">
+          <h3>Pilot Readiness Matrix</h3>
+          <p>Clean-cooking gap versus electricity access; bubble size approximates unserved population.</p>
+          <div id="readiness-scatter" class="chart"></div>
+        </div>
+        <div class="panel chart-panel">
+          <h3>Cooking Session Timing</h3>
+          <p>Detected e-cooker sessions by start hour from smart-plug power data.</p>
+          <div id="session-hours" class="chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profiles">
+      <div class="section-head">
+        <div>
+          <h2>Cooker Profiles</h2>
+          <p>Each participating appliance or household gets an anonymized profile learned from verified cooking sessions: habitual timing, energy use, flexibility, and reward response.</p>
+        </div>
+      </div>
+      <div class="reward-grid">
+        <div class="panel reward-card">
+          <h3>Profile HH-04: evening-anchored</h3>
+          <p>Mostly cooks after sunset, so the scheduler should offer stronger daytime incentives and avoid unrealistic midday-only recommendations.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">0.31</span><span class="label">avg kWh/session</span></div>
+            <div class="mini-kpi"><span class="value">18-20</span><span class="label">usual cook window</span></div>
+            <div class="mini-kpi"><span class="value">Low</span><span class="label">flexibility score</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Nudge</strong>Offer lunch/late-afternoon green windows.</div>
+            <div class="rule"><strong>Reward</strong>Higher points for first daytime session.</div>
+            <div class="rule"><strong>Risk</strong>Evening load needs battery check.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Profile HH-02: daytime-ready</h3>
+          <p>Already uses the cooker during high-solar hours, making this household a strong candidate for early rewards and peer learning.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">0.24</span><span class="label">avg kWh/session</span></div>
+            <div class="mini-kpi"><span class="value">10-14</span><span class="label">usual cook window</span></div>
+            <div class="mini-kpi"><span class="value">High</span><span class="label">flexibility score</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Nudge</strong>Confirm green windows by SMS.</div>
+            <div class="rule"><strong>Reward</strong>Weekly streak bonus.</div>
+            <div class="rule"><strong>Scale</strong>Good cohort champion candidate.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Profile HH-07: high-energy</h3>
+          <p>Uses more energy per session, so the scheduler should cap simultaneous cooking and route this profile to the strongest grid windows.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">0.52</span><span class="label">avg kWh/session</span></div>
+            <div class="mini-kpi"><span class="value">2.1 kW</span><span class="label">observed peak</span></div>
+            <div class="mini-kpi"><span class="value">Med</span><span class="label">flexibility score</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Nudge</strong>Prioritize midday PV windows.</div>
+            <div class="rule"><strong>Reward</strong>Credit for shifting heavy meals.</div>
+            <div class="rule"><strong>Limit</strong>Do not batch with other high-load homes.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>How profiles are learned</h3>
+          <p>For the hackathon, profiles are derived from session aggregation and simple clustering. In the field pilot, they improve as more weeks of usage and survey labels arrive.</p>
+          <div class="reward-rules">
+            <div class="rule"><strong>Features</strong>Start hour, duration, kWh, peak watts, weekly sessions.</div>
+            <div class="rule"><strong>Labels</strong>Daytime-ready, evening-anchored, high-energy, low-use, irregular.</div>
+            <div class="rule"><strong>Privacy</strong>Anonymized IDs; no public household leaderboard.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="health">
+      <div class="section-head">
+        <div>
+          <h2>Health-Weighted Clean Cooking</h2>
+          <p>Use e-cooker telemetry and light-touch surveys to estimate smoke-exposure reduction, prioritize higher-risk households, and detect fuel stacking.</p>
+        </div>
+      </div>
+      <div class="reward-grid">
+        <div class="panel reward-card">
+          <h3>Smoke exposure reduction score</h3>
+          <p>A funder-facing proxy: verified e-cooking sessions that likely replaced charcoal, wood, kerosene, or other polluting cooking sessions.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">112</span><span class="label">target avoided smoky sessions/month</span></div>
+            <div class="mini-kpi"><span class="value">70%</span><span class="label">replacement-confidence target</span></div>
+            <div class="mini-kpi"><span class="value">Proxy</span><span class="label">not a medical outcome</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Formula</strong>Verified e-cook sessions x replacement confidence x indoor exposure weight.</div>
+            <div class="rule"><strong>Inputs</strong>Smart-plug sessions, fuel survey, cooking location, ventilation.</div>
+            <div class="rule"><strong>Output</strong>Weekly exposure-risk reduction estimate.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Health priority targeting</h3>
+          <p>Prioritize extra support where clean cooking is most likely to reduce household smoke exposure, without making medical claims.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">High</span><span class="label">frequent indoor biomass cooking</span></div>
+            <div class="mini-kpi"><span class="value">Med</span><span class="label">mixed fuel stacking</span></div>
+            <div class="mini-kpi"><span class="value">Low</span><span class="label">already mostly clean fuel</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Signals</strong>Primary fuel, cooking frequency, indoor/outdoor cooking, ventilation.</div>
+            <div class="rule"><strong>Equity</strong>Use support priority, not exclusion or punishment.</div>
+            <div class="rule"><strong>Action</strong>Higher rewards, CHW follow-up, recipe support.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Fuel-stacking detector</h3>
+          <p>Checks whether e-cooking replaces smoky fuels or simply adds another appliance to the household's cooking mix.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">3</span><span class="label">survey questions/week</span></div>
+            <div class="mini-kpi"><span class="value">Flag</span><span class="label">charcoal meals not falling</span></div>
+            <div class="mini-kpi"><span class="value">Trend</span><span class="label">clean-meal share</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Survey</strong>Meals cooked with electric, charcoal/wood, LPG/other.</div>
+            <div class="rule"><strong>Telemetry</strong>Compare reported electric meals to verified sessions.</div>
+            <div class="rule"><strong>Nudge</strong>Recipe support for meals still cooked on smoky fuels.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Health diary and CHW view</h3>
+          <p>Community health workers or local champions can review aggregated risk signals and help households shift the smokiest meals first.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">SMS</span><span class="label">daily/weekly check-in</span></div>
+            <div class="mini-kpi"><span class="value">Cohort</span><span class="label">aggregated dashboard</span></div>
+            <div class="mini-kpi"><span class="value">Consent</span><span class="label">required in pilot</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule"><strong>Check-in</strong>Smoke level, fuel used, eye/cough irritation, cooking location.</div>
+            <div class="rule"><strong>CHW role</strong>Support behavior change and safe appliance use.</div>
+            <div class="rule"><strong>Boundary</strong>No diagnosis; field validation needs PM2.5/CO or clinical partners.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="section-head">
+        <div>
+          <h2>What We Use AI For</h2>
+          <p>The AI layer is practical: it reduces implementation risk by turning raw telemetry into action for households, mini-grid operators, and funders.</p>
+        </div>
+      </div>
+      <div class="ai-grid">
+        <div class="panel ai-card">
+          <span class="tag">Profile</span>
+          <h3>Household and appliance habit learning</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>Verified sessions, start hour, kWh, duration, peak watts, reward history, optional survey preferences.</dd></div>
+            <div><dt>Model</dt><dd>Feature aggregation plus simple clustering into daytime-ready, evening-anchored, high-energy, low-use, and irregular profiles.</dd></div>
+            <div><dt>Output</dt><dd>Anonymized cooker profiles used for realistic nudges, reward targeting, and grid-headroom planning.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Forecast</span>
+          <h3>Cooking and load prediction</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>Smart-plug power, time of day, household profile, PV and battery telemetry.</dd></div>
+            <div><dt>Model</dt><dd>Short-horizon demand forecast plus session clustering.</dd></div>
+            <div><dt>Output</dt><dd>Expected cooking load by hour and likely peak stress periods.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Optimize</span>
+          <h3>Clean-cooking window recommender</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>Battery SOC, PV forecast, phase load, voltage history, meal-time preferences.</dd></div>
+            <div><dt>Model</dt><dd>Constraint-based scheduler with user opt-out and fairness limits.</dd></div>
+            <div><dt>Output</dt><dd>SMS/WhatsApp prompts and operator-safe staggered e-cooking windows.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Target</span>
+          <h3>Adoption and subsidy prioritization</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>Clean-cooking gap, electricity readiness, household usage, affordability signals.</dd></div>
+            <div><dt>Model</dt><dd>Propensity and equity scoring, audited against rural/low-income bias.</dd></div>
+            <div><dt>Output</dt><dd>Which households or villages should receive appliance finance first.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Health</span>
+          <h3>Smoke-exposure proxy and fuel-stacking monitor</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>E-cooker sessions, household fuel survey, cooking location, ventilation, optional health-diary check-ins.</dd></div>
+            <div><dt>Model</dt><dd>Rules-based risk score plus classifier for replacement versus stacking behavior.</dd></div>
+            <div><dt>Output</dt><dd>Estimated avoided smoky cooking sessions, health-priority support tier, and CHW follow-up list.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Detect</span>
+          <h3>Appliance and grid anomaly detection</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>Voltage, current, power spikes, connection gaps, temperature where available.</dd></div>
+            <div><dt>Model</dt><dd>Unsupervised anomaly detection and threshold rules for safety.</dd></div>
+            <div><dt>Output</dt><dd>Technician alerts before unsafe wiring or overload becomes a failure case.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Measure</span>
+          <h3>Fuel-stacking and impact monitoring</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>E-cooker kWh, survey responses, fuel purchases, cooking frequency.</dd></div>
+            <div><dt>Model</dt><dd>Adoption classifier and before/after impact estimator.</dd></div>
+            <div><dt>Output</dt><dd>Evidence for funders: clean-cooking usage, avoided biomass, and time savings.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Explain</span>
+          <h3>Operator and funder copilot</h3>
+          <dl>
+            <div><dt>Inputs</dt><dd>Dashboard metrics, deployment notes, incidents, household feedback.</dd></div>
+            <div><dt>Model</dt><dd>Retrieval over pilot data and structured proposal logic.</dd></div>
+            <div><dt>Output</dt><dd>Weekly briefs, risk summaries, and Clean Cooking Alliance proposal drafts.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="rewards">
+      <div class="section-head">
+        <div>
+          <h2>Daytime Cooking Rewards</h2>
+          <p>The incentive layer turns the AI schedule into behavior change: households earn credits for verified e-cooking during green, high-solar windows.</p>
+        </div>
+      </div>
+      <div class="reward-grid">
+        <div class="panel reward-card">
+          <h3>Community leaderboard</h3>
+          <p>Rank teams or cooking cohorts publicly, while keeping individual household wallets private.</p>
+          <div class="leaderboard">
+            <div class="leader-row"><span class="rank">1</span><div><strong>Oloika East cohort</strong><span>76% of sessions in green windows</span></div><span class="points">1,240 pts</span></div>
+            <div class="leader-row"><span class="rank">2</span><div><strong>Market road cohort</strong><span>68% of sessions in green windows</span></div><span class="points">1,080 pts</span></div>
+            <div class="leader-row"><span class="rank">3</span><div><strong>School lane cohort</strong><span>61% of sessions in green windows</span></div><span class="points">930 pts</span></div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Private household wallet</h3>
+          <p>Points convert into bill credit, appliance repayment discount, airtime, ingredients, or a shared maintenance fund.</p>
+          <div class="reward-kpis">
+            <div class="mini-kpi"><span class="value">84</span><span class="label">points this week</span></div>
+            <div class="mini-kpi"><span class="value">KES 42</span><span class="label">estimated credit</span></div>
+            <div class="mini-kpi"><span class="value">7</span><span class="label">green sessions</span></div>
+          </div>
+          <div class="reward-rules">
+            <div class="rule green"><strong>Green</strong>10 points per verified kWh plus streak bonus.</div>
+            <div class="rule yellow"><strong>Yellow</strong>3 points per verified kWh, no streak bonus.</div>
+            <div class="rule red"><strong>Red</strong>No points; household can still cook.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>AI role</h3>
+          <p>The model forecasts green windows, estimates likely cooking demand, recommends nudges, and tunes rewards so the mini-grid shifts load without overpaying.</p>
+          <div class="reward-rules">
+            <div class="rule"><strong>Forecast</strong>Predict when households are likely to cook.</div>
+            <div class="rule"><strong>Price signal</strong>Increase rewards when daytime solar is underused.</div>
+            <div class="rule"><strong>Fairness</strong>Boost households that had fewer green-window opportunities.</div>
+          </div>
+        </div>
+        <div class="panel reward-card">
+          <h3>Guardrails</h3>
+          <p>Rewards must be voluntary, privacy-preserving, capped, and linked to plausible cooking sessions so the system does not create new risks.</p>
+          <div class="reward-rules">
+            <div class="rule"><strong>Verify</strong>Reward real e-cooker power shapes, not random plug usage.</div>
+            <div class="rule"><strong>Cap</strong>Limit points per household per day to reduce gaming.</div>
+            <div class="rule"><strong>Opt out</strong>Never penalize households that must cook at night.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot">
+      <div class="section-head">
+        <div>
+          <h2>3-Day Hackathon Build Scope</h2>
+          <p>The hackathon deliverable should be a working proof-of-concept, not a full field deployment.</p>
+        </div>
+      </div>
+      <div class="roadmap">
+        <div class="panel phase">
+          <div class="num">Day 1</div>
+          <h3>Frame and prepare</h3>
+          <p>Lock the Kenya/Oloika story, clean the core metrics, define scheduler rules, and create the dashboard skeleton.</p>
+        </div>
+        <div class="panel phase">
+          <div class="num">Day 2</div>
+          <h3>Build the proof</h3>
+          <p>Add charts, target-country prioritization, AI scheduler simulation, and daytime reward points for green cooking windows.</p>
+        </div>
+        <div class="panel phase">
+          <div class="num">Day 3</div>
+          <h3>Polish and pitch</h3>
+          <p>Rehearse the dashboard demo, tighten the AI explanation, prepare backup screenshots, and finalize the 6-slide pitch.</p>
+        </div>
+        <div class="panel phase">
+          <div class="num">Team of 6</div>
+          <h3>Split the work</h3>
+          <p>Product/pitch, data, AI scheduler, dashboard, impact/business, and QA/demo each have one clear owner.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="build">
+      <div class="section-head">
+        <div>
+          <h2>Exactly What The Team Should Build</h2>
+          <p>The minimum viable demo is a dashboard plus an AI scheduler simulation. Everything else is supporting evidence.</p>
+        </div>
+      </div>
+      <div class="ai-grid">
+        <div class="panel ai-card">
+          <span class="tag">Deliverable 1</span>
+          <h3>Operator dashboard</h3>
+          <dl>
+            <div><dt>Shows</dt><dd>Clean-cooking gap, Oloika load, PV generation, cooking sessions, cooker profiles, and target countries.</dd></div>
+            <div><dt>Owner</dt><dd>Dashboard lead, with data lead validating the metrics.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Deliverable 2</span>
+          <h3>Cooker profile engine</h3>
+          <dl>
+            <div><dt>Shows</dt><dd>Anonymized profiles with habitual cooking windows, average kWh/session, peak watts, flexibility score, and adoption trend.</dd></div>
+            <div><dt>Owner</dt><dd>Data lead, with AI/model lead using profiles in scheduler and reward logic.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Deliverable 3</span>
+          <h3>AI scheduler simulation</h3>
+          <dl>
+            <div><dt>Shows</dt><dd>Recommended cooking windows based on battery SOC, PV, load, observed cooking demand, and cooker profile flexibility.</dd></div>
+            <div><dt>Owner</dt><dd>AI/model lead, with QA checking the logic is explainable.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Deliverable 4</span>
+          <h3>Health impact proxy</h3>
+          <dl>
+            <div><dt>Shows</dt><dd>Smoke-exposure reduction score, health-priority support tiers, fuel-stacking flags, and health diary prompts.</dd></div>
+            <div><dt>Owner</dt><dd>Impact/business lead, with data lead documenting limits and required field validation.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Deliverable 5</span>
+          <h3>Daytime Cooking Rewards</h3>
+          <dl>
+            <div><dt>Shows</dt><dd>Community leaderboard, private household wallet, points rules, bill-credit assumptions, and anti-gaming checks.</dd></div>
+            <div><dt>Owner</dt><dd>Impact/business lead, with AI/model lead calculating reward points from green/yellow/red windows.</dd></div>
+          </dl>
+        </div>
+        <div class="panel ai-card">
+          <span class="tag">Deliverable 6</span>
+          <h3>Clean Cooking Alliance pitch</h3>
+          <dl>
+            <div><dt>Shows</dt><dd>Problem framing, why AI matters, implementation path, cost, risks, and funding ask.</dd></div>
+            <div><dt>Owner</dt><dd>Product lead and impact/business lead.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="kenya-plan">
+      <div class="section-head">
+        <div>
+          <h2>Kenya Step-By-Step Execution Plan</h2>
+          <p>Choose Kenya, use Oloika as the proof site, train only lightweight models, and make the scheduler the center of the demo.</p>
+        </div>
+      </div>
+      <div class="execution-grid">
+        <div class="panel runbook">
+          <ol class="step-list">
+            <li><span class="step-index">1</span><div><strong>Lock the Kenya problem frame</strong><span>Use 31.6% clean-cooking access, 37.9M people without clean cooking, and 76.0% electricity access to explain why e-cooking can be targeted.</span></div></li>
+            <li><span class="step-index">2</span><div><strong>Create the data dictionary</strong><span>Map SDG access data, World Bank population, Oloika smart plugs, Victron load/SOC, Fronius PV, and the case-study lessons into one source table.</span></div></li>
+            <li><span class="step-index">3</span><div><strong>Detect e-cooker sessions</strong><span>Turn smart-plug power readings into sessions with start time, duration, kWh, peak watts, household or plug ID, and start hour.</span></div></li>
+            <li><span class="step-index">4</span><div><strong>Generate cooker profiles</strong><span>Learn anonymized habitual cooking windows, average kWh/session, peak watts, flexibility score, and adoption trend per appliance or household.</span></div></li>
+            <li><span class="step-index">5</span><div><strong>Add health proxy fields</strong><span>Collect or mock primary fuel, indoor cooking, ventilation, smoke level, and fuel-stacking survey fields for health-risk scoring.</span></div></li>
+            <li><span class="step-index">6</span><div><strong>Build the hourly model table</strong><span>Join mini-grid load, PV, battery SOC, voltage, cooking sessions, profile type, hour of day, day of week, and rolling load features.</span></div></li>
+            <li><span class="step-index">7</span><div><strong>Train the cooking forecast</strong><span>Predict next-hour e-cooking sessions or kWh using hourly features plus profile type; validate on the final week of June.</span></div></li>
+            <li><span class="step-index">8</span><div><strong>Train or define grid risk</strong><span>Label each hour green, yellow, or red using SOC, PV, load percentile, and voltage constraints; keep it explainable.</span></div></li>
+            <li><span class="step-index">9</span><div><strong>Run scheduler, rewards, and health scoring</strong><span>Recommend windows, assign reward points, estimate avoided smoky sessions, and personalize nudges using profile flexibility.</span></div></li>
+            <li><span class="step-index">10</span><div><strong>Present the funding case</strong><span>Show dashboard evidence, profile logic, scheduler output, health proxy limits, 8-10 week MVP scope, 6-month Kenya pilot design, and success metrics.</span></div></li>
+          </ol>
+        </div>
+        <div class="panel training-box">
+          <ul class="model-list">
+            <li><span class="model-tag">Train now</span><strong>Cooker profile learning</strong><span>Target: no supervised label needed. Features: session timing, duration, kWh, peak watts, weekly frequency, and reward response. Metric: profile coverage and stability.</span></li>
+            <li><span class="model-tag">Train now</span><strong>Cooking demand forecast</strong><span>Target: next-hour sessions or kWh. Features: hour, day, rolling usage, profile type, PV, battery SOC, and load. Metric: MAE versus an hour-of-day baseline.</span></li>
+            <li><span class="model-tag">Train now</span><strong>Grid risk classifier</strong><span>Target: green/yellow/red cooking status. Features: SOC, load percentile, PV, voltage. Metric: red-hour recall and confusion matrix.</span></li>
+            <li><span class="model-tag">Proxy</span><strong>Health and fuel-stacking score</strong><span>Not a diagnosis model. It estimates avoided smoky sessions using verified e-cooking, fuel survey, and indoor exposure weights.</span></li>
+            <li><span class="model-tag">Algorithm</span><strong>Scheduler optimizer</strong><span>Not trained. It uses forecasts and hard safety constraints to assign recommended cooking windows and household batch sizes.</span></li>
+            <li><span class="model-tag">Train later</span><strong>Adoption and fuel-stacking models</strong><span>Need real field labels from Kenyan households, surveys, appliance usage, fuel purchases, and retention data.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="targets">
+      <div class="section-head">
+        <div>
+          <h2>Target Countries and Expansion Logic</h2>
+          <p>Kenya is the first pilot because local Oloika telemetry exists; neighbors show regional scaling potential.</p>
+        </div>
+      </div>
+      <div class="panel table-panel">
+        <table id="target-table">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Role</th>
+              <th class="num">People without clean cooking</th>
+              <th class="num">Clean access</th>
+              <th class="num">Electricity access</th>
+              <th class="num">Pilot score</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="risks">
+      <div class="section-head">
+        <div>
+          <h2>Robustness and Failure Cases</h2>
+          <p>These are the points judges will challenge; the concept should acknowledge them upfront.</p>
+        </div>
+      </div>
+      <div class="risk-grid">
+        <div class="panel risk">
+          <h3>Affordability and fuel stacking</h3>
+          <p>Users may keep using biomass if e-cooking feels expensive or unreliable. Mitigation: lease-to-own appliances, tariff incentives, starter recipe support, and usage-based subsidy targeting.</p>
+        </div>
+        <div class="panel risk">
+          <h3>Grid headroom and evening peaks</h3>
+          <p>Cooking can create coincident demand when batteries are lower. Mitigation: SOC-aware scheduling, phase balancing, opt-in cooking windows, and hard safety constraints.</p>
+        </div>
+        <div class="panel risk">
+          <h3>Connectivity and trust</h3>
+          <p>Low-bandwidth sites cannot depend on always-on apps. Mitigation: offline-first rules, SMS/WhatsApp prompts, local champions, and manual override.</p>
+        </div>
+        <div class="panel risk">
+          <h3>Model bias and weak labels</h3>
+          <p>Access data is modeled and household outcomes require surveys. Mitigation: report uncertainty, validate with field data, and avoid using AI scores as automatic exclusion rules.</p>
+        </div>
+        <div class="panel risk">
+          <h3>Health claims need field validation</h3>
+          <p>The dashboard estimates reduced smoke-exposure sessions, not disease reduction. Mitigation: add PM2.5/CO sensors, fuel-use surveys, CHW review, and clear consent in the pilot.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Sources: local SDG 7 workbooks, World Bank clean-cooking and population indicators, WHO household-air-pollution definitions, Oloika smart-plug SQLite data, Victron mini-grid telemetry, and UNHCR/WLPGA case study. Population sizing uses 2023 population multiplied by the clean-cooking access gap.
+    </footer>
+  </main>
+
+  <script>
+    const topUnserved = [
+      {country:"India", value:335070216},
+      {country:"Nigeria", value:168177613},
+      {country:"China", value:159410230},
+      {country:"Bangladesh", value:122770365},
+      {country:"Ethiopia", value:119554582},
+      {country:"Pakistan", value:111624527},
+      {country:"Congo, Dem. Rep.", value:100500244},
+      {country:"Tanzania", value:60089081},
+      {country:"Uganda", value:47780782},
+      {country:"Philippines", value:46530936}
+    ];
+
+    const targetCountries = [
+      {country:"Kenya", role:"Primary pilot: local mini-grid and e-cooker telemetry available", unserved:37851878, clean:31.6, gap:68.4, electricity:76.0, score:0.744},
+      {country:"Uganda", role:"Replication candidate: extreme cooking gap, nearby market", unserved:47780782, clean:1.8, gap:98.2, electricity:47.1, score:0.770},
+      {country:"Tanzania", role:"Replication candidate: high unserved population", unserved:60089081, clean:9.8, gap:90.2, electricity:45.8, score:0.731},
+      {country:"Rwanda", role:"Smaller controlled pilot candidate", unserved:12656705, clean:9.3, gap:90.7, electricity:50.6, score:0.736},
+      {country:"Ethiopia", role:"Large-scale future market after infrastructure review", unserved:119554582, clean:7.1, gap:92.9, electricity:55.0, score:0.786},
+      {country:"Nigeria", role:"Large-market future expansion; grid constraints need separate design", unserved:168177613, clean:26.2, gap:73.8, electricity:60.5, score:0.724},
+      {country:"India", role:"Benchmark for large clean-cooking transition programs", unserved:335070216, clean:76.7, gap:23.3, electricity:99.2, score:0.652},
+      {country:"Bangladesh", role:"Benchmark for refugee and host-community fuel transition lessons", unserved:122770365, clean:28.4, gap:71.6, electricity:99.4, score:0.860},
+      {country:"Congo, Dem. Rep.", role:"High-need market; implementation risk high", unserved:100500244, clean:5.0, gap:95.0, electricity:21.5, score:0.665},
+      {country:"Mozambique", role:"High-need market; mini-grid assessment needed", unserved:31146158, clean:7.4, gap:92.6, electricity:33.2, score:0.687},
+      {country:"Ghana", role:"Higher electricity readiness comparison case", unserved:22705478, clean:32.8, gap:67.2, electricity:85.1, score:0.768}
+    ];
+
+    const dailyEnergy = [
+      {date:"Jun 1", ac:56.0, pv:34.2, dc:25.7, soc:47},
+      {date:"Jun 2", ac:45.7, pv:33.5, dc:23.2, soc:38},
+      {date:"Jun 3", ac:48.9, pv:33.8, dc:23.4, soc:40},
+      {date:"Jun 4", ac:44.8, pv:30.6, dc:26.2, soc:43},
+      {date:"Jun 5", ac:49.8, pv:34.1, dc:22.7, soc:49},
+      {date:"Jun 6", ac:45.6, pv:26.4, dc:25.5, soc:44},
+      {date:"Jun 7", ac:45.6, pv:29.3, dc:25.3, soc:43},
+      {date:"Jun 8", ac:64.2, pv:41.9, dc:28.6, soc:39},
+      {date:"Jun 9", ac:50.6, pv:34.2, dc:29.2, soc:33},
+      {date:"Jun 10", ac:58.0, pv:36.8, dc:26.7, soc:36},
+      {date:"Jun 11", ac:53.8, pv:41.0, dc:28.8, soc:30},
+      {date:"Jun 12", ac:58.0, pv:37.9, dc:26.1, soc:43},
+      {date:"Jun 13", ac:56.1, pv:37.4, dc:26.0, soc:41},
+      {date:"Jun 14", ac:50.9, pv:35.2, dc:24.9, soc:42},
+      {date:"Jun 15", ac:58.7, pv:37.8, dc:24.7, soc:47},
+      {date:"Jun 16", ac:59.2, pv:37.0, dc:32.1, soc:31},
+      {date:"Jun 17", ac:45.9, pv:28.3, dc:29.6, soc:30},
+      {date:"Jun 18", ac:54.2, pv:38.9, dc:27.5, soc:39},
+      {date:"Jun 19", ac:55.9, pv:36.6, dc:30.8, soc:43},
+      {date:"Jun 20", ac:52.4, pv:35.0, dc:25.2, soc:47},
+      {date:"Jun 21", ac:54.7, pv:34.3, dc:25.2, soc:42},
+      {date:"Jun 22", ac:63.6, pv:39.6, dc:34.2, soc:34},
+      {date:"Jun 23", ac:52.4, pv:34.6, dc:31.6, soc:28},
+      {date:"Jun 24", ac:57.3, pv:39.4, dc:29.5, soc:32},
+      {date:"Jun 25", ac:56.0, pv:37.0, dc:28.3, soc:42},
+      {date:"Jun 26", ac:49.9, pv:34.6, dc:27.0, soc:45},
+      {date:"Jun 27", ac:48.7, pv:34.0, dc:22.9, soc:46},
+      {date:"Jun 28", ac:58.1, pv:32.8, dc:31.8, soc:40},
+      {date:"Jun 29", ac:65.2, pv:37.0, dc:31.8, soc:38},
+      {date:"Jun 30", ac:52.6, pv:28.3, dc:30.4, soc:26}
+    ];
+
+    const sessionsByHour = [
+      {hour:2, sessions:1}, {hour:3, sessions:7}, {hour:4, sessions:11}, {hour:5, sessions:12},
+      {hour:6, sessions:12}, {hour:7, sessions:7}, {hour:8, sessions:5}, {hour:9, sessions:9},
+      {hour:10, sessions:14}, {hour:11, sessions:13}, {hour:12, sessions:8}, {hour:13, sessions:5},
+      {hour:14, sessions:7}, {hour:15, sessions:3}, {hour:16, sessions:3}, {hour:17, sessions:14},
+      {hour:18, sessions:19}, {hour:19, sessions:11}, {hour:20, sessions:11}, {hour:21, sessions:4}
+    ];
+
+    const fmt = new Intl.NumberFormat("en-US");
+    const shortFmt = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+
+    function createSvg(width, height) {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.setAttribute("role", "img");
+      return svg;
+    }
+
+    function el(name, attrs = {}, text = "") {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", name);
+      for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
+      if (text) node.textContent = text;
+      return node;
+    }
+
+    function drawBarChart(targetId, rows, options) {
+      const mount = document.getElementById(targetId);
+      mount.innerHTML = "";
+      const width = 820, height = 330;
+      const margin = { top: 18, right: 22, bottom: 62, left: 72 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const svg = createSvg(width, height);
+      const max = Math.max(...rows.map(d => d.value || d.sessions));
+
+      for (let i = 0; i <= 4; i++) {
+        const y = margin.top + innerH - (innerH * i / 4);
+        svg.appendChild(el("line", { x1: margin.left, y1: y, x2: margin.left + innerW, y2: y, class: "gridline" }));
+        svg.appendChild(el("text", { x: margin.left - 10, y: y + 4, "text-anchor": "end", fill: "#5b6773", "font-size": "11" }, shortFmt.format(max * i / 4)));
+      }
+
+      rows.forEach((d, i) => {
+        const raw = d.value ?? d.sessions;
+        const barW = innerW / rows.length * 0.62;
+        const x = margin.left + (innerW / rows.length) * i + (innerW / rows.length - barW) / 2;
+        const h = raw / max * innerH;
+        const y = margin.top + innerH - h;
+        const fill = d.country === "Kenya" ? "var(--orange)" : "var(--blue)";
+        svg.appendChild(el("rect", { x, y, width: barW, height: h, rx: 4, fill }));
+        svg.appendChild(el("title", {}, `${d.country ?? d.hour}: ${fmt.format(Math.round(raw))}`));
+        const label = d.country ?? String(d.hour);
+        const text = el("text", { x: x + barW / 2, y: height - 34, "text-anchor": "end", transform: `rotate(-38 ${x + barW / 2} ${height - 34})`, fill: "#5b6773", "font-size": "11" }, label);
+        svg.appendChild(text);
+      });
+
+      svg.appendChild(el("line", { x1: margin.left, y1: margin.top + innerH, x2: margin.left + innerW, y2: margin.top + innerH, class: "axis-line" }));
+      svg.appendChild(el("text", { x: margin.left, y: height - 8, fill: "#5b6773", "font-size": "11" }, options.xLabel || ""));
+      mount.appendChild(svg);
+    }
+
+    function drawLineChart() {
+      const mount = document.getElementById("energy-line");
+      mount.innerHTML = "";
+      const width = 820, height = 330;
+      const margin = { top: 20, right: 22, bottom: 54, left: 58 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const svg = createSvg(width, height);
+      const series = [
+        { key: "ac", color: "var(--blue)" },
+        { key: "pv", color: "var(--orange)" },
+        { key: "dc", color: "var(--green)" }
+      ];
+      const max = Math.max(...dailyEnergy.flatMap(d => [d.ac, d.pv, d.dc])) * 1.1;
+      const x = i => margin.left + innerW * i / (dailyEnergy.length - 1);
+      const y = value => margin.top + innerH - (value / max) * innerH;
+
+      for (let i = 0; i <= 4; i++) {
+        const yy = margin.top + innerH - innerH * i / 4;
+        svg.appendChild(el("line", { x1: margin.left, y1: yy, x2: margin.left + innerW, y2: yy, class: "gridline" }));
+        svg.appendChild(el("text", { x: margin.left - 8, y: yy + 4, "text-anchor": "end", fill: "#5b6773", "font-size": "11" }, `${Math.round(max * i / 4)}`));
+      }
+
+      series.forEach(s => {
+        const d = dailyEnergy.map((row, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(row[s.key])}`).join(" ");
+        svg.appendChild(el("path", { d, fill: "none", stroke: s.color, "stroke-width": 3, "stroke-linecap": "round", "stroke-linejoin": "round" }));
+      });
+
+      dailyEnergy.forEach((row, i) => {
+        if (i % 4 === 0 || i === dailyEnergy.length - 1) {
+          svg.appendChild(el("text", { x: x(i), y: height - 24, "text-anchor": "end", transform: `rotate(-38 ${x(i)} ${height - 24})`, fill: "#5b6773", "font-size": "10" }, row.date));
+        }
+      });
+      svg.appendChild(el("text", { x: margin.left, y: 13, fill: "#5b6773", "font-size": "11" }, "kWh per day"));
+      mount.appendChild(svg);
+    }
+
+    function drawScatter() {
+      const mount = document.getElementById("readiness-scatter");
+      mount.innerHTML = "";
+      const width = 820, height = 330;
+      const margin = { top: 24, right: 28, bottom: 52, left: 60 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+      const svg = createSvg(width, height);
+      const x = value => margin.left + (value / 100) * innerW;
+      const y = value => margin.top + innerH - (value / 100) * innerH;
+      const maxUnserved = Math.max(...targetCountries.map(d => d.unserved));
+
+      [0, 25, 50, 75, 100].forEach(v => {
+        svg.appendChild(el("line", { x1: x(v), y1: margin.top, x2: x(v), y2: margin.top + innerH, class: "gridline" }));
+        svg.appendChild(el("line", { x1: margin.left, y1: y(v), x2: margin.left + innerW, y2: y(v), class: "gridline" }));
+        svg.appendChild(el("text", { x: x(v), y: margin.top + innerH + 20, "text-anchor": "middle", fill: "#5b6773", "font-size": "11" }, v));
+        svg.appendChild(el("text", { x: margin.left - 8, y: y(v) + 4, "text-anchor": "end", fill: "#5b6773", "font-size": "11" }, v));
+      });
+
+      targetCountries.forEach(d => {
+        const radius = 7 + Math.sqrt(d.unserved / maxUnserved) * 18;
+        const fill = d.country === "Kenya" ? "var(--orange)" : d.electricity > 70 ? "var(--green)" : "var(--blue)";
+        svg.appendChild(el("circle", { cx: x(d.electricity), cy: y(d.gap), r: radius, fill, opacity: 0.82, stroke: "#ffffff", "stroke-width": 2 }));
+        svg.appendChild(el("text", { x: x(d.electricity) + radius + 3, y: y(d.gap) + 4, fill: "#172026", "font-size": "11" }, d.country));
+        svg.appendChild(el("title", {}, `${d.country}: ${d.gap}% gap, ${d.electricity}% electricity, ${shortFmt.format(d.unserved)} unserved`));
+      });
+
+      svg.appendChild(el("text", { x: margin.left + innerW / 2, y: height - 6, "text-anchor": "middle", fill: "#5b6773", "font-size": "12" }, "Electricity access (%)"));
+      svg.appendChild(el("text", { x: 16, y: margin.top + innerH / 2, "text-anchor": "middle", transform: `rotate(-90 16 ${margin.top + innerH / 2})`, fill: "#5b6773", "font-size": "12" }, "Clean-cooking gap (%)"));
+      mount.appendChild(svg);
+    }
+
+    function populateTargetTable() {
+      const body = document.querySelector("#target-table tbody");
+      targetCountries.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.country}</td>
+          <td>${row.role}</td>
+          <td class="num">${fmt.format(row.unserved)}</td>
+          <td class="num">${row.clean.toFixed(1)}%</td>
+          <td class="num">${row.electricity.toFixed(1)}%</td>
+          <td class="num">${row.score.toFixed(2)}</td>
+        `;
+        body.appendChild(tr);
+      });
+    }
+
+    drawBarChart("top-unserved", topUnserved, { xLabel: "Countries" });
+    drawLineChart();
+    drawScatter();
+    drawBarChart("session-hours", sessionsByHour.map(d => ({ hour: d.hour, sessions: d.sessions })), { xLabel: "Hour of day, UTC" });
+    populateTargetTable();
+  </script>
+</body>
+</html>
