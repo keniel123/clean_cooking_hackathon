@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">Illustrative user profile photo</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bfe7cc"/>
+      <stop offset="1" stop-color="#72b58b"/>
+    </linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="80" fill="url(#bg)"/>
+  <circle cx="80" cy="61" r="29" fill="#6f4635"/>
+  <path d="M42 146c4-32 19-48 38-48s34 16 38 48" fill="#f3c98b"/>
+  <path d="M50 62c0-28 13-44 31-44 20 0 32 18 31 46-10-8-20-12-32-12-11 0-21 3-30 10z" fill="#29221f"/>
+  <circle cx="69" cy="62" r="3" fill="#241d1a"/>
+  <circle cx="91" cy="62" r="3" fill="#241d1a"/>
+  <path d="M70 76c7 6 14 6 21 0" fill="none" stroke="#3f2922" stroke-width="3" stroke-linecap="round"/>
+  <path d="M38 151h84c-3-27-18-45-42-45s-39 18-42 45z" fill="#0f5132"/>
+</svg>
