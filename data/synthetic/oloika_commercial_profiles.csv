@@ -1,0 +1,17 @@
+business_id,business_type,owner_person_id,opening_time,closing_time,customers_avg_week,primary_equipment,secondary_equipment,fuel_stack,fuel_cost_kes_week,cooking_hours_day,peak_prep_windows,estimated_cooking_kwh_week,is_minigrid_user,meter_status,clean_cooking_readiness_score,daytime_shift_potential
+BIZ-001,tea kiosk,P-00017,07:00,19:00,152,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,2832,5.7,06:00-09:00;11:00-14:00,13.05,True,metered,96,100
+BIZ-002,tea kiosk,P-00029,07:00,19:00,328,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,4166,5.0,06:00-09:00;11:00-14:00,8.12,True,metered,96,100
+BIZ-003,tea kiosk,P-00052,07:00,17:00,563,electric hob,,electric hob,7597,4.8,10:00-15:00,11.04,True,metered,96,100
+BIZ-004,tea kiosk,P-00061,07:00,17:00,309,electric hob,,electric hob,3305,5.5,06:00-10:00;17:00-20:00,13.42,True,metered,91,82
+BIZ-005,market food stall,P-00088,07:00,21:00,192,LPG stove,,LPG stove,2964,4.7,10:00-15:00,1.38,True,metered,96,100
+BIZ-006,tea kiosk,P-00100,07:00,20:00,391,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,5808,6.9,06:00-10:00;17:00-20:00,11.0,True,metered,91,83
+BIZ-007,restaurant,P-00149,06:00,18:00,475,electric hob,charcoal stove,charcoal stove+electric hob,5657,9.3,06:00-10:00;17:00-20:00,14.3,True,metered,98,81
+BIZ-008,tea kiosk,P-00210,06:00,20:00,420,electric pressure cooker,LPG stove,LPG stove+electric pressure cooker,5748,5.2,06:00-10:00;17:00-20:00,11.26,True,metered,90,79
+BIZ-009,chapati vendor,P-00223,06:00,20:00,496,charcoal stove,LPG stove,LPG stove+charcoal stove,5164,5.9,06:00-09:00;11:00-14:00,2.68,True,sub_metered,83,88
+BIZ-010,market food stall,P-00229,06:00,20:00,419,electric pressure cooker,,electric pressure cooker,5331,5.1,06:00-09:00;11:00-14:00,11.88,True,metered,96,100
+BIZ-011,tea kiosk,P-00246,08:00,19:00,516,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,5044,6.8,06:00-09:00;11:00-14:00,3.04,False,none,55,73
+BIZ-012,tea kiosk,P-00269,06:00,19:00,241,charcoal stove,LPG stove,LPG stove+charcoal stove,3755,5.3,06:00-10:00;17:00-20:00,1.3,False,none,51,39
+BIZ-013,restaurant,P-00276,08:00,18:00,328,charcoal stove,LPG stove,LPG stove+charcoal stove,7657,10.1,10:00-15:00,2.91,False,none,68,70
+BIZ-014,restaurant,P-00281,05:00,19:00,216,firewood/open fire,,firewood/open fire,4167,9.0,06:00-09:00;11:00-14:00,3.95,False,none,51,67
+BIZ-015,restaurant,P-00397,08:00,19:00,134,firewood/open fire,electric hob,electric hob+firewood/open fire,3248,7.5,06:00-10:00;17:00-20:00,16.21,False,none,48,37
+BIZ-016,restaurant,P-00416,06:00,17:00,544,charcoal stove,electric hob,charcoal stove+electric hob,6447,5.8,06:00-09:00;11:00-14:00,8.23,False,none,66,63

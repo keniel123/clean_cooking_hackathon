@@ -1,0 +1,37 @@
+{
+  "accounts": 84,
+  "billing_ledger_rows": 4102,
+  "cooker_assets": 87,
+  "grid_hour_rows": 720,
+  "leaderboard_rows": 84,
+  "month": "2025-06",
+  "observed_plug_groups": {
+    "B": "HH-0007",
+    "E": "HH-0018",
+    "F": "HH-0020",
+    "G": "HH-0031",
+    "H": "HH-0010"
+  },
+  "observed_sessions": 157,
+  "outputs": [
+    "oloika_account_daily_behavior_june_2025.csv",
+    "oloika_billing_ledger_june_2025.csv",
+    "oloika_cooker_assets.csv",
+    "oloika_cooker_utilization_daily_june_2025.csv",
+    "oloika_cooking_sessions_june_2025.csv",
+    "oloika_credit_balances_june_2025.csv",
+    "oloika_grid_hourly_june_2025.csv",
+    "oloika_leaderboard_june_2025.csv",
+    "oloika_monthly_dataset_summary.json",
+    "oloika_dataset_schema.json"
+  ],
+  "seed": 42,
+  "session_kwh": 2004.784,
+  "sessions": 2740,
+  "slot_color_counts": {
+    "green": 998,
+    "orange": 267,
+    "red": 1475
+  },
+  "synthetic_sessions": 2583
+}
