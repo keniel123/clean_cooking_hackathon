@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from . import db
+from . import db, model_predictions
 
 SLOT_GREEN = "green"
 SLOT_ORANGE = "orange"
@@ -190,6 +190,20 @@ def assess_cooking_time(hour: int, planned_duration_minutes: float | None = None
         reason = window["reason"]
 
     credit = estimate_credit_gain(slot_color, expected_kwh, hour)
+
+    # Prefer the trained model's prediction when apps/model has exported one;
+    # otherwise keep the rules-v1 result computed above.
+    prediction = model_predictions.hour_prediction(hour)
+    if prediction is not None:
+        slot_color = prediction["slot_color"]
+        expected_kwh = prediction["expected_kwh"]
+        reason = f"Model prediction ({prediction['model_version']}) for this hour."
+        credit = {
+            "suggested_credit_gain": prediction["suggested_credit_gain"],
+            "credit_gain_basis": prediction["credit_gain_basis"],
+            "model_version": prediction["model_version"],
+        }
+
     best_window = ranked[0] if ranked else None
     is_optimal = bool(best_window and hour == best_window["hour_eat"])
 

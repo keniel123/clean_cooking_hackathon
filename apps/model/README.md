@@ -6,8 +6,8 @@ credits. It is designed for **continual learning**: it trains on the historical
 month and then keeps adapting as new telemetry, cooking sessions, and plan
 outcomes stream in.
 
-This directory currently contains design documentation only. Training code is
-added in a later step; the folder layout below is the agreed target.
+The model suite is implemented and runnable (PyTorch). The folder layout below
+is in place; `checkpoints/` and `exports/` are generated locally and gitignored.
 
 ---
 
@@ -209,25 +209,35 @@ apps/model/
 
 ---
 
-## 8. Training and inference workflows (planned)
-
-These commands describe the intended workflow once code lands; they are not yet
-runnable.
+## 8. Training and inference workflows
 
 ```bash
 cd apps/model
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# Initial training on the historical month
+# Initial training on the historical month (writes checkpoints/)
 python3 scripts/train_all.py
 
-# Continual update as a new batch of data arrives
-python3 scripts/ingest_new_data.py --batch <path-or-date>
+# Continual update: fine-tune on data after --cutoff, promote if it wins
+python3 scripts/ingest_new_data.py --cutoff 2025-06-23
 
-# Export the promoted checkpoint for the API to serve
+# Export the promoted recommender for the API to serve (writes exports/)
 python3 scripts/export_for_api.py
 ```
+
+Representative results from a local run (temporal split, cutoff 2025-06-23):
+
+| Model | Metric | Model | Baseline |
+| --- | --- | --- | --- |
+| Grid forecaster (F) | MAE (standardized) | 0.33 | 0.84 |
+| Risk classifier (R) | macro-F1 | 0.91 | 0.25 |
+| Recommender (C) | slot macro-F1 / kWh MAE | 0.95 / 0.28 | 0.24 |
+| Demand forecaster (D) | MAE (sessions, kWh) | 1.71 | 0.87 |
+
+F, R, and C beat their baselines; the demand model (D) does not beat the strong
+hour-of-day baseline on this single month of data, so the promotion gate would
+keep the baseline. This is the honest, expected behavior at this data scale.
 
 ---
 
@@ -278,12 +288,20 @@ if it wins.
 
 ---
 
-## 12. Roadmap / next steps
+## 12. Status and next steps
 
-1. Scaffold `gridcook_model/` with the data module and baselines first.
-2. Implement F and R, validate against baselines on the temporal split.
-3. Implement D, then the C recommender that composes F/R/D.
-4. Add the replay buffer, continual fine-tune loop, and checkpoint registry.
-5. Wire the serving adapter into the API behind the `nn-v1` / `rules-v1` fallback.
-6. Add drift monitoring and optional forgetting-regularization once real streaming
-   data is available.
+Done:
+
+- `gridcook_model/` data module, feature engineering, and baselines.
+- All four models (F, R, D, C) with a temporal-split training script.
+- Replay buffer, continual fine-tune loop with a promotion gate, and a versioned
+  checkpoint registry (`nn-v1`, `nn-v2`, ...).
+- Serving export consumed by the API behind the `nn` / `rules-v1` fallback in
+  [`apps/api/gridcook/scoring.py`](../api/gridcook/scoring.py).
+
+Next:
+
+- Improve the demand model (D) so it beats the hour-of-day baseline.
+- Add drift monitoring and optional forgetting regularization (e.g. EWC) once
+  real streaming data is available.
+- Schedule the continual update (e.g. nightly) instead of running it manually.
