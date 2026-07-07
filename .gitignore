@@ -1,7 +1,7 @@
 # Raw household telemetry is intentionally NOT published in this public repo
 # (privacy: household-level e-cooker data; third-party UNHCR PDF). Kept locally.
-data/raw/
-data/
+# data/raw/
+# data/
 
 # macOS / editor / build noise
 .DS_Store
