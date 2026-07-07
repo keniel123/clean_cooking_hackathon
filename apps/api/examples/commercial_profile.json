@@ -1,0 +1,19 @@
+{
+  "business_id": "BIZ-001",
+  "business_type": "tea kiosk",
+  "owner_person_id": "P-00017",
+  "opening_time": "07:00",
+  "closing_time": "19:00",
+  "customers_avg_week": 152,
+  "primary_equipment": "electric pressure cooker",
+  "secondary_equipment": "firewood/open fire",
+  "fuel_stack": "electric pressure cooker+firewood/open fire",
+  "fuel_cost_kes_week": 2832.0,
+  "cooking_hours_day": 5.7,
+  "peak_prep_windows": "06:00-09:00;11:00-14:00",
+  "estimated_cooking_kwh_week": 13.05,
+  "is_minigrid_user": "True",
+  "meter_status": "metered",
+  "clean_cooking_readiness_score": 96.0,
+  "daytime_shift_potential": 100.0
+}

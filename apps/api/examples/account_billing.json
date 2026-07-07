@@ -1,0 +1,40 @@
+{
+  "count": 101,
+  "limit": 3,
+  "offset": 0,
+  "results": [
+    {
+      "ledger_id": "LED-000306",
+      "account_id": "BIZ-005",
+      "event_type": "top_up",
+      "session_id": null,
+      "credits_delta": 1200,
+      "cash_kes": 600,
+      "balance_after": 1200,
+      "reason": "opening prepaid balance",
+      "created_at": "2025-06-01T00:00:00"
+    },
+    {
+      "ledger_id": "LED-000307",
+      "account_id": "BIZ-005",
+      "event_type": "cook_charge",
+      "session_id": "SYN-00029",
+      "credits_delta": -79,
+      "cash_kes": 0,
+      "balance_after": 1121,
+      "reason": "3.261 kWh cooking charge",
+      "created_at": "2025-06-01T12:01:00"
+    },
+    {
+      "ledger_id": "LED-000308",
+      "account_id": "BIZ-005",
+      "event_type": "green_reward",
+      "session_id": "SYN-00029",
+      "credits_delta": 65,
+      "cash_kes": 0,
+      "balance_after": 1186,
+      "reason": "green cooking behavior reward",
+      "created_at": "2025-06-01T12:01:00"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "session_id": "SYN-00029",
+  "account_id": "BIZ-005",
+  "entity_id": "BIZ-005",
+  "account_type": "commercial",
+  "cooker_id": "C-SYN-BIZ-005",
+  "plug": null,
+  "observed_group": null,
+  "source": "synthetic_profile",
+  "start_at": "2025-06-01T10:15:00",
+  "end_at": "2025-06-01T12:01:00",
+  "date": "2025-06-01",
+  "start_hour_eat": 10,
+  "duration_minutes": 106.0,
+  "kwh": 3.261,
+  "avg_w": 1845.8,
+  "peak_w": 1867,
+  "slot_color": "green",
+  "shifted_daytime": 1
+}

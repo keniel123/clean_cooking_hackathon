@@ -1,0 +1,28 @@
+{
+  "count": 84,
+  "limit": 3,
+  "offset": 0,
+  "results": [
+    {
+      "account_id": "BIZ-001",
+      "account_type": "commercial",
+      "entity_id": "BIZ-001",
+      "community_id": "oloika",
+      "meter_status": "metered"
+    },
+    {
+      "account_id": "BIZ-002",
+      "account_type": "commercial",
+      "entity_id": "BIZ-002",
+      "community_id": "oloika",
+      "meter_status": "metered"
+    },
+    {
+      "account_id": "BIZ-003",
+      "account_type": "commercial",
+      "entity_id": "BIZ-003",
+      "community_id": "oloika",
+      "meter_status": "metered"
+    }
+  ]
+}
