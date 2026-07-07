@@ -1,0 +1,572 @@
+household_id,head_person_id,occupants,children_count,income_band_kes_month,meal_count_per_day,breakfast_window,lunch_window,dinner_window,primary_equipment,secondary_equipment,fuel_stack,current_fuel_cost_kes_week,fuel_collection_minutes_week,time_spent_cooking_minutes_day,other_grid_uses,estimated_other_grid_kwh_week,secondary_microeconomic_activity,clean_cooking_readiness_score,fuel_stacking_risk,shiftable_cooking_score,is_minigrid_user,meter_status
+HH-0001,P-00001,4,2,lower_middle,2,,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,307,77,125,lighting;phone charging,0.39,milk sales,48,55,51,False,none
+HH-0002,P-00005,2,1,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,495,408,219,lighting;phone charging,0.0,vegetable kiosk,40,64,62,False,none
+HH-0003,P-00007,1,0,low,3,06:00-07:00,11:00-12:00,19:00-20:00,charcoal stove,,charcoal stove,365,120,147,lighting;phone charging,0.48,beadwork,43,55,60,False,none
+HH-0004,P-00008,5,1,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,715,482,166,lighting;phone charging,0.37,livestock sales,49,64,67,False,none
+HH-0005,P-00013,3,0,lower_middle,3,06:00-07:00,11:00-12:00,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,960,58,130,lighting;phone charging,0.1,vegetable kiosk,70,78,73,False,none
+HH-0006,P-00016,1,0,low,1,,,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,459,656,55,lighting;phone charging,0.22,vegetable kiosk,26,88,38,False,none
+HH-0007,P-00017,5,2,middle,3,06:00-07:00,14:00-15:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,944,45,168,lighting;phone charging;refrigeration,1.58,livestock sales,95,78,71,True,metered
+HH-0008,P-00022,6,2,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,,firewood/open fire,131,233,206,lighting;phone charging,0.28,vegetable kiosk,36,55,43,False,none
+HH-0009,P-00028,1,0,low,1,,,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,571,624,75,lighting;phone charging,0.16,livestock sales,28,88,42,False,none
+HH-0010,P-00029,1,0,higher,2,,14:00-15:00,18:00-19:00,electric hob,firewood/open fire,electric hob+firewood/open fire,325,315,94,lighting;phone charging;small shop freezer;TV,0.57,livestock sales,100,78,70,True,metered
+HH-0011,P-00030,1,0,middle,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,430,545,175,lighting;phone charging,0.04,vegetable kiosk,57,64,68,False,none
+HH-0012,P-00031,5,1,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,682,585,178,lighting;phone charging,0.27,livestock sales,40,64,62,False,none
+HH-0013,P-00036,3,1,low,1,,,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,326,237,88,lighting;phone charging,0.34,livestock sales,36,64,51,False,none
+HH-0014,P-00039,4,1,lower_middle,2,,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,563,25,101,lighting;phone charging,0.11,livestock sales,48,55,50,False,none
+HH-0015,P-00043,6,2,low,3,08:00-09:00,12:00-13:00,19:00-20:00,firewood/open fire,,firewood/open fire,271,507,206,lighting;phone charging,0.19,casual labor,29,55,47,False,none
+HH-0016,P-00049,2,0,low,3,08:00-09:00,14:00-15:00,18:00-19:00,firewood/open fire,,firewood/open fire,172,684,144,lighting;phone charging,0.33,casual labor,33,55,59,False,none
+HH-0017,P-00051,1,0,low,2,,12:00-13:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,462,49,122,lighting;phone charging,0.25,vegetable kiosk,55,64,79,False,none
+HH-0018,P-00052,5,1,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,220,34,117,lighting;phone charging;radio;water pump;TV,2.78,casual labor,96,20,72,True,metered
+HH-0019,P-00057,4,2,low,3,07:00-08:00,13:00-14:00,17:00-18:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,626,386,228,lighting;phone charging,0.13,livestock sales,33,88,59,False,none
+HH-0020,P-00061,1,0,higher,3,08:00-09:00,12:00-13:00,19:00-20:00,LPG stove,,LPG stove,920,1,137,lighting;phone charging;refrigeration,1.97,casual labor,100,20,73,True,metered
+HH-0021,P-00062,3,1,low,2,,13:00-14:00,19:00-20:00,charcoal stove,electric hob,charcoal stove+electric hob,442,69,100,lighting;phone charging,0.37,milk sales,51,64,66,False,none
+HH-0022,P-00065,1,0,middle,3,07:00-08:00,12:00-13:00,19:00-20:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,790,490,157,lighting;phone charging,0.23,casual labor,57,88,52,False,none
+HH-0023,P-00066,4,2,lower_middle,2,,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,139,703,112,lighting;phone charging,0.15,livestock sales,38,55,51,False,none
+HH-0024,P-00070,1,0,low,2,,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,122,691,124,lighting;phone charging,0.36,beadwork,31,55,53,False,none
+HH-0025,P-00071,3,2,low,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,995,434,158,lighting;phone charging,0.31,milk sales,44,64,76,False,none
+HH-0026,P-00074,1,0,middle,1,,,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,197,490,49,lighting;phone charging,0.19,casual labor,69,78,43,False,none
+HH-0027,P-00075,2,1,low,2,,12:00-13:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,457,561,105,lighting;phone charging,0.14,casual labor,41,64,67,False,none
+HH-0028,P-00077,5,4,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,126,489,178,lighting;phone charging,0.13,none,36,55,44,False,none
+HH-0029,P-00082,2,1,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,237,667,117,lighting;phone charging,0.01,livestock sales,68,78,67,False,none
+HH-0030,P-00084,4,0,lower_middle,2,,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,244,459,132,lighting;phone charging,0.01,casual labor,41,55,61,False,none
+HH-0031,P-00088,6,1,higher,2,,13:00-14:00,17:00-18:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,324,218,117,lighting;phone charging;water pump,1.52,beadwork,100,78,67,True,metered
+HH-0032,P-00094,3,0,lower_middle,2,,14:00-15:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,350,468,144,lighting;phone charging,0.1,vegetable kiosk,48,64,62,False,none
+HH-0033,P-00097,3,0,lower_middle,1,,,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,875,181,63,lighting;phone charging,0.02,casual labor,63,78,49,False,none
+HH-0034,P-00100,6,3,middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1466,31,173,lighting;phone charging;TV,1.35,milk sales,97,78,76,True,metered
+HH-0035,P-00106,4,1,lower_middle,2,,12:00-13:00,17:00-18:00,charcoal stove,,charcoal stove,674,67,136,lighting;phone charging,0.27,vegetable kiosk,49,55,54,False,none
+HH-0036,P-00110,5,1,low,3,07:00-08:00,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,973,79,179,lighting;phone charging,0.38,livestock sales,55,64,79,False,none
+HH-0037,P-00115,7,2,lower_middle,2,,13:00-14:00,17:00-18:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1080,622,98,lighting;phone charging,0.3,milk sales,71,78,78,False,none
+HH-0038,P-00122,2,1,lower_middle,3,07:00-08:00,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,704,79,173,lighting;phone charging,0.38,milk sales,49,55,54,False,none
+HH-0039,P-00124,1,0,lower_middle,3,06:00-07:00,14:00-15:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,464,529,201,lighting;phone charging,0.32,casual labor,52,64,77,False,none
+HH-0040,P-00125,3,1,low,2,,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1553,30,100,lighting;phone charging,0.44,none,60,78,67,False,none
+HH-0041,P-00128,5,0,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,605,90,160,lighting;phone charging,0.37,casual labor,63,64,79,False,none
+HH-0042,P-00133,1,0,low,3,06:00-07:00,13:00-14:00,19:00-20:00,charcoal stove,electric hob,charcoal stove+electric hob,1073,90,161,lighting;phone charging,0.26,milk sales,52,64,71,False,none
+HH-0043,P-00134,4,1,middle,3,06:00-07:00,12:00-13:00,17:00-18:00,charcoal stove,electric hob,charcoal stove+electric hob,960,48,204,lighting;phone charging,0.32,livestock sales,69,64,74,False,none
+HH-0044,P-00138,1,0,middle,3,06:00-07:00,11:00-12:00,17:00-18:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,718,687,110,lighting;phone charging,0.46,casual labor,74,78,61,False,none
+HH-0045,P-00139,4,3,low,3,06:00-07:00,12:00-13:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1288,278,179,lighting;phone charging,0.01,livestock sales,42,64,70,False,none
+HH-0046,P-00143,6,3,low,3,06:00-07:00,12:00-13:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,412,643,180,lighting;phone charging,0.21,vegetable kiosk,40,64,63,False,none
+HH-0047,P-00149,6,2,middle,3,07:00-08:00,11:00-12:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,501,618,173,lighting;phone charging;water pump;refrigeration,1.93,beadwork,95,78,70,True,metered
+HH-0048,P-00155,3,2,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,854,20,138,lighting;phone charging,0.02,casual labor,79,28,76,False,none
+HH-0049,P-00158,6,2,low,1,,,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1133,74,75,lighting;phone charging,0.31,vegetable kiosk,58,78,60,False,none
+HH-0050,P-00164,4,1,low,3,07:00-08:00,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,698,82,118,lighting;phone charging,0.24,beadwork,58,78,61,False,none
+HH-0051,P-00168,1,0,middle,3,07:00-08:00,11:00-12:00,19:00-20:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,732,525,164,lighting;phone charging,0.3,beadwork,45,88,46,False,none
+HH-0052,P-00169,4,1,low,3,07:00-08:00,11:00-12:00,19:00-20:00,firewood/open fire,,firewood/open fire,238,401,228,lighting;phone charging,0.21,livestock sales,33,55,60,False,none
+HH-0053,P-00173,4,2,middle,2,,12:00-13:00,20:00-21:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1118,250,152,lighting;phone charging,0.09,vegetable kiosk,55,64,61,False,none
+HH-0054,P-00177,4,1,middle,2,,11:00-12:00,20:00-21:00,LPG stove,,LPG stove,398,16,113,lighting;phone charging,0.06,beadwork,79,20,78,False,none
+HH-0055,P-00181,2,1,middle,3,07:00-08:00,12:00-13:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,381,519,192,lighting;phone charging,0.05,livestock sales,57,64,66,False,none
+HH-0056,P-00183,5,3,low,3,06:00-07:00,11:00-12:00,18:00-19:00,LPG stove,electric hob,LPG stove+electric hob,864,24,171,lighting;phone charging,0.45,casual labor,63,28,76,False,none
+HH-0057,P-00188,7,3,low,2,,13:00-14:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,720,414,166,lighting;phone charging,0.4,none,42,64,71,False,none
+HH-0058,P-00195,2,1,low,3,08:00-09:00,11:00-12:00,20:00-21:00,firewood/open fire,,firewood/open fire,122,315,215,lighting;phone charging,0.28,beadwork,29,55,48,False,none
+HH-0059,P-00197,4,2,low,3,06:00-07:00,12:00-13:00,17:00-18:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,1046,557,231,lighting;phone charging,0.27,beadwork,28,88,43,False,none
+HH-0060,P-00201,1,0,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,250,612,145,lighting;phone charging,0.03,vegetable kiosk,48,55,56,False,none
+HH-0061,P-00202,6,1,low,2,,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,881,37,95,lighting;phone charging,0.01,livestock sales,62,78,73,False,none
+HH-0062,P-00208,2,0,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,573,104,183,lighting;phone charging,0.19,vegetable kiosk,56,55,49,False,none
+HH-0063,P-00210,6,1,middle,3,06:00-07:00,11:00-12:00,19:00-20:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,386,387,132,lighting;phone charging;water pump;TV;refrigeration,1.18,casual labor,94,78,66,True,sub_metered
+HH-0064,P-00216,1,0,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,248,717,168,lighting;phone charging,0.29,livestock sales,44,64,77,False,none
+HH-0065,P-00217,5,1,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,340,15,158,lighting;phone charging,0.4,livestock sales,68,20,65,False,none
+HH-0066,P-00222,1,0,lower_middle,2,,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,639,90,127,lighting;phone charging,0.31,milk sales,58,64,64,False,none
+HH-0067,P-00223,1,0,higher,3,07:00-08:00,13:00-14:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,650,254,148,lighting;phone charging;TV,0.83,casual labor,100,78,77,True,sub_metered
+HH-0068,P-00224,3,1,middle,2,,12:00-13:00,19:00-20:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,649,241,122,lighting;phone charging,0.02,vegetable kiosk,56,88,50,False,none
+HH-0069,P-00227,1,0,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,charcoal stove,,charcoal stove,698,112,157,lighting;phone charging,0.2,casual labor,48,55,49,False,none
+HH-0070,P-00228,1,0,low,3,08:00-09:00,12:00-13:00,20:00-21:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1219,596,153,lighting;phone charging,0.44,casual labor,60,78,65,False,none
+HH-0071,P-00229,2,0,higher,3,07:00-08:00,14:00-15:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,385,38,104,lighting;phone charging;water pump;TV,1.49,casual labor,100,20,77,True,metered
+HH-0072,P-00231,3,1,low,2,,12:00-13:00,20:00-21:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1138,70,111,lighting;phone charging,0.23,milk sales,50,64,62,False,none
+HH-0073,P-00234,5,2,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,496,38,144,lighting;phone charging,0.46,milk sales,69,20,70,False,none
+HH-0074,P-00239,3,1,low,3,07:00-08:00,12:00-13:00,20:00-21:00,firewood/open fire,electric hob,electric hob+firewood/open fire,466,660,188,lighting;phone charging,0.05,beadwork,45,64,79,False,none
+HH-0075,P-00242,4,2,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,728,100,144,lighting;phone charging,0.13,vegetable kiosk,59,55,59,False,none
+HH-0076,P-00246,3,1,higher,2,,11:00-12:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,687,92,87,lighting;phone charging;refrigeration,1.31,vegetable kiosk,100,78,77,True,metered
+HH-0077,P-00249,2,1,lower_middle,2,,12:00-13:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1031,96,95,lighting;phone charging,0.33,livestock sales,70,78,74,False,none
+HH-0078,P-00251,1,0,lower_middle,1,,,18:00-19:00,charcoal stove,LPG stove,LPG stove+charcoal stove,909,111,63,lighting;phone charging,0.28,livestock sales,55,64,52,False,none
+HH-0079,P-00252,4,1,lower_middle,2,,12:00-13:00,20:00-21:00,charcoal stove,electric hob,charcoal stove+electric hob,991,101,114,lighting;phone charging,0.1,milk sales,58,64,64,False,none
+HH-0080,P-00256,4,2,low,1,,,17:00-18:00,LPG stove,electric hob,LPG stove+electric hob,920,25,63,lighting;phone charging,0.36,none,57,28,58,False,none
+HH-0081,P-00260,2,1,low,3,06:00-07:00,14:00-15:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,424,438,155,lighting;phone charging,0.48,milk sales,42,64,69,False,none
+HH-0082,P-00262,3,0,low,2,,12:00-13:00,18:00-19:00,electric hob,electric pressure cooker,electric hob+electric pressure cooker,246,31,102,lighting;phone charging,0.47,beadwork,60,28,67,False,none
+HH-0083,P-00265,4,2,lower_middle,2,,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1056,26,104,lighting;phone charging,0.31,beadwork,70,78,74,False,none
+HH-0084,P-00269,1,0,higher,3,07:00-08:00,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,563,66,102,lighting;phone charging;radio,0.51,livestock sales,100,78,71,True,metered
+HH-0085,P-00270,5,2,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,179,310,174,lighting;phone charging,0.46,casual labor,33,55,60,False,none
+HH-0086,P-00275,1,0,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,453,294,175,lighting;phone charging,0.49,casual labor,45,64,79,False,none
+HH-0087,P-00276,5,1,middle,3,07:00-08:00,12:00-13:00,17:00-18:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,843,39,117,lighting;phone charging;small shop freezer;refrigeration;water pump,1.84,vegetable kiosk,94,78,68,True,metered
+HH-0088,P-00281,4,2,higher,3,08:00-09:00,11:00-12:00,19:00-20:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,415,344,118,lighting;phone charging;small shop freezer,1.89,casual labor,100,78,73,True,sub_metered
+HH-0089,P-00285,3,2,low,3,07:00-08:00,11:00-12:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,189,6,127,lighting;phone charging,0.42,livestock sales,63,20,76,False,none
+HH-0090,P-00288,3,0,middle,2,,13:00-14:00,18:00-19:00,charcoal stove,,charcoal stove,360,48,111,lighting;phone charging,0.05,livestock sales,55,55,48,False,none
+HH-0091,P-00291,1,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,624,417,149,lighting;phone charging,0.42,beadwork,32,88,55,False,none
+HH-0092,P-00292,1,0,lower_middle,3,06:00-07:00,13:00-14:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,1002,22,177,lighting;phone charging,0.38,livestock sales,61,64,73,False,none
+HH-0093,P-00293,5,1,low,2,,13:00-14:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,799,22,138,lighting;phone charging,0.25,vegetable kiosk,54,64,77,False,none
+HH-0094,P-00298,1,0,lower_middle,3,07:00-08:00,12:00-13:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,867,96,161,lighting;phone charging,0.08,beadwork,58,64,65,False,none
+HH-0095,P-00299,3,1,low,3,08:00-09:00,13:00-14:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,463,416,195,lighting;phone charging,0.3,beadwork,42,64,69,False,none
+HH-0096,P-00302,4,2,low,3,07:00-08:00,13:00-14:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1114,202,201,lighting;phone charging,0.29,vegetable kiosk,41,64,68,False,none
+HH-0097,P-00306,6,4,lower_middle,3,07:00-08:00,11:00-12:00,17:00-18:00,firewood/open fire,electric hob,electric hob+firewood/open fire,422,627,199,lighting;phone charging,0.17,vegetable kiosk,52,64,75,False,none
+HH-0098,P-00312,6,2,lower_middle,3,07:00-08:00,12:00-13:00,20:00-21:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,717,94,176,lighting;phone charging,0.26,beadwork,68,78,66,False,none
+HH-0099,P-00318,4,1,lower_middle,3,07:00-08:00,11:00-12:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,350,414,164,lighting;phone charging,0.35,livestock sales,51,64,73,False,none
+HH-0100,P-00322,2,0,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,727,441,173,lighting;phone charging,0.07,livestock sales,48,88,51,False,none
+HH-0101,P-00324,5,1,lower_middle,3,06:00-07:00,12:00-13:00,17:00-18:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1450,59,160,lighting;phone charging,0.26,livestock sales,59,64,66,False,none
+HH-0102,P-00329,3,0,lower_middle,2,,11:00-12:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,577,661,139,lighting;phone charging,0.45,livestock sales,49,64,66,False,none
+HH-0103,P-00332,1,0,low,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,477,54,138,lighting;phone charging,0.27,casual labor,50,64,63,False,none
+HH-0104,P-00333,1,0,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,807,43,144,lighting;phone charging,0.39,vegetable kiosk,59,64,66,False,none
+HH-0105,P-00334,7,3,lower_middle,2,,13:00-14:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,700,238,161,lighting;phone charging,0.07,livestock sales,47,64,61,False,none
+HH-0106,P-00341,2,0,low,3,07:00-08:00,13:00-14:00,19:00-20:00,firewood/open fire,,firewood/open fire,155,556,211,lighting;phone charging,0.39,beadwork,29,55,47,False,none
+HH-0107,P-00343,1,0,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,,charcoal stove,725,51,138,lighting;phone charging,0.32,casual labor,47,55,46,False,none
+HH-0108,P-00344,6,3,lower_middle,3,07:00-08:00,13:00-14:00,17:00-18:00,firewood/open fire,electric hob,electric hob+firewood/open fire,645,681,214,lighting;phone charging,0.28,casual labor,47,64,61,False,none
+HH-0109,P-00350,2,0,middle,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,443,22,155,lighting;phone charging,0.29,milk sales,78,20,75,False,none
+HH-0110,P-00352,6,3,low,3,07:00-08:00,13:00-14:00,19:00-20:00,firewood/open fire,,firewood/open fire,279,597,188,lighting;phone charging,0.25,beadwork,30,55,51,False,none
+HH-0111,P-00358,3,1,lower_middle,2,,13:00-14:00,19:00-20:00,LPG stove,,LPG stove,415,38,96,lighting;phone charging,0.42,livestock sales,68,20,67,False,none
+HH-0112,P-00361,3,1,lower_middle,3,06:00-07:00,11:00-12:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,664,60,148,lighting;phone charging,0.1,livestock sales,69,78,70,False,none
+HH-0113,P-00364,5,0,low,3,06:00-07:00,13:00-14:00,19:00-20:00,firewood/open fire,,firewood/open fire,245,323,238,lighting;phone charging,0.4,vegetable kiosk,29,55,47,False,none
+HH-0114,P-00369,5,2,lower_middle,2,,12:00-13:00,17:00-18:00,firewood/open fire,,firewood/open fire,215,438,156,lighting;phone charging,0.2,casual labor,38,55,50,False,none
+HH-0115,P-00374,3,2,low,3,06:00-07:00,13:00-14:00,17:00-18:00,firewood/open fire,,firewood/open fire,235,313,199,lighting;phone charging,0.48,vegetable kiosk,30,55,49,False,none
+HH-0116,P-00377,7,3,low,2,,12:00-13:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,726,234,159,lighting;phone charging,0.23,vegetable kiosk,29,88,46,False,none
+HH-0117,P-00384,5,2,low,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,electric hob,charcoal stove+electric hob,1040,90,193,lighting;phone charging,0.02,none,52,64,70,False,none
+HH-0118,P-00389,5,1,low,2,,13:00-14:00,19:00-20:00,LPG stove,,LPG stove,800,21,96,lighting;phone charging,0.16,beadwork,59,20,63,False,none
+HH-0119,P-00394,3,0,low,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,315,205,210,lighting;phone charging,0.11,beadwork,44,64,78,False,none
+HH-0120,P-00397,5,2,middle,3,06:00-07:00,13:00-14:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,886,26,160,lighting;phone charging;small shop freezer;refrigeration,1.92,milk sales,96,78,75,True,metered
+HH-0121,P-00402,3,1,lower_middle,2,,13:00-14:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1262,113,109,lighting;phone charging,0.25,none,71,78,77,False,none
+HH-0122,P-00405,5,3,lower_middle,2,,11:00-12:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,906,327,129,lighting;phone charging,0.38,livestock sales,50,64,71,False,none
+HH-0123,P-00410,2,1,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,439,58,127,lighting;phone charging,0.48,livestock sales,59,64,68,False,none
+HH-0124,P-00412,4,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,1085,92,164,lighting;phone charging,0.5,livestock sales,50,64,65,False,none
+HH-0125,P-00416,6,1,middle,2,,12:00-13:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,561,349,162,lighting;phone charging;water pump;TV,0.7,casual labor,74,64,62,True,metered
+HH-0126,P-00422,4,1,middle,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,914,93,158,lighting;phone charging,0.27,none,78,78,72,False,none
+HH-0127,P-00426,5,4,lower_middle,3,07:00-08:00,14:00-15:00,18:00-19:00,LPG stove,,LPG stove,1147,9,166,lighting;phone charging,0.26,vegetable kiosk,69,20,71,False,none
+HH-0128,P-00431,3,0,low,2,,13:00-14:00,20:00-21:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1099,75,127,lighting;phone charging,0.14,none,51,64,68,False,none
+HH-0129,P-00434,4,0,lower_middle,3,08:00-09:00,12:00-13:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,898,443,168,lighting;phone charging,0.41,beadwork,51,64,73,False,none
+HH-0130,P-00438,7,3,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,LPG stove,electric hob,LPG stove+electric hob,1351,6,172,lighting;phone charging,0.25,beadwork,68,28,68,False,none
+HH-0131,P-00445,1,0,higher,3,06:00-07:00,11:00-12:00,17:00-18:00,electric pressure cooker,,electric pressure cooker,253,10,150,lighting;phone charging;refrigeration;TV,1.65,none,100,20,79,True,metered
+HH-0132,P-00446,2,1,middle,2,,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,84,626,130,lighting;phone charging,0.41,livestock sales,47,55,53,False,none
+HH-0133,P-00448,6,3,middle,2,,12:00-13:00,17:00-18:00,electric hob,,electric hob,306,15,117,lighting;phone charging;refrigeration;TV,2.69,beadwork,92,20,61,True,metered
+HH-0134,P-00454,4,2,low,3,06:00-07:00,11:00-12:00,20:00-21:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,503,473,131,lighting;phone charging,0.31,livestock sales,62,78,73,False,none
+HH-0135,P-00458,7,3,low,1,,,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,250,264,90,lighting;phone charging,0.4,livestock sales,38,64,55,False,none
+HH-0136,P-00465,4,2,lower_middle,3,07:00-08:00,14:00-15:00,19:00-20:00,charcoal stove,,charcoal stove,363,109,204,lighting;phone charging,0.08,livestock sales,50,55,58,False,none
+HH-0137,P-00469,3,1,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,548,269,154,lighting;phone charging,0.08,vegetable kiosk,42,64,70,False,none
+HH-0138,P-00472,4,2,low,3,06:00-07:00,13:00-14:00,19:00-20:00,firewood/open fire,,firewood/open fire,110,220,228,lighting;phone charging,0.0,none,33,55,61,False,none
+HH-0139,P-00476,4,2,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,870,478,164,lighting;phone charging,0.42,livestock sales,71,78,76,False,none
+HH-0140,P-00480,6,1,middle,3,06:00-07:00,13:00-14:00,18:00-19:00,electric hob,charcoal stove,charcoal stove+electric hob,1382,32,162,lighting;phone charging;refrigeration;radio;small shop freezer,1.98,casual labor,96,78,75,True,metered
+HH-0141,P-00486,3,1,low,1,,,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,942,547,82,lighting;phone charging,0.15,casual labor,35,64,48,False,none
+HH-0142,P-00489,3,0,middle,3,07:00-08:00,12:00-13:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,264,19,135,lighting;phone charging,0.11,beadwork,78,20,74,False,none
+HH-0143,P-00492,7,2,lower_middle,3,06:00-07:00,11:00-12:00,19:00-20:00,LPG stove,,LPG stove,534,3,175,lighting;phone charging,0.44,livestock sales,67,20,62,False,none
+HH-0144,P-00499,6,3,low,3,06:00-07:00,11:00-12:00,17:00-18:00,electric hob,charcoal stove,charcoal stove+electric hob,884,108,148,lighting;phone charging,0.29,casual labor,59,78,63,False,none
+HH-0145,P-00505,8,4,lower_middle,3,08:00-09:00,11:00-12:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,1257,110,179,lighting;phone charging,0.45,casual labor,62,64,78,False,none
+HH-0146,P-00513,3,1,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,239,212,180,lighting;phone charging,0.19,milk sales,43,64,72,False,none
+HH-0147,P-00516,1,0,low,3,06:00-07:00,12:00-13:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,733,514,186,lighting;phone charging,0.33,none,42,64,71,False,none
+HH-0148,P-00517,6,4,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,733,436,157,lighting;phone charging,0.05,milk sales,68,78,66,False,none
+HH-0149,P-00523,4,1,lower_middle,2,,11:00-12:00,20:00-21:00,charcoal stove,,charcoal stove,352,50,134,lighting;phone charging,0.3,none,46,55,44,False,none
+HH-0150,P-00527,5,4,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,214,549,144,lighting;phone charging,0.4,vegetable kiosk,70,78,74,False,none
+HH-0151,P-00532,4,0,lower_middle,3,07:00-08:00,11:00-12:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,407,331,194,lighting;phone charging,0.34,milk sales,52,64,77,False,none
+HH-0152,P-00536,5,2,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1359,75,120,lighting;phone charging,0.23,casual labor,70,78,73,False,none
+HH-0153,P-00541,1,0,middle,3,07:00-08:00,13:00-14:00,18:00-19:00,LPG stove,,LPG stove,926,2,123,lighting;phone charging,0.17,beadwork,79,20,78,False,none
+HH-0154,P-00542,3,1,low,3,06:00-07:00,14:00-15:00,18:00-19:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1783,79,195,lighting;phone charging,0.29,none,54,64,76,False,none
+HH-0155,P-00545,1,0,middle,3,07:00-08:00,12:00-13:00,17:00-18:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,585,49,148,lighting;phone charging,0.13,vegetable kiosk,77,78,69,False,none
+HH-0156,P-00546,3,1,low,3,07:00-08:00,13:00-14:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,825,20,175,lighting;phone charging,0.02,livestock sales,54,64,75,False,none
+HH-0157,P-00549,1,0,middle,3,07:00-08:00,14:00-15:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,315,693,153,lighting;phone charging,0.39,casual labor,79,78,78,False,none
+HH-0158,P-00550,5,1,higher,3,07:00-08:00,11:00-12:00,18:00-19:00,electric hob,,electric hob,280,24,163,lighting;phone charging;radio;refrigeration;TV,2.29,livestock sales,100,20,76,True,metered
+HH-0159,P-00555,1,0,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,,LPG stove,892,5,126,lighting;phone charging,0.32,none,74,20,61,False,none
+HH-0160,P-00556,5,3,low,3,07:00-08:00,11:00-12:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,465,443,211,lighting;phone charging,0.08,beadwork,42,64,69,False,none
+HH-0161,P-00561,7,3,lower_middle,3,08:00-09:00,13:00-14:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1795,108,172,lighting;phone charging,0.32,livestock sales,69,78,70,False,none
+HH-0162,P-00568,3,2,lower_middle,3,08:00-09:00,12:00-13:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,309,456,169,lighting;phone charging,0.06,beadwork,47,64,61,False,none
+HH-0163,P-00571,6,2,higher,3,06:00-07:00,11:00-12:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,469,42,173,lighting;phone charging;small shop freezer;TV,1.12,livestock sales,100,20,78,True,sub_metered
+HH-0164,P-00577,6,3,lower_middle,3,06:00-07:00,11:00-12:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1591,89,143,lighting;phone charging,0.36,none,70,78,73,False,none
+HH-0165,P-00583,4,1,higher,3,06:00-07:00,13:00-14:00,19:00-20:00,electric hob,LPG stove,LPG stove+electric hob,930,10,156,lighting;phone charging;radio,2.52,beadwork,100,28,63,True,metered
+HH-0166,P-00587,2,1,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,,charcoal stove,301,63,166,lighting;phone charging,0.4,beadwork,49,55,54,False,none
+HH-0167,P-00589,5,3,low,2,,11:00-12:00,20:00-21:00,charcoal stove,,charcoal stove,410,41,118,lighting;phone charging,0.31,beadwork,42,55,55,False,none
+HH-0168,P-00594,6,1,low,3,07:00-08:00,14:00-15:00,18:00-19:00,charcoal stove,,charcoal stove,865,49,198,lighting;phone charging,0.28,beadwork,38,55,45,False,none
+HH-0169,P-00600,1,0,low,2,,14:00-15:00,19:00-20:00,firewood/open fire,,firewood/open fire,120,222,96,lighting;phone charging,0.23,livestock sales,31,55,54,False,none
+HH-0170,P-00601,4,1,middle,2,,12:00-13:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1425,73,99,lighting;phone charging,0.48,milk sales,69,64,72,False,none
+HH-0171,P-00605,2,0,middle,3,07:00-08:00,11:00-12:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,771,319,200,lighting;phone charging,0.25,none,60,64,77,False,none
+HH-0172,P-00607,5,2,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1716,51,141,lighting;phone charging,0.27,beadwork,67,78,62,False,none
+HH-0173,P-00612,1,0,lower_middle,1,,,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,289,568,55,lighting;phone charging,0.14,milk sales,45,64,52,False,none
+HH-0174,P-00613,3,2,lower_middle,2,,11:00-12:00,17:00-18:00,electric hob,LPG stove,LPG stove+electric hob,808,19,93,lighting;phone charging,0.2,livestock sales,70,28,72,False,none
+HH-0175,P-00616,4,1,middle,3,06:00-07:00,12:00-13:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,868,97,200,lighting;phone charging,0.43,vegetable kiosk,66,64,63,False,none
+HH-0176,P-00620,6,1,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,409,367,236,lighting;phone charging,0.11,milk sales,50,64,71,False,none
+HH-0177,P-00626,3,1,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,420,484,214,lighting;phone charging,0.33,livestock sales,52,64,78,False,none
+HH-0178,P-00629,1,0,lower_middle,3,08:00-09:00,13:00-14:00,18:00-19:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1004,104,154,lighting;phone charging,0.13,livestock sales,60,64,70,False,none
+HH-0179,P-00630,8,4,lower_middle,2,,11:00-12:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,444,2,126,lighting;phone charging;TV,2.5,beadwork,90,20,79,True,metered
+HH-0180,P-00638,2,1,low,3,06:00-07:00,12:00-13:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,312,522,162,lighting;phone charging,0.09,none,44,64,78,False,none
+HH-0181,P-00640,4,1,low,1,,,18:00-19:00,charcoal stove,,charcoal stove,575,22,77,lighting;phone charging,0.11,casual labor,33,55,28,False,none
+HH-0182,P-00644,3,1,middle,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1080,185,210,lighting;phone charging,0.44,casual labor,60,64,77,False,none
+HH-0183,P-00647,3,1,low,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,,charcoal stove,623,90,155,lighting;phone charging,0.03,livestock sales,40,55,49,False,none
+HH-0184,P-00650,6,3,lower_middle,2,,13:00-14:00,19:00-20:00,LPG stove,,LPG stove,1058,18,110,lighting;phone charging,0.07,none,68,20,67,False,none
+HH-0185,P-00656,3,1,middle,2,,13:00-14:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,770,307,122,lighting;phone charging,0.13,casual labor,56,88,51,False,none
+HH-0186,P-00659,3,0,lower_middle,1,,,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,323,311,85,lighting;phone charging,0.09,casual labor,47,64,61,False,none
+HH-0187,P-00662,3,2,higher,3,06:00-07:00,13:00-14:00,17:00-18:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,247,584,119,lighting;phone charging;TV;radio;small shop freezer,2.91,vegetable kiosk,100,78,65,True,metered
+HH-0188,P-00665,6,4,middle,3,07:00-08:00,12:00-13:00,18:00-19:00,electric pressure cooker,electric hob,electric hob+electric pressure cooker,193,21,138,lighting;phone charging;TV;small shop freezer;radio,1.56,livestock sales,94,28,67,True,metered
+HH-0189,P-00671,2,0,middle,3,07:00-08:00,14:00-15:00,20:00-21:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,1155,24,147,lighting;phone charging,0.34,beadwork,78,28,72,False,none
+HH-0190,P-00673,3,1,low,1,,,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,570,372,71,lighting;phone charging,0.24,none,24,88,31,False,none
+HH-0191,P-00676,4,3,low,1,,,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,359,242,70,lighting;phone charging,0.37,beadwork,38,64,56,False,none
+HH-0192,P-00680,4,2,lower_middle,2,,12:00-13:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,388,466,125,lighting;phone charging,0.21,livestock sales,50,64,70,False,none
+HH-0193,P-00684,6,1,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1567,58,176,lighting;phone charging,0.11,livestock sales,72,78,79,False,none
+HH-0194,P-00690,1,0,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,711,671,118,lighting;phone charging,0.22,livestock sales,70,78,73,False,none
+HH-0195,P-00691,3,0,low,3,06:00-07:00,12:00-13:00,17:00-18:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,816,701,198,lighting;phone charging,0.47,livestock sales,42,88,55,False,none
+HH-0196,P-00694,5,3,low,3,08:00-09:00,12:00-13:00,19:00-20:00,charcoal stove,electric hob,charcoal stove+electric hob,984,59,183,lighting;phone charging,0.01,casual labor,50,64,64,False,none
+HH-0197,P-00699,1,0,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,278,16,118,lighting;phone charging,0.38,casual labor,68,20,68,False,none
+HH-0198,P-00700,4,2,lower_middle,2,,13:00-14:00,18:00-19:00,charcoal stove,,charcoal stove,761,87,110,lighting;phone charging,0.31,none,51,55,61,False,none
+HH-0199,P-00704,2,0,lower_middle,2,,12:00-13:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1028,529,100,lighting;phone charging,0.24,livestock sales,50,64,71,False,none
+HH-0200,P-00706,4,2,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,928,384,166,lighting;phone charging,0.2,milk sales,70,78,74,False,none
+HH-0201,P-00710,2,0,higher,2,,12:00-13:00,18:00-19:00,electric hob,,electric hob,363,39,83,lighting;phone charging;TV;water pump,2.71,vegetable kiosk,100,20,79,True,metered
+HH-0202,P-00712,1,0,low,2,,12:00-13:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1213,83,80,lighting;phone charging,0.22,casual labor,60,78,68,False,none
+HH-0203,P-00713,1,0,lower_middle,3,07:00-08:00,12:00-13:00,19:00-20:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,999,2,115,lighting;phone charging,0.23,beadwork,68,28,65,False,none
+HH-0204,P-00714,3,2,lower_middle,2,,12:00-13:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,1030,14,87,lighting;phone charging,0.11,livestock sales,71,28,78,False,none
+HH-0205,P-00717,5,4,middle,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,LPG stove,LPG stove+electric pressure cooker,1298,5,144,lighting;phone charging;refrigeration,2.8,casual labor,96,28,74,True,metered
+HH-0206,P-00722,5,2,low,2,,12:00-13:00,20:00-21:00,firewood/open fire,,firewood/open fire,266,426,121,lighting;phone charging,0.24,vegetable kiosk,30,55,51,False,none
+HH-0207,P-00727,6,1,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,396,270,165,lighting;phone charging;radio;water pump,1.92,none,92,78,61,True,metered
+HH-0208,P-00733,1,0,low,1,,,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,434,348,50,lighting;phone charging,0.37,none,37,64,54,False,none
+HH-0209,P-00734,5,2,low,2,,13:00-14:00,19:00-20:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,931,340,120,lighting;phone charging,0.37,casual labor,40,88,49,False,none
+HH-0210,P-00739,1,0,low,3,06:00-07:00,11:00-12:00,17:00-18:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,558,242,190,lighting;phone charging,0.11,livestock sales,40,64,65,False,none
+HH-0211,P-00740,1,0,low,2,,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,167,486,126,lighting;phone charging,0.08,livestock sales,30,55,49,False,none
+HH-0212,P-00741,1,0,low,3,06:00-07:00,11:00-12:00,20:00-21:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1203,24,145,lighting;phone charging,0.09,milk sales,58,78,61,False,none
+HH-0213,P-00742,6,3,low,3,08:00-09:00,12:00-13:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,333,337,218,lighting;phone charging,0.05,livestock sales,41,64,66,False,none
+HH-0214,P-00748,2,1,low,3,08:00-09:00,12:00-13:00,17:00-18:00,charcoal stove,electric hob,charcoal stove+electric hob,1198,95,186,lighting;phone charging,0.49,milk sales,54,64,77,False,none
+HH-0215,P-00750,1,0,low,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,874,639,186,lighting;phone charging,0.09,milk sales,44,64,78,False,none
+HH-0216,P-00751,5,2,middle,1,,,18:00-19:00,electric hob,,electric hob,99,12,65,lighting;phone charging;small shop freezer;radio,1.17,casual labor,90,20,53,True,metered
+HH-0217,P-00756,5,4,lower_middle,3,06:00-07:00,12:00-13:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,592,26,166,lighting;phone charging,0.37,beadwork,63,64,79,False,none
+HH-0218,P-00761,4,1,lower_middle,2,,14:00-15:00,20:00-21:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1174,26,110,lighting;phone charging,0.09,milk sales,70,78,73,False,none
+HH-0219,P-00765,2,0,lower_middle,3,07:00-08:00,11:00-12:00,18:00-19:00,LPG stove,electric hob,LPG stove+electric hob,1482,4,122,lighting;phone charging,0.27,livestock sales,67,28,62,False,none
+HH-0220,P-00767,6,3,lower_middle,1,,,19:00-20:00,charcoal stove,,charcoal stove,401,53,82,lighting;phone charging,0.27,milk sales,41,55,27,False,none
+HH-0221,P-00773,5,2,lower_middle,1,,,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,316,271,95,lighting;phone charging,0.07,beadwork,44,64,49,False,none
+HH-0222,P-00778,1,0,low,2,,12:00-13:00,19:00-20:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,651,348,114,lighting;phone charging,0.5,vegetable kiosk,28,88,45,False,none
+HH-0223,P-00779,4,1,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,219,265,194,lighting;phone charging,0.08,casual labor,47,64,61,False,none
+HH-0224,P-00783,4,2,low,2,,14:00-15:00,17:00-18:00,charcoal stove,,charcoal stove,317,108,112,lighting;phone charging,0.24,milk sales,38,55,45,False,none
+HH-0225,P-00787,3,2,middle,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,727,67,135,lighting;phone charging,0.39,casual labor,59,55,60,False,none
+HH-0226,P-00790,1,0,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,687,297,174,lighting;phone charging,0.32,casual labor,49,88,54,False,none
+HH-0227,P-00791,1,0,middle,2,,12:00-13:00,20:00-21:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,962,81,102,lighting;phone charging,0.25,none,66,64,65,False,none
+HH-0228,P-00792,6,2,low,1,,,20:00-21:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,329,501,96,lighting;phone charging,0.23,beadwork,37,64,52,False,none
+HH-0229,P-00798,1,0,higher,3,07:00-08:00,12:00-13:00,18:00-19:00,electric hob,electric pressure cooker,electric hob+electric pressure cooker,254,24,129,lighting;phone charging;refrigeration,2.06,livestock sales,100,28,62,True,metered
+HH-0230,P-00799,2,0,low,2,,12:00-13:00,17:00-18:00,charcoal stove,electric hob,charcoal stove+electric hob,791,92,95,lighting;phone charging,0.12,livestock sales,50,64,65,False,none
+HH-0231,P-00801,7,3,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,383,554,209,lighting;phone charging,0.41,milk sales,50,64,71,False,none
+HH-0232,P-00808,3,0,middle,3,06:00-07:00,12:00-13:00,20:00-21:00,charcoal stove,,charcoal stove,663,111,135,lighting;phone charging,0.31,livestock sales,54,55,44,False,none
+HH-0233,P-00811,3,2,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,282,651,221,lighting;phone charging,0.18,none,40,55,56,False,none
+HH-0234,P-00814,5,2,low,3,07:00-08:00,14:00-15:00,18:00-19:00,charcoal stove,,charcoal stove,440,36,150,lighting;phone charging,0.03,milk sales,43,55,59,False,none
+HH-0235,P-00819,4,1,low,1,,,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,638,185,57,lighting;phone charging,0.31,vegetable kiosk,55,78,51,False,none
+HH-0236,P-00823,4,1,low,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,electric hob,LPG stove+electric hob,1356,33,129,lighting;phone charging,0.19,casual labor,63,28,76,False,none
+HH-0237,P-00827,1,0,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,624,106,128,lighting;phone charging,0.07,beadwork,60,64,69,False,none
+HH-0238,P-00828,6,2,low,2,,13:00-14:00,19:00-20:00,charcoal stove,,charcoal stove,628,93,154,lighting;phone charging,0.33,casual labor,39,55,48,False,none
+HH-0239,P-00834,4,1,low,2,,11:00-12:00,17:00-18:00,firewood/open fire,,firewood/open fire,79,428,145,lighting;phone charging,0.38,livestock sales,29,55,48,False,none
+HH-0240,P-00838,5,2,lower_middle,3,06:00-07:00,13:00-14:00,17:00-18:00,LPG stove,,LPG stove,1009,13,125,lighting;phone charging,0.15,casual labor,71,20,77,False,none
+HH-0241,P-00843,2,1,lower_middle,2,,13:00-14:00,20:00-21:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,919,340,128,lighting;phone charging,0.47,vegetable kiosk,51,64,73,False,none
+HH-0242,P-00845,1,0,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,133,592,164,lighting;phone charging,0.36,vegetable kiosk,28,55,44,False,none
+HH-0243,P-00846,1,0,lower_middle,3,07:00-08:00,13:00-14:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,848,105,128,lighting;phone charging,0.23,vegetable kiosk,59,64,67,False,none
+HH-0244,P-00847,4,1,low,3,07:00-08:00,14:00-15:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1818,84,138,lighting;phone charging,0.39,casual labor,54,64,77,False,none
+HH-0245,P-00851,6,2,lower_middle,2,,12:00-13:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,649,462,132,lighting;phone charging,0.36,livestock sales,51,88,59,False,none
+HH-0246,P-00857,7,3,low,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,,charcoal stove,835,108,187,lighting;phone charging,0.02,casual labor,38,55,44,False,none
+HH-0247,P-00864,4,3,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,165,389,179,lighting;phone charging,0.1,casual labor,39,55,52,False,none
+HH-0248,P-00868,3,2,middle,3,06:00-07:00,12:00-13:00,20:00-21:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1481,110,142,lighting;phone charging,0.2,livestock sales,68,64,69,False,none
+HH-0249,P-00871,2,1,middle,2,,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,94,276,148,lighting;phone charging,0.23,beadwork,45,55,46,False,none
+HH-0250,P-00873,4,3,lower_middle,3,07:00-08:00,11:00-12:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,933,37,118,lighting;phone charging,0.32,livestock sales,67,28,62,False,none
+HH-0251,P-00877,1,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,269,596,141,lighting;phone charging,0.36,none,42,64,71,False,none
+HH-0252,P-00878,7,1,lower_middle,3,08:00-09:00,12:00-13:00,19:00-20:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,642,578,134,lighting;phone charging,0.23,beadwork,71,78,77,False,none
+HH-0253,P-00885,4,1,lower_middle,3,06:00-07:00,12:00-13:00,17:00-18:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,390,369,157,lighting;phone charging,0.41,none,51,88,59,False,none
+HH-0254,P-00889,6,4,middle,2,,12:00-13:00,17:00-18:00,electric pressure cooker,electric hob,electric hob+electric pressure cooker,187,38,119,lighting;phone charging;small shop freezer,2.8,vegetable kiosk,96,28,74,True,metered
+HH-0255,P-00895,4,3,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,743,109,187,lighting;phone charging,0.13,vegetable kiosk,50,55,58,False,none
+HH-0256,P-00899,5,2,low,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,409,0,168,lighting;phone charging,0.34,vegetable kiosk,59,20,64,False,none
+HH-0257,P-00904,6,1,middle,3,06:00-07:00,13:00-14:00,17:00-18:00,electric hob,,electric hob,171,19,173,lighting;phone charging;TV,0.58,livestock sales,96,20,72,True,metered
+HH-0258,P-00910,2,0,lower_middle,3,08:00-09:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,468,33,183,lighting;phone charging,0.15,livestock sales,51,55,61,False,none
+HH-0259,P-00912,3,2,lower_middle,2,,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,759,23,133,lighting;phone charging,0.07,none,49,55,53,False,none
+HH-0260,P-00915,7,4,lower_middle,1,,,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1076,331,90,lighting;phone charging,0.12,vegetable kiosk,43,64,48,False,none
+HH-0261,P-00922,5,2,lower_middle,2,,11:00-12:00,20:00-21:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,585,36,140,lighting;phone charging,0.27,none,60,64,69,False,none
+HH-0262,P-00927,6,2,higher,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,1038,75,124,lighting;phone charging;radio;water pump,1.75,livestock sales,100,78,61,True,metered
+HH-0263,P-00933,3,0,low,3,06:00-07:00,14:00-15:00,19:00-20:00,charcoal stove,electric hob,charcoal stove+electric hob,553,27,185,lighting;phone charging,0.44,vegetable kiosk,49,64,61,False,none
+HH-0264,P-00936,6,4,low,3,08:00-09:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,95,575,184,lighting;phone charging,0.34,livestock sales,28,55,45,False,none
+HH-0265,P-00942,5,3,higher,3,06:00-07:00,11:00-12:00,19:00-20:00,LPG stove,electric hob,LPG stove+electric hob,1246,3,152,lighting;phone charging;refrigeration,1.72,livestock sales,100,28,66,True,metered
+HH-0266,P-00947,4,0,lower_middle,2,,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,653,82,128,lighting;phone charging,0.38,casual labor,50,55,58,False,none
+HH-0267,P-00951,1,0,low,2,,11:00-12:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,387,221,101,lighting;phone charging,0.12,milk sales,44,64,77,False,none
+HH-0268,P-00952,6,1,low,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,251,378,206,lighting;phone charging,0.15,beadwork,33,55,59,False,none
+HH-0269,P-00958,3,1,low,2,,12:00-13:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,611,227,107,lighting;phone charging,0.12,vegetable kiosk,43,88,59,False,none
+HH-0270,P-00961,6,2,lower_middle,2,,12:00-13:00,18:00-19:00,LPG stove,,LPG stove,495,42,110,lighting;phone charging,0.23,casual labor,67,20,62,False,none
+HH-0271,P-00967,3,0,low,3,06:00-07:00,13:00-14:00,19:00-20:00,charcoal stove,,charcoal stove,632,67,191,lighting;phone charging,0.29,livestock sales,38,55,44,False,none
+HH-0272,P-00970,5,3,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,735,349,208,lighting;phone charging,0.38,casual labor,28,88,43,False,none
+HH-0273,P-00975,4,2,lower_middle,2,,11:00-12:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,938,483,136,lighting;phone charging,0.32,casual labor,51,88,61,False,none
+HH-0274,P-00979,5,2,middle,3,06:00-07:00,11:00-12:00,19:00-20:00,LPG stove,,LPG stove,815,9,163,lighting;phone charging;small shop freezer,2.44,casual labor,96,20,75,True,metered
+HH-0275,P-00984,7,1,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric hob,,electric hob,369,36,134,lighting;phone charging;radio,1.17,casual labor,98,20,79,True,metered
+HH-0276,P-00991,4,2,low,2,,13:00-14:00,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,947,33,90,lighting;phone charging,0.42,milk sales,60,78,67,False,none
+HH-0277,P-00995,2,0,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,639,597,215,lighting;phone charging,0.35,none,51,64,74,False,none
+HH-0278,P-00997,3,1,middle,3,07:00-08:00,13:00-14:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1533,23,162,lighting;phone charging,0.22,casual labor,75,78,64,False,none
+HH-0279,P-01000,1,0,higher,3,08:00-09:00,13:00-14:00,20:00-21:00,electric pressure cooker,LPG stove,LPG stove+electric pressure cooker,1059,33,110,lighting;phone charging;small shop freezer;radio;water pump,2.11,casual labor,100,28,68,True,metered
+HH-0280,P-01001,3,1,lower_middle,3,07:00-08:00,13:00-14:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,913,597,161,lighting;phone charging,0.49,none,50,64,70,False,none
+HH-0281,P-01004,7,2,higher,3,07:00-08:00,13:00-14:00,18:00-19:00,electric hob,charcoal stove,charcoal stove+electric hob,1292,89,137,lighting;phone charging;radio;water pump;refrigeration,1.53,vegetable kiosk,100,78,61,True,sub_metered
+HH-0282,P-01011,5,2,middle,3,06:00-07:00,12:00-13:00,19:00-20:00,LPG stove,,LPG stove,496,13,117,lighting;phone charging;water pump;refrigeration;radio,1.86,milk sales,96,20,73,True,metered
+HH-0283,P-01016,2,0,lower_middle,2,,13:00-14:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1050,501,145,lighting;phone charging,0.17,none,48,64,65,False,none
+HH-0284,P-01018,5,3,middle,2,,12:00-13:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,254,37,102,lighting;phone charging;water pump;radio,2.61,vegetable kiosk,94,20,67,True,metered
+HH-0285,P-01023,1,0,low,3,08:00-09:00,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,857,181,99,lighting;phone charging,0.33,beadwork,60,78,66,False,none
+HH-0286,P-01024,5,0,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric hob,,electric hob,195,24,160,lighting;phone charging;TV,0.93,livestock sales,96,20,73,True,metered
+HH-0287,P-01029,6,3,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,,firewood/open fire,95,229,176,lighting;phone charging,0.19,livestock sales,39,55,53,False,none
+HH-0288,P-01035,4,1,middle,3,08:00-09:00,12:00-13:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,974,29,148,lighting;phone charging,0.39,milk sales,75,28,63,False,none
+HH-0289,P-01039,5,2,middle,2,,12:00-13:00,19:00-20:00,electric hob,,electric hob,131,23,98,lighting;phone charging;water pump;radio,2.06,vegetable kiosk,98,20,79,True,sub_metered
+HH-0290,P-01044,7,3,low,2,,13:00-14:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1152,27,120,lighting;phone charging,0.44,casual labor,61,78,70,False,none
+HH-0291,P-01051,1,0,lower_middle,3,08:00-09:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1172,64,99,lighting;phone charging,0.28,livestock sales,68,78,65,False,none
+HH-0292,P-01052,4,1,low,2,,11:00-12:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,588,344,113,lighting;phone charging,0.35,casual labor,63,78,76,False,none
+HH-0293,P-01056,1,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,1043,53,128,lighting;phone charging,0.49,livestock sales,53,64,73,False,none
+HH-0294,P-01057,3,2,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,849,111,148,lighting;phone charging,0.1,none,66,64,65,False,none
+HH-0295,P-01060,1,0,lower_middle,2,,12:00-13:00,20:00-21:00,charcoal stove,,charcoal stove,543,30,113,lighting;phone charging,0.01,milk sales,50,55,57,False,none
+HH-0296,P-01061,5,1,low,2,,13:00-14:00,19:00-20:00,LPG stove,,LPG stove,480,5,120,lighting;phone charging,0.08,vegetable kiosk,60,20,66,False,none
+HH-0297,P-01066,4,0,low,3,06:00-07:00,14:00-15:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,392,658,212,lighting;phone charging,0.27,none,44,64,77,False,none
+HH-0298,P-01070,1,0,lower_middle,3,06:00-07:00,11:00-12:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,765,57,151,lighting;phone charging,0.13,livestock sales,62,64,75,False,none
+HH-0299,P-01071,2,1,low,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,287,585,128,lighting;phone charging,0.26,none,61,78,71,False,none
+HH-0300,P-01073,4,1,low,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,electric hob,electric hob+firewood/open fire,586,389,186,lighting;phone charging,0.42,vegetable kiosk,40,64,62,False,none
+HH-0301,P-01077,5,0,low,3,07:00-08:00,12:00-13:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1946,105,196,lighting;phone charging,0.09,livestock sales,54,64,75,False,none
+HH-0302,P-01082,5,2,low,3,06:00-07:00,13:00-14:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,755,366,174,lighting;phone charging,0.31,vegetable kiosk,40,64,63,False,none
+HH-0303,P-01087,5,1,middle,3,06:00-07:00,11:00-12:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,1225,49,186,lighting;phone charging;refrigeration;water pump;small shop freezer,2.65,livestock sales,89,64,79,True,metered
+HH-0304,P-01092,3,0,low,3,06:00-07:00,11:00-12:00,17:00-18:00,LPG stove,,LPG stove,524,32,122,lighting;phone charging,0.27,none,60,20,68,False,none
+HH-0305,P-01095,1,0,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,418,93,167,lighting;phone charging,0.48,livestock sales,49,55,53,False,none
+HH-0306,P-01096,4,0,lower_middle,2,,12:00-13:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1001,78,108,lighting;phone charging,0.35,beadwork,70,78,74,False,none
+HH-0307,P-01100,7,0,lower_middle,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,425,33,137,lighting;phone charging,0.43,livestock sales,68,20,68,False,none
+HH-0308,P-01107,5,2,middle,1,,,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,903,100,64,lighting;phone charging;radio,1.25,livestock sales,88,78,47,True,metered
+HH-0309,P-01112,2,0,low,2,,11:00-12:00,18:00-19:00,electric hob,firewood/open fire,electric hob+firewood/open fire,355,638,77,lighting;phone charging,0.34,beadwork,62,78,72,False,none
+HH-0310,P-01114,5,3,lower_middle,3,07:00-08:00,12:00-13:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,321,515,230,lighting;phone charging,0.2,beadwork,49,64,66,False,none
+HH-0311,P-01119,3,0,middle,2,,11:00-12:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,1221,15,100,lighting;phone charging,0.31,beadwork,80,28,79,False,none
+HH-0312,P-01122,5,1,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,574,518,120,lighting;phone charging,0.48,casual labor,68,78,66,False,none
+HH-0313,P-01127,4,2,low,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,231,436,216,lighting;phone charging,0.48,casual labor,33,55,60,False,none
+HH-0314,P-01131,3,2,middle,2,,12:00-13:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,869,247,138,lighting;phone charging,0.04,vegetable kiosk,59,88,59,False,none
+HH-0315,P-01134,4,1,middle,3,07:00-08:00,12:00-13:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1776,31,142,lighting;phone charging,0.46,livestock sales,75,78,62,False,none
+HH-0316,P-01138,4,0,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,electric hob,charcoal stove+electric hob,919,118,154,lighting;phone charging,0.01,casual labor,62,64,76,False,none
+HH-0317,P-01142,2,1,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1244,686,215,lighting;phone charging,0.27,vegetable kiosk,40,64,63,False,none
+HH-0318,P-01144,2,0,lower_middle,3,06:00-07:00,11:00-12:00,20:00-21:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,849,337,159,lighting;phone charging,0.16,casual labor,40,88,56,False,none
+HH-0319,P-01146,2,0,low,3,06:00-07:00,12:00-13:00,20:00-21:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1225,180,189,lighting;phone charging,0.32,casual labor,44,64,78,False,none
+HH-0320,P-01148,3,2,low,2,,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,584,116,120,lighting;phone charging,0.19,casual labor,52,64,69,False,none
+HH-0321,P-01151,1,0,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1204,41,121,lighting;phone charging,0.45,livestock sales,66,78,61,False,none
+HH-0322,P-01152,3,2,low,3,06:00-07:00,11:00-12:00,20:00-21:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1074,87,172,lighting;phone charging,0.23,vegetable kiosk,52,64,69,False,none
+HH-0323,P-01155,4,2,middle,3,07:00-08:00,13:00-14:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,201,43,158,lighting;phone charging;radio,2.32,milk sales,95,20,70,True,metered
+HH-0324,P-01159,3,1,lower_middle,3,06:00-07:00,13:00-14:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1251,285,135,lighting;phone charging,0.2,vegetable kiosk,68,78,68,False,none
+HH-0325,P-01162,2,1,middle,3,06:00-07:00,11:00-12:00,17:00-18:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1051,674,117,lighting;phone charging,0.46,vegetable kiosk,76,78,66,False,none
+HH-0326,P-01164,1,0,low,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,128,593,205,lighting;phone charging,0.11,casual labor,33,55,61,False,none
+HH-0327,P-01165,1,0,lower_middle,2,,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,296,48,118,lighting;phone charging,0.05,casual labor,49,55,54,False,none
+HH-0328,P-01166,1,0,middle,3,06:00-07:00,11:00-12:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,867,69,177,lighting;phone charging,0.16,casual labor,70,64,76,False,none
+HH-0329,P-01167,7,3,low,3,07:00-08:00,11:00-12:00,20:00-21:00,charcoal stove,,charcoal stove,950,53,177,lighting;phone charging,0.0,vegetable kiosk,41,55,52,False,none
+HH-0330,P-01174,4,2,low,1,,,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1058,34,77,lighting;phone charging,0.3,livestock sales,49,64,59,False,none
+HH-0331,P-01178,1,0,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,904,455,141,lighting;phone charging,0.04,vegetable kiosk,42,64,71,False,none
+HH-0332,P-01179,2,0,low,2,,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,351,514,125,lighting;phone charging,0.1,livestock sales,42,64,70,False,none
+HH-0333,P-01181,7,4,low,3,06:00-07:00,13:00-14:00,20:00-21:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,932,717,186,lighting;phone charging,0.12,beadwork,30,88,49,False,none
+HH-0334,P-01188,5,1,low,3,07:00-08:00,11:00-12:00,19:00-20:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,795,18,122,lighting;phone charging,0.02,vegetable kiosk,61,28,69,False,none
+HH-0335,P-01193,3,0,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,charcoal stove,,charcoal stove,372,109,191,lighting;phone charging,0.26,casual labor,51,55,59,False,none
+HH-0336,P-01196,1,0,low,3,07:00-08:00,14:00-15:00,18:00-19:00,charcoal stove,LPG stove,LPG stove+charcoal stove,968,66,134,lighting;phone charging,0.12,beadwork,54,64,76,False,none
+HH-0337,P-01197,2,1,lower_middle,3,06:00-07:00,11:00-12:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,925,62,183,lighting;phone charging,0.4,milk sales,61,64,73,False,none
+HH-0338,P-01199,4,2,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,1297,73,184,lighting;phone charging,0.27,vegetable kiosk,68,64,71,False,none
+HH-0339,P-01203,1,0,higher,1,,,19:00-20:00,LPG stove,electric hob,LPG stove+electric hob,868,23,45,lighting;phone charging;refrigeration;small shop freezer;water pump,2.45,milk sales,98,28,53,True,sub_metered
+HH-0340,P-01204,2,0,low,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,electric hob,electric hob+firewood/open fire,457,264,192,lighting;phone charging,0.49,livestock sales,42,64,70,False,none
+HH-0341,P-01206,6,1,low,3,07:00-08:00,11:00-12:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,694,19,151,lighting;phone charging,0.32,casual labor,59,28,62,False,none
+HH-0342,P-01212,1,0,lower_middle,3,07:00-08:00,14:00-15:00,19:00-20:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,686,20,126,lighting;phone charging,0.03,livestock sales,68,28,68,False,none
+HH-0343,P-01213,3,1,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,450,282,184,lighting;phone charging,0.15,milk sales,41,64,67,False,none
+HH-0344,P-01216,3,1,middle,2,,14:00-15:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1543,38,104,lighting;phone charging,0.48,casual labor,80,78,79,False,none
+HH-0345,P-01219,5,3,low,3,08:00-09:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1634,102,152,lighting;phone charging,0.07,livestock sales,62,78,75,False,none
+HH-0346,P-01224,5,2,low,2,,12:00-13:00,20:00-21:00,firewood/open fire,electric hob,electric hob+firewood/open fire,476,394,124,lighting;phone charging,0.26,milk sales,41,64,66,False,none
+HH-0347,P-01229,5,1,middle,2,,14:00-15:00,20:00-21:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,342,326,122,lighting;phone charging;radio;small shop freezer;TV,0.42,vegetable kiosk,93,78,64,True,metered
+HH-0348,P-01234,6,2,low,3,07:00-08:00,11:00-12:00,20:00-21:00,firewood/open fire,electric hob,electric hob+firewood/open fire,618,430,218,lighting;phone charging,0.13,livestock sales,39,64,61,False,none
+HH-0349,P-01240,3,1,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1242,118,148,lighting;phone charging,0.2,casual labor,66,78,61,False,none
+HH-0350,P-01243,3,0,low,2,,11:00-12:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,847,79,116,lighting;phone charging,0.13,none,51,64,66,False,none
+HH-0351,P-01246,2,1,low,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,733,93,130,lighting;phone charging,0.16,casual labor,50,64,65,False,none
+HH-0352,P-01248,2,0,middle,2,,13:00-14:00,18:00-19:00,LPG stove,,LPG stove,758,42,103,lighting;phone charging,0.12,livestock sales,78,20,75,False,none
+HH-0353,P-01250,3,1,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1122,359,158,lighting;phone charging,0.23,livestock sales,44,64,75,False,none
+HH-0354,P-01253,1,0,low,3,07:00-08:00,14:00-15:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,941,370,138,lighting;phone charging,0.16,livestock sales,30,88,49,False,none
+HH-0355,P-01254,5,3,low,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,,charcoal stove,748,47,186,lighting;phone charging,0.44,none,43,55,61,False,none
+HH-0356,P-01259,1,0,middle,2,,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,729,421,98,lighting;phone charging,0.28,livestock sales,80,78,79,False,none
+HH-0357,P-01260,1,0,middle,2,,12:00-13:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,766,388,119,lighting;phone charging,0.28,vegetable kiosk,46,88,50,False,none
+HH-0358,P-01261,4,3,lower_middle,2,,12:00-13:00,17:00-18:00,charcoal stove,electric hob,charcoal stove+electric hob,1124,48,110,lighting;phone charging,0.4,vegetable kiosk,62,64,75,False,none
+HH-0359,P-01265,1,0,low,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,569,299,112,lighting;phone charging,0.45,casual labor,61,78,69,False,none
+HH-0360,P-01266,1,0,middle,3,07:00-08:00,12:00-13:00,17:00-18:00,electric pressure cooker,,electric pressure cooker,377,0,112,lighting;phone charging,0.29,beadwork,80,20,79,False,none
+HH-0361,P-01267,2,1,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,157,659,204,lighting;phone charging,0.46,casual labor,39,55,53,False,none
+HH-0362,P-01269,3,1,middle,3,07:00-08:00,11:00-12:00,19:00-20:00,charcoal stove,,charcoal stove,383,94,188,lighting;phone charging,0.47,beadwork,57,55,53,False,none
+HH-0363,P-01272,5,2,low,2,,12:00-13:00,20:00-21:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,450,586,121,lighting;phone charging,0.27,livestock sales,40,64,64,False,none
+HH-0364,P-01277,2,1,lower_middle,2,,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,890,86,101,lighting;phone charging,0.25,casual labor,71,78,78,False,none
+HH-0365,P-01279,3,1,low,3,07:00-08:00,12:00-13:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,598,369,176,lighting;phone charging,0.32,vegetable kiosk,43,64,72,False,none
+HH-0366,P-01282,4,1,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,555,464,190,lighting;phone charging,0.12,vegetable kiosk,48,64,62,False,none
+HH-0367,P-01286,4,0,low,2,,14:00-15:00,18:00-19:00,firewood/open fire,,firewood/open fire,249,508,120,lighting;phone charging,0.23,vegetable kiosk,33,55,61,False,none
+HH-0368,P-01290,4,2,low,3,06:00-07:00,13:00-14:00,19:00-20:00,LPG stove,,LPG stove,510,1,123,lighting;phone charging,0.32,livestock sales,60,20,67,False,none
+HH-0369,P-01294,3,0,middle,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,LPG stove,LPG stove+electric pressure cooker,569,19,124,lighting;phone charging,0.24,casual labor,78,28,72,False,none
+HH-0370,P-01297,4,1,middle,3,06:00-07:00,12:00-13:00,17:00-18:00,LPG stove,,LPG stove,654,0,161,lighting;phone charging;small shop freezer,1.48,beadwork,94,20,67,True,metered
+HH-0371,P-01301,1,0,middle,1,,,20:00-21:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,463,328,57,lighting;phone charging,0.02,livestock sales,49,88,27,False,none
+HH-0372,P-01302,3,1,lower_middle,3,06:00-07:00,14:00-15:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,615,657,165,lighting;phone charging,0.03,casual labor,48,64,64,False,none
+HH-0373,P-01305,5,3,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,LPG stove,,LPG stove,557,7,149,lighting;phone charging,0.2,livestock sales,67,20,63,False,none
+HH-0374,P-01310,2,1,higher,3,07:00-08:00,14:00-15:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,326,42,147,lighting;phone charging;TV;water pump;small shop freezer,2.38,none,100,20,64,True,metered
+HH-0375,P-01312,4,2,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,94,480,224,lighting;phone charging,0.1,vegetable kiosk,38,55,49,False,none
+HH-0376,P-01316,1,0,lower_middle,2,,14:00-15:00,19:00-20:00,firewood/open fire,,firewood/open fire,114,646,144,lighting;phone charging,0.44,milk sales,36,55,43,False,none
+HH-0377,P-01317,6,3,middle,3,07:00-08:00,11:00-12:00,20:00-21:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,860,1,167,lighting;phone charging;TV,2.18,casual labor,95,28,70,True,metered
+HH-0378,P-01323,5,2,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,636,317,178,lighting;phone charging,0.3,vegetable kiosk,39,64,61,False,none
+HH-0379,P-01328,5,4,lower_middle,3,08:00-09:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,153,555,204,lighting;phone charging,0.36,milk sales,41,55,61,False,none
+HH-0380,P-01333,6,5,low,3,07:00-08:00,13:00-14:00,17:00-18:00,firewood/open fire,,firewood/open fire,164,533,184,lighting;phone charging,0.39,casual labor,28,55,43,False,none
+HH-0381,P-01339,5,3,higher,3,06:00-07:00,12:00-13:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,847,614,147,lighting;phone charging;TV;radio,1.83,beadwork,100,78,68,True,metered
+HH-0382,P-01344,6,1,higher,2,,13:00-14:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,273,4,97,lighting;phone charging;TV,0.47,none,100,20,65,True,metered
+HH-0383,P-01350,1,0,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,863,81,118,lighting;phone charging,0.28,vegetable kiosk,70,78,72,False,none
+HH-0384,P-01351,7,4,low,3,07:00-08:00,14:00-15:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,771,616,242,lighting;phone charging,0.01,livestock sales,32,88,57,False,none
+HH-0385,P-01358,4,2,middle,3,07:00-08:00,13:00-14:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,530,447,175,lighting;phone charging,0.41,casual labor,56,64,64,False,none
+HH-0386,P-01362,4,3,lower_middle,2,,12:00-13:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,536,27,106,lighting;phone charging,0.01,vegetable kiosk,60,64,70,False,none
+HH-0387,P-01366,3,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1098,613,132,lighting;phone charging,0.31,vegetable kiosk,64,78,79,False,none
+HH-0388,P-01369,1,0,low,3,06:00-07:00,11:00-12:00,19:00-20:00,charcoal stove,,charcoal stove,508,56,164,lighting;phone charging,0.42,none,41,55,54,False,none
+HH-0389,P-01370,1,0,middle,3,07:00-08:00,11:00-12:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1469,79,164,lighting;phone charging,0.0,livestock sales,66,64,65,False,none
+HH-0390,P-01371,5,3,lower_middle,1,,,18:00-19:00,firewood/open fire,,firewood/open fire,210,305,76,lighting;phone charging,0.1,milk sales,31,55,28,False,none
+HH-0391,P-01376,5,1,low,2,,12:00-13:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,726,71,122,lighting;phone charging,0.38,livestock sales,51,64,68,False,none
+HH-0392,P-01381,1,0,lower_middle,2,,13:00-14:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,444,279,121,lighting;phone charging,0.22,livestock sales,52,64,78,False,none
+HH-0393,P-01382,2,0,middle,2,,11:00-12:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,601,266,115,lighting;phone charging,0.25,beadwork,47,88,53,False,none
+HH-0394,P-01384,3,2,low,3,07:00-08:00,14:00-15:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,350,228,184,lighting;phone charging,0.18,beadwork,41,64,68,False,none
+HH-0395,P-01387,5,3,low,3,06:00-07:00,12:00-13:00,17:00-18:00,firewood/open fire,,firewood/open fire,155,590,181,lighting;phone charging,0.06,livestock sales,31,55,52,False,none
+HH-0396,P-01392,6,2,lower_middle,3,07:00-08:00,11:00-12:00,17:00-18:00,firewood/open fire,electric hob,electric hob+firewood/open fire,786,543,221,lighting;phone charging,0.21,beadwork,51,64,72,False,none
+HH-0397,P-01398,7,4,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,166,303,239,lighting;phone charging,0.0,livestock sales,36,55,43,False,none
+HH-0398,P-01405,1,0,low,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1515,40,167,lighting;phone charging,0.46,milk sales,51,64,67,False,none
+HH-0399,P-01406,1,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,,LPG stove,536,5,129,lighting;phone charging,0.29,beadwork,62,20,74,False,none
+HH-0400,P-01407,6,4,low,3,07:00-08:00,11:00-12:00,17:00-18:00,LPG stove,,LPG stove,431,2,124,lighting;phone charging,0.49,beadwork,63,20,76,False,none
+HH-0401,P-01413,7,2,lower_middle,2,,13:00-14:00,20:00-21:00,charcoal stove,electric hob,charcoal stove+electric hob,841,116,120,lighting;phone charging,0.4,livestock sales,60,64,71,False,none
+HH-0402,P-01420,5,0,low,3,06:00-07:00,13:00-14:00,19:00-20:00,charcoal stove,,charcoal stove,396,52,146,lighting;phone charging,0.01,casual labor,42,55,57,False,none
+HH-0403,P-01425,4,3,middle,3,08:00-09:00,14:00-15:00,20:00-21:00,electric hob,firewood/open fire,electric hob+firewood/open fire,286,502,131,lighting;phone charging;small shop freezer,2.14,casual labor,97,78,78,True,metered
+HH-0404,P-01429,5,2,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,773,218,230,lighting;phone charging,0.15,milk sales,50,64,69,False,none
+HH-0405,P-01434,1,0,lower_middle,2,,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1129,684,104,lighting;phone charging,0.11,livestock sales,70,78,73,False,none
+HH-0406,P-01435,4,1,higher,2,,11:00-12:00,18:00-19:00,electric hob,charcoal stove,charcoal stove+electric hob,680,68,86,lighting;phone charging;water pump;refrigeration,0.79,beadwork,100,78,64,True,metered
+HH-0407,P-01439,5,3,low,3,06:00-07:00,11:00-12:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,788,49,130,lighting;phone charging,0.38,beadwork,64,78,79,False,none
+HH-0408,P-01444,4,0,middle,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,,charcoal stove,764,95,200,lighting;phone charging,0.14,casual labor,59,55,59,False,none
+HH-0409,P-01448,5,0,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,925,450,181,lighting;phone charging,0.44,milk sales,28,88,43,False,none
+HH-0410,P-01453,1,0,low,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,701,85,137,lighting;phone charging,0.41,beadwork,60,78,67,False,none
+HH-0411,P-01454,1,0,low,3,06:00-07:00,14:00-15:00,18:00-19:00,firewood/open fire,,firewood/open fire,205,236,156,lighting;phone charging,0.33,casual labor,28,55,45,False,none
+HH-0412,P-01455,3,1,middle,3,06:00-07:00,11:00-12:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1217,265,127,lighting;phone charging,0.18,casual labor,77,78,69,False,none
+HH-0413,P-01458,6,2,middle,3,08:00-09:00,13:00-14:00,18:00-19:00,electric hob,firewood/open fire,electric hob+firewood/open fire,559,202,167,lighting;phone charging;water pump;radio;TV,1.71,casual labor,97,78,77,True,metered
+HH-0414,P-01464,1,0,middle,3,06:00-07:00,13:00-14:00,17:00-18:00,charcoal stove,,charcoal stove,291,29,177,lighting;phone charging,0.46,milk sales,59,55,59,False,none
+HH-0415,P-01465,3,1,lower_middle,3,06:00-07:00,14:00-15:00,18:00-19:00,firewood/open fire,,firewood/open fire,133,303,202,lighting;phone charging,0.47,milk sales,37,55,47,False,none
+HH-0416,P-01468,4,2,middle,2,,12:00-13:00,17:00-18:00,electric hob,firewood/open fire,electric hob+firewood/open fire,506,356,83,lighting;phone charging;water pump;refrigeration;radio,2.51,vegetable kiosk,94,78,68,True,sub_metered
+HH-0417,P-01472,3,1,middle,2,,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,298,373,136,lighting;phone charging,0.28,vegetable kiosk,60,64,76,False,none
+HH-0418,P-01475,2,1,low,2,,11:00-12:00,20:00-21:00,firewood/open fire,,firewood/open fire,113,703,138,lighting;phone charging,0.34,casual labor,28,55,45,False,none
+HH-0419,P-01477,1,0,low,2,,11:00-12:00,17:00-18:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,742,334,113,lighting;phone charging,0.36,vegetable kiosk,42,88,56,False,none
+HH-0420,P-01478,3,1,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,139,17,111,lighting;phone charging,0.29,livestock sales,71,20,76,False,none
+HH-0421,P-01481,4,2,middle,2,,12:00-13:00,19:00-20:00,electric pressure cooker,LPG stove,LPG stove+electric pressure cooker,991,31,112,lighting;phone charging;water pump;TV;radio,2.07,livestock sales,93,28,63,True,metered
+HH-0422,P-01485,2,1,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,910,521,189,lighting;phone charging,0.18,casual labor,52,64,78,False,none
+HH-0423,P-01487,5,1,lower_middle,2,,12:00-13:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1115,101,107,lighting;phone charging,0.44,none,61,64,73,False,none
+HH-0424,P-01492,7,4,low,2,,11:00-12:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,1031,51,133,lighting;phone charging,0.47,beadwork,53,64,73,False,none
+HH-0425,P-01499,3,0,low,1,,,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,391,191,68,lighting;phone charging,0.28,livestock sales,35,64,47,False,none
+HH-0426,P-01502,5,3,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,,firewood/open fire,291,428,238,lighting;phone charging,0.2,beadwork,31,55,54,False,none
+HH-0427,P-01507,1,0,lower_middle,1,,,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,312,589,71,lighting;phone charging,0.35,livestock sales,47,64,61,False,none
+HH-0428,P-01508,8,1,lower_middle,2,,12:00-13:00,17:00-18:00,electric pressure cooker,,electric pressure cooker,386,30,106,lighting;phone charging;refrigeration,2.98,casual labor,88,20,74,True,metered
+HH-0429,P-01516,4,2,lower_middle,2,,13:00-14:00,18:00-19:00,charcoal stove,,charcoal stove,307,74,99,lighting;phone charging,0.31,livestock sales,51,55,61,False,none
+HH-0430,P-01520,4,3,lower_middle,2,,14:00-15:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,505,546,160,lighting;phone charging,0.32,livestock sales,48,64,64,False,none
+HH-0431,P-01524,4,2,lower_middle,2,,12:00-13:00,17:00-18:00,LPG stove,,LPG stove,843,6,94,lighting;phone charging,0.11,casual labor,68,20,67,False,none
+HH-0432,P-01528,1,0,lower_middle,3,06:00-07:00,11:00-12:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,560,61,145,lighting;phone charging,0.26,beadwork,68,78,68,False,none
+HH-0433,P-01529,6,4,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,,LPG stove,814,19,162,lighting;phone charging;refrigeration,0.78,livestock sales,92,20,61,True,metered
+HH-0434,P-01535,2,1,lower_middle,2,,11:00-12:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,381,460,100,lighting;phone charging,0.39,beadwork,48,64,62,False,none
+HH-0435,P-01537,1,0,middle,3,07:00-08:00,13:00-14:00,19:00-20:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,887,118,142,lighting;phone charging,0.06,vegetable kiosk,79,78,76,False,none
+HH-0436,P-01538,1,0,lower_middle,3,07:00-08:00,12:00-13:00,17:00-18:00,charcoal stove,,charcoal stove,672,25,177,lighting;phone charging,0.27,none,51,55,60,False,none
+HH-0437,P-01539,4,1,middle,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,307,458,164,lighting;phone charging,0.22,beadwork,60,64,78,False,none
+HH-0438,P-01543,4,2,low,3,07:00-08:00,11:00-12:00,18:00-19:00,LPG stove,,LPG stove,695,20,164,lighting;phone charging,0.09,vegetable kiosk,59,20,64,False,none
+HH-0439,P-01547,2,0,low,3,06:00-07:00,11:00-12:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,732,434,211,lighting;phone charging,0.2,casual labor,43,64,74,False,none
+HH-0440,P-01549,5,2,lower_middle,3,06:00-07:00,11:00-12:00,17:00-18:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1553,108,150,lighting;phone charging,0.16,casual labor,61,64,73,False,none
+HH-0441,P-01554,4,3,low,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,314,318,164,lighting;phone charging,0.34,livestock sales,59,78,62,False,none
+HH-0442,P-01558,3,0,middle,2,,11:00-12:00,20:00-21:00,LPG stove,,LPG stove,759,15,98,lighting;phone charging,0.44,livestock sales,79,20,76,False,none
+HH-0443,P-01561,5,2,low,3,06:00-07:00,11:00-12:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,379,584,185,lighting;phone charging,0.21,vegetable kiosk,43,64,74,False,none
+HH-0444,P-01566,1,0,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric hob,,electric hob,162,32,148,lighting;phone charging,0.13,vegetable kiosk,68,20,65,False,none
+HH-0445,P-01567,4,0,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,408,319,190,lighting;phone charging,0.27,casual labor,40,64,62,False,none
+HH-0446,P-01571,5,1,lower_middle,2,,12:00-13:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,470,625,151,lighting;phone charging,0.25,livestock sales,51,64,73,False,none
+HH-0447,P-01576,2,1,low,2,,11:00-12:00,18:00-19:00,charcoal stove,,charcoal stove,341,21,108,lighting;phone charging,0.16,milk sales,40,55,51,False,none
+HH-0448,P-01578,1,0,low,2,,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,160,209,139,lighting;phone charging,0.23,none,32,55,57,False,none
+HH-0449,P-01579,4,2,low,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1928,97,138,lighting;phone charging,0.21,vegetable kiosk,51,64,67,False,none
+HH-0450,P-01583,4,2,low,3,06:00-07:00,11:00-12:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,763,101,154,lighting;phone charging,0.39,vegetable kiosk,53,64,73,False,none
+HH-0451,P-01587,4,1,middle,1,,,19:00-20:00,electric pressure cooker,electric hob,electric hob+electric pressure cooker,113,0,61,lighting;phone charging;small shop freezer;refrigeration;TV,0.82,livestock sales,90,28,53,True,metered
+HH-0452,P-01591,5,1,lower_middle,2,,12:00-13:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,616,665,141,lighting;phone charging,0.2,casual labor,52,64,75,False,none
+HH-0453,P-01596,1,0,middle,3,08:00-09:00,14:00-15:00,17:00-18:00,LPG stove,,LPG stove,382,6,104,lighting;phone charging,0.09,casual labor,78,20,73,False,none
+HH-0454,P-01597,6,4,low,1,,,20:00-21:00,firewood/open fire,electric hob,electric hob+firewood/open fire,544,709,106,lighting;phone charging,0.19,livestock sales,39,64,59,False,none
+HH-0455,P-01603,4,1,lower_middle,2,,13:00-14:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1031,708,103,lighting;phone charging,0.24,beadwork,66,78,61,False,none
+HH-0456,P-01607,5,3,low,2,,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,325,42,144,lighting;phone charging,0.3,none,40,55,49,False,none
+HH-0457,P-01612,6,2,middle,3,07:00-08:00,13:00-14:00,19:00-20:00,electric hob,firewood/open fire,electric hob+firewood/open fire,544,348,176,lighting;phone charging;water pump;radio,2.51,livestock sales,92,78,61,True,metered
+HH-0458,P-01618,4,1,middle,2,,14:00-15:00,17:00-18:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1129,437,94,lighting;phone charging,0.37,milk sales,75,78,62,False,none
+HH-0459,P-01622,2,0,low,2,,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,167,575,142,lighting;phone charging,0.02,beadwork,32,55,56,False,none
+HH-0460,P-01624,6,4,lower_middle,2,,12:00-13:00,19:00-20:00,electric hob,firewood/open fire,electric hob+firewood/open fire,606,359,106,lighting;phone charging,0.06,casual labor,70,78,72,False,none
+HH-0461,P-01630,2,0,low,3,07:00-08:00,13:00-14:00,19:00-20:00,charcoal stove,,charcoal stove,611,61,153,lighting;phone charging,0.18,casual labor,40,55,50,False,none
+HH-0462,P-01632,1,0,middle,2,,13:00-14:00,18:00-19:00,electric hob,electric pressure cooker,electric hob+electric pressure cooker,229,19,104,lighting;phone charging,0.18,casual labor,78,28,74,False,none
+HH-0463,P-01633,6,2,lower_middle,2,,14:00-15:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,511,37,123,lighting;phone charging,0.08,casual labor,59,64,67,False,none
+HH-0464,P-01639,4,1,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,794,641,209,lighting;phone charging,0.45,vegetable kiosk,44,64,76,False,none
+HH-0465,P-01643,1,0,middle,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,609,211,141,lighting;phone charging,0.43,beadwork,55,88,48,False,none
+HH-0466,P-01644,1,0,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,898,111,121,lighting;phone charging,0.33,livestock sales,58,64,63,False,none
+HH-0467,P-01645,2,0,higher,3,06:00-07:00,12:00-13:00,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1236,111,158,lighting;phone charging;TV,0.91,vegetable kiosk,100,78,73,True,sub_metered
+HH-0468,P-01647,2,0,middle,3,06:00-07:00,11:00-12:00,17:00-18:00,electric hob,LPG stove,LPG stove+electric hob,1504,9,125,lighting;phone charging,0.31,livestock sales,77,28,71,False,none
+HH-0469,P-01649,8,5,higher,3,08:00-09:00,11:00-12:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,822,585,168,lighting;phone charging;TV,1.63,vegetable kiosk,100,78,61,True,sub_metered
+HH-0470,P-01657,3,2,lower_middle,1,,,18:00-19:00,electric pressure cooker,,electric pressure cooker,261,11,52,lighting;phone charging,0.13,none,65,20,56,False,none
+HH-0471,P-01660,3,1,low,2,,12:00-13:00,17:00-18:00,electric pressure cooker,,electric pressure cooker,250,27,78,lighting;phone charging,0.41,livestock sales,61,20,69,False,none
+HH-0472,P-01663,1,0,middle,3,08:00-09:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1197,77,145,lighting;phone charging,0.05,casual labor,75,78,63,False,none
+HH-0473,P-01664,1,0,higher,3,08:00-09:00,12:00-13:00,20:00-21:00,electric hob,LPG stove,LPG stove+electric hob,696,34,137,lighting;phone charging;small shop freezer,2.9,beadwork,100,28,71,True,sub_metered
+HH-0474,P-01665,1,0,middle,3,07:00-08:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,739,69,184,lighting;phone charging,0.28,beadwork,59,55,60,False,none
+HH-0475,P-01666,6,4,low,3,08:00-09:00,14:00-15:00,18:00-19:00,charcoal stove,,charcoal stove,888,39,211,lighting;phone charging,0.03,none,43,55,59,False,none
+HH-0476,P-01672,3,0,low,2,,12:00-13:00,17:00-18:00,firewood/open fire,,firewood/open fire,110,670,114,lighting;phone charging,0.14,beadwork,33,55,61,False,none
+HH-0477,P-01675,4,2,lower_middle,2,,12:00-13:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,530,570,132,lighting;phone charging,0.09,livestock sales,48,64,62,False,none
+HH-0478,P-01679,3,0,middle,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,,charcoal stove,729,48,191,lighting;phone charging,0.22,beadwork,59,55,60,False,none
+HH-0479,P-01682,4,1,lower_middle,3,07:00-08:00,14:00-15:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1265,691,156,lighting;phone charging,0.2,milk sales,48,64,65,False,none
+HH-0480,P-01686,5,3,middle,2,,12:00-13:00,17:00-18:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,890,397,116,lighting;phone charging;small shop freezer;TV;refrigeration,0.78,livestock sales,73,88,48,True,metered
+HH-0481,P-01691,4,0,lower_middle,3,06:00-07:00,12:00-13:00,20:00-21:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,201,244,216,lighting;phone charging,0.19,beadwork,49,64,66,False,none
+HH-0482,P-01695,3,2,middle,3,06:00-07:00,11:00-12:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1299,575,161,lighting;phone charging,0.01,livestock sales,60,64,77,False,none
+HH-0483,P-01698,3,2,lower_middle,3,07:00-08:00,14:00-15:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,322,420,214,lighting;phone charging,0.14,vegetable kiosk,48,64,63,False,none
+HH-0484,P-01701,3,2,lower_middle,2,,12:00-13:00,19:00-20:00,firewood/open fire,,firewood/open fire,246,702,109,lighting;phone charging,0.39,vegetable kiosk,36,55,45,False,none
+HH-0485,P-01704,6,0,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1205,503,130,lighting;phone charging;radio;small shop freezer;water pump,0.49,livestock sales,97,78,78,True,metered
+HH-0486,P-01710,2,1,middle,3,07:00-08:00,12:00-13:00,19:00-20:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,700,23,125,lighting;phone charging,0.47,none,78,28,73,False,none
+HH-0487,P-01712,5,3,lower_middle,2,,13:00-14:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,599,108,107,lighting;phone charging,0.22,none,58,64,63,False,none
+HH-0488,P-01717,5,4,middle,3,07:00-08:00,12:00-13:00,17:00-18:00,electric hob,,electric hob,120,41,149,lighting;phone charging;TV;small shop freezer,2.78,vegetable kiosk,96,20,74,True,metered
+HH-0489,P-01722,1,0,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,263,637,201,lighting;phone charging,0.16,vegetable kiosk,41,64,68,False,none
+HH-0490,P-01723,1,0,lower_middle,3,06:00-07:00,13:00-14:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,1213,222,142,lighting;phone charging,0.31,vegetable kiosk,69,78,69,False,none
+HH-0491,P-01724,3,0,middle,2,,12:00-13:00,18:00-19:00,LPG stove,electric hob,LPG stove+electric hob,1198,18,107,lighting;phone charging,0.07,beadwork,78,28,74,False,none
+HH-0492,P-01727,1,0,middle,2,,12:00-13:00,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1273,120,68,lighting;phone charging,0.26,beadwork,76,78,66,False,none
+HH-0493,P-01728,5,3,lower_middle,1,,,19:00-20:00,charcoal stove,,charcoal stove,600,92,69,lighting;phone charging,0.24,none,45,55,41,False,none
+HH-0494,P-01733,6,3,low,3,07:00-08:00,13:00-14:00,18:00-19:00,charcoal stove,electric hob,charcoal stove+electric hob,721,67,208,lighting;phone charging,0.21,vegetable kiosk,50,64,63,False,none
+HH-0495,P-01739,4,1,low,3,06:00-07:00,11:00-12:00,19:00-20:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1024,36,112,lighting;phone charging,0.47,livestock sales,62,78,73,False,none
+HH-0496,P-01743,1,0,lower_middle,2,,13:00-14:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,570,371,89,lighting;phone charging,0.01,none,70,78,72,False,none
+HH-0497,P-01744,5,1,middle,3,08:00-09:00,11:00-12:00,19:00-20:00,electric hob,electric pressure cooker,electric hob+electric pressure cooker,442,23,144,lighting;phone charging;radio;TV,1.73,none,98,28,79,True,metered
+HH-0498,P-01749,5,2,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,326,679,196,lighting;phone charging,0.19,livestock sales,42,64,70,False,none
+HH-0499,P-01754,1,0,low,3,06:00-07:00,11:00-12:00,17:00-18:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,570,274,209,lighting;phone charging,0.36,beadwork,33,88,60,False,none
+HH-0500,P-01755,6,3,low,3,06:00-07:00,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,151,346,184,lighting;phone charging,0.3,beadwork,30,55,51,False,none
+HH-0501,P-01761,4,3,lower_middle,2,,11:00-12:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,1028,112,123,lighting;phone charging,0.13,livestock sales,58,64,62,False,none
+HH-0502,P-01765,3,0,lower_middle,3,08:00-09:00,11:00-12:00,18:00-19:00,LPG stove,,LPG stove,766,23,148,lighting;phone charging,0.42,livestock sales,70,20,72,False,none
+HH-0503,P-01768,3,1,low,3,07:00-08:00,12:00-13:00,20:00-21:00,firewood/open fire,electric hob,electric hob+firewood/open fire,474,309,191,lighting;phone charging,0.25,livestock sales,39,64,61,False,none
+HH-0504,P-01771,6,2,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1354,48,182,lighting;phone charging,0.21,none,58,64,62,False,none
+HH-0505,P-01777,1,0,lower_middle,3,07:00-08:00,11:00-12:00,20:00-21:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,846,42,174,lighting;phone charging,0.08,beadwork,58,64,65,False,none
+HH-0506,P-01778,6,3,low,3,07:00-08:00,11:00-12:00,20:00-21:00,firewood/open fire,,firewood/open fire,88,239,176,lighting;phone charging,0.24,casual labor,30,55,51,False,none
+HH-0507,P-01784,7,5,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,256,10,148,lighting;phone charging,0.36,vegetable kiosk,71,20,77,False,none
+HH-0508,P-01791,5,1,low,2,,14:00-15:00,18:00-19:00,firewood/open fire,electric hob,electric hob+firewood/open fire,586,186,156,lighting;phone charging,0.03,milk sales,43,64,73,False,none
+HH-0509,P-01796,3,1,low,3,07:00-08:00,13:00-14:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,293,560,108,lighting;phone charging,0.31,milk sales,59,78,62,False,none
+HH-0510,P-01799,3,2,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,electric hob,electric hob+electric pressure cooker,318,11,143,lighting;phone charging,0.04,milk sales,67,28,63,False,none
+HH-0511,P-01802,1,0,middle,3,07:00-08:00,12:00-13:00,17:00-18:00,LPG stove,electric hob,LPG stove+electric hob,599,12,102,lighting;phone charging,0.02,livestock sales,78,28,75,False,none
+HH-0512,P-01803,4,1,lower_middle,2,,12:00-13:00,19:00-20:00,charcoal stove,electric hob,charcoal stove+electric hob,664,52,143,lighting;phone charging,0.04,beadwork,57,64,61,False,none
+HH-0513,P-01807,1,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,charcoal stove,firewood/open fire,charcoal stove+firewood/open fire,584,324,180,lighting;phone charging,0.26,beadwork,41,88,53,False,none
+HH-0514,P-01808,3,1,low,3,06:00-07:00,11:00-12:00,18:00-19:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,717,96,158,lighting;phone charging,0.14,beadwork,53,64,74,False,none
+HH-0515,P-01811,1,0,lower_middle,2,,14:00-15:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,1118,324,131,lighting;phone charging,0.1,vegetable kiosk,48,64,63,False,none
+HH-0516,P-01812,4,1,low,3,06:00-07:00,11:00-12:00,18:00-19:00,charcoal stove,,charcoal stove,835,112,144,lighting;phone charging,0.02,vegetable kiosk,40,55,49,False,none
+HH-0517,P-01816,1,0,lower_middle,2,,11:00-12:00,18:00-19:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,635,250,129,lighting;phone charging,0.45,livestock sales,51,64,73,False,none
+HH-0518,P-01817,6,3,lower_middle,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,438,16,165,lighting;phone charging,0.38,milk sales,70,20,72,False,none
+HH-0519,P-01823,6,1,lower_middle,3,06:00-07:00,13:00-14:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1198,71,175,lighting;phone charging,0.49,beadwork,61,64,74,False,none
+HH-0520,P-01829,1,0,lower_middle,2,,11:00-12:00,17:00-18:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1094,111,82,lighting;phone charging,0.45,none,72,78,79,False,none
+HH-0521,P-01830,3,0,middle,3,08:00-09:00,13:00-14:00,18:00-19:00,LPG stove,,LPG stove,779,11,135,lighting;phone charging,0.4,vegetable kiosk,79,20,78,False,none
+HH-0522,P-01833,3,0,lower_middle,2,,13:00-14:00,19:00-20:00,electric hob,LPG stove,LPG stove+electric hob,989,34,78,lighting;phone charging,0.17,livestock sales,69,28,70,False,none
+HH-0523,P-01836,3,0,lower_middle,2,,14:00-15:00,18:00-19:00,LPG stove,,LPG stove,387,25,96,lighting;phone charging,0.22,vegetable kiosk,69,20,69,False,none
+HH-0524,P-01839,4,3,lower_middle,2,,12:00-13:00,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,701,189,160,lighting;phone charging,0.02,none,49,64,66,False,none
+HH-0525,P-01843,1,0,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,880,113,99,lighting;phone charging,0.33,casual labor,67,78,62,False,none
+HH-0526,P-01844,2,1,lower_middle,2,,12:00-13:00,18:00-19:00,electric pressure cooker,electric hob,electric hob+electric pressure cooker,148,29,101,lighting;phone charging,0.47,livestock sales,67,28,63,False,none
+HH-0527,P-01846,5,2,middle,2,,13:00-14:00,20:00-21:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,304,352,169,lighting;phone charging;water pump;small shop freezer,0.46,casual labor,76,64,71,True,metered
+HH-0528,P-01851,4,2,low,3,06:00-07:00,13:00-14:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,341,180,164,lighting;phone charging,0.33,livestock sales,42,64,69,False,none
+HH-0529,P-01855,5,0,lower_middle,3,06:00-07:00,11:00-12:00,17:00-18:00,electric pressure cooker,,electric pressure cooker,367,3,117,lighting;phone charging,0.08,beadwork,72,20,79,False,none
+HH-0530,P-01860,1,0,lower_middle,3,06:00-07:00,12:00-13:00,17:00-18:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,662,525,115,lighting;phone charging,0.43,none,67,78,63,False,none
+HH-0531,P-01861,1,0,lower_middle,3,06:00-07:00,12:00-13:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,815,101,150,lighting;phone charging,0.17,beadwork,72,78,79,False,none
+HH-0532,P-01862,3,2,lower_middle,3,06:00-07:00,12:00-13:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,855,312,202,lighting;phone charging,0.3,livestock sales,48,64,64,False,none
+HH-0533,P-01865,1,0,middle,3,06:00-07:00,13:00-14:00,17:00-18:00,charcoal stove,,charcoal stove,701,66,187,lighting;phone charging,0.01,livestock sales,59,55,61,False,none
+HH-0534,P-01866,1,0,lower_middle,3,07:00-08:00,14:00-15:00,19:00-20:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,1127,43,150,lighting;phone charging,0.11,vegetable kiosk,66,28,61,False,none
+HH-0535,P-01867,1,0,lower_middle,3,07:00-08:00,11:00-12:00,19:00-20:00,LPG stove,electric hob,LPG stove+electric hob,598,17,129,lighting;phone charging,0.06,livestock sales,72,28,79,False,none
+HH-0536,P-01868,6,3,lower_middle,3,07:00-08:00,13:00-14:00,18:00-19:00,firewood/open fire,,firewood/open fire,272,471,176,lighting;phone charging,0.04,vegetable kiosk,36,55,44,False,none
+HH-0537,P-01874,6,3,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,1161,98,211,lighting;phone charging,0.45,none,59,64,68,False,none
+HH-0538,P-01880,3,0,lower_middle,3,06:00-07:00,14:00-15:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1371,38,135,lighting;phone charging,0.18,livestock sales,59,64,68,False,none
+HH-0539,P-01883,4,2,lower_middle,1,,,19:00-20:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,530,199,84,lighting;phone charging,0.29,none,47,64,61,False,none
+HH-0540,P-01887,4,1,lower_middle,3,06:00-07:00,13:00-14:00,18:00-19:00,electric pressure cooker,firewood/open fire,electric pressure cooker+firewood/open fire,649,629,153,lighting;phone charging,0.13,casual labor,67,78,63,False,none
+HH-0541,P-01891,2,1,low,3,07:00-08:00,14:00-15:00,19:00-20:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,686,403,120,lighting;phone charging,0.29,vegetable kiosk,63,78,77,False,none
+HH-0542,P-01893,1,0,middle,3,06:00-07:00,13:00-14:00,17:00-18:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,518,182,131,lighting;phone charging,0.25,vegetable kiosk,78,78,72,False,none
+HH-0543,P-01894,4,1,lower_middle,3,07:00-08:00,14:00-15:00,18:00-19:00,LPG stove,electric hob,LPG stove+electric hob,651,10,166,lighting;phone charging,0.17,livestock sales,69,28,71,False,none
+HH-0544,P-01898,3,2,lower_middle,3,07:00-08:00,11:00-12:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,1007,70,148,lighting;phone charging,0.14,beadwork,60,64,71,False,none
+HH-0545,P-01901,4,1,low,2,,12:00-13:00,19:00-20:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,950,333,130,lighting;phone charging,0.39,vegetable kiosk,29,88,48,False,none
+HH-0546,P-01905,4,2,lower_middle,3,07:00-08:00,12:00-13:00,18:00-19:00,LPG stove,electric pressure cooker,LPG stove+electric pressure cooker,836,43,115,lighting;phone charging,0.18,livestock sales,67,28,62,False,none
+HH-0547,P-01909,1,0,middle,3,06:00-07:00,12:00-13:00,18:00-19:00,LPG stove,charcoal stove,LPG stove+charcoal stove,1265,51,99,lighting;phone charging,0.08,none,78,78,74,False,none
+HH-0548,P-01910,3,2,low,3,06:00-07:00,13:00-14:00,17:00-18:00,firewood/open fire,,firewood/open fire,228,405,165,lighting;phone charging,0.31,livestock sales,32,55,55,False,none
+HH-0549,P-01913,3,1,lower_middle,3,08:00-09:00,13:00-14:00,18:00-19:00,electric pressure cooker,,electric pressure cooker,413,21,157,lighting;phone charging,0.28,none,69,20,71,False,none
+HH-0550,P-01916,2,0,lower_middle,3,06:00-07:00,12:00-13:00,19:00-20:00,charcoal stove,LPG stove,LPG stove+charcoal stove,920,95,186,lighting;phone charging,0.39,vegetable kiosk,59,64,66,False,none
+HH-0551,P-01918,3,1,lower_middle,3,07:00-08:00,13:00-14:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,799,21,145,lighting;phone charging,0.23,vegetable kiosk,59,64,68,False,none
+HH-0552,P-01921,4,2,low,3,08:00-09:00,11:00-12:00,19:00-20:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,286,181,209,lighting;phone charging,0.06,milk sales,44,64,75,False,none
+HH-0553,P-01925,4,1,low,2,,12:00-13:00,17:00-18:00,LPG stove,electric hob,LPG stove+electric hob,554,12,104,lighting;phone charging,0.35,livestock sales,63,28,78,False,none
+HH-0554,P-01929,5,3,middle,3,08:00-09:00,13:00-14:00,18:00-19:00,electric hob,firewood/open fire,electric hob+firewood/open fire,472,714,166,lighting;phone charging;refrigeration,2.77,casual labor,94,78,66,True,metered
+HH-0555,P-01934,1,0,low,2,,13:00-14:00,18:00-19:00,charcoal stove,,charcoal stove,292,75,89,lighting;phone charging,0.39,beadwork,43,55,61,False,none
+HH-0556,P-01935,4,1,low,2,,11:00-12:00,19:00-20:00,firewood/open fire,electric hob,electric hob+firewood/open fire,388,500,158,lighting;phone charging,0.37,casual labor,44,64,78,False,none
+HH-0557,P-01939,6,3,low,3,07:00-08:00,12:00-13:00,18:00-19:00,firewood/open fire,charcoal stove,charcoal stove+firewood/open fire,952,709,172,lighting;phone charging,0.35,casual labor,29,88,46,False,none
+HH-0558,P-01945,5,4,low,3,06:00-07:00,11:00-12:00,20:00-21:00,charcoal stove,,charcoal stove,651,88,206,lighting;phone charging,0.43,livestock sales,40,55,50,False,none
+HH-0559,P-01950,7,2,lower_middle,2,,13:00-14:00,19:00-20:00,electric hob,,electric hob,452,37,122,lighting;phone charging,0.45,milk sales,68,20,65,False,none
+HH-0560,P-01957,5,3,middle,2,,11:00-12:00,18:00-19:00,electric pressure cooker,LPG stove,LPG stove+electric pressure cooker,1195,10,112,lighting;phone charging;TV,0.82,livestock sales,95,28,70,True,metered
+HH-0561,P-01962,3,2,low,3,07:00-08:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,652,36,198,lighting;phone charging,0.46,none,41,55,52,False,none
+HH-0562,P-01965,1,0,lower_middle,3,07:00-08:00,11:00-12:00,18:00-19:00,firewood/open fire,,firewood/open fire,93,438,145,lighting;phone charging,0.14,beadwork,37,55,47,False,none
+HH-0563,P-01966,7,2,middle,3,06:00-07:00,12:00-13:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,437,23,175,lighting;phone charging;radio;TV;water pump,1.97,livestock sales,94,20,67,True,metered
+HH-0564,P-01973,6,3,middle,3,06:00-07:00,13:00-14:00,19:00-20:00,electric pressure cooker,,electric pressure cooker,268,3,143,lighting;phone charging;TV;radio;small shop freezer,2.84,casual labor,94,20,65,True,metered
+HH-0565,P-01979,2,0,low,3,06:00-07:00,12:00-13:00,18:00-19:00,firewood/open fire,electric pressure cooker,electric pressure cooker+firewood/open fire,576,310,155,lighting;phone charging,0.12,casual labor,44,64,75,False,none
+HH-0566,P-01981,1,0,low,3,07:00-08:00,12:00-13:00,17:00-18:00,firewood/open fire,LPG stove,LPG stove+firewood/open fire,698,607,175,lighting;phone charging,0.44,beadwork,40,64,65,False,none
+HH-0567,P-01982,5,1,lower_middle,3,08:00-09:00,12:00-13:00,18:00-19:00,charcoal stove,,charcoal stove,797,27,179,lighting;phone charging,0.36,casual labor,46,55,43,False,none
+HH-0568,P-01987,3,0,lower_middle,2,,13:00-14:00,18:00-19:00,electric pressure cooker,charcoal stove,charcoal stove+electric pressure cooker,801,94,82,lighting;phone charging,0.31,livestock sales,70,78,75,False,none
+HH-0569,P-01990,3,1,lower_middle,2,,12:00-13:00,18:00-19:00,LPG stove,firewood/open fire,LPG stove+firewood/open fire,683,605,80,lighting;phone charging,0.23,vegetable kiosk,68,78,66,False,none
+HH-0570,P-01993,6,2,middle,3,07:00-08:00,14:00-15:00,17:00-18:00,electric hob,firewood/open fire,electric hob+firewood/open fire,405,433,167,lighting;phone charging;small shop freezer;radio;TV,2.54,livestock sales,94,78,66,True,metered
+HH-0571,P-01999,2,1,lower_middle,2,,12:00-13:00,17:00-18:00,charcoal stove,electric pressure cooker,charcoal stove+electric pressure cooker,502,35,117,lighting;phone charging,0.24,beadwork,63,64,79,False,none

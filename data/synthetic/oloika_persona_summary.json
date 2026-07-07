@@ -1,0 +1,58 @@
+{
+  "avg_collection_minutes_week_by_primary_fuel": {
+    "LPG stove": 139.3,
+    "charcoal stove": 103.9,
+    "electric hob": 141.5,
+    "electric pressure cooker": 145.8,
+    "firewood/open fire": 438.6
+  },
+  "avg_commercial_fuel_cost_kes_week": 4930.6,
+  "avg_household_fuel_cost_kes_week": 668.2,
+  "commercial_fuel_type_count": {
+    "one_fuel": 5,
+    "two_fuels": 11
+  },
+  "commercial_primary_fuel_mix": {
+    "LPG stove": 1,
+    "charcoal stove": 5,
+    "electric hob": 3,
+    "electric pressure cooker": 5,
+    "firewood/open fire": 2
+  },
+  "commercial_profiles": 16,
+  "estimated_clean_cooking_impact_proxy": {
+    "high_fuel_stacking_risk_households": 151,
+    "polluting_primary_fuel_households": 344,
+    "weekly_firewood_collection_hours_avoided_if_shifted": 1666.7
+  },
+  "household_fuel_type_count": {
+    "one_fuel": 177,
+    "two_fuels": 394
+  },
+  "household_primary_fuel_mix": {
+    "LPG stove": 115,
+    "charcoal stove": 152,
+    "electric hob": 33,
+    "electric pressure cooker": 79,
+    "firewood/open fire": 192
+  },
+  "households": 571,
+  "meter_status_counts": {
+    "metered": 72,
+    "sub_metered": 12
+  },
+  "mini_grid_accounts": 84,
+  "mini_grid_commercial_accounts": 10,
+  "mini_grid_household_accounts": 74,
+  "minigrid_vs_non_minigrid_households": {
+    "minigrid": 74,
+    "non_minigrid": 497
+  },
+  "population": 2000,
+  "seed": 42,
+  "shiftable_cooking_opportunity": {
+    "avg_commercial_daytime_shift_potential": 78.9,
+    "avg_household_shiftable_score": 64.4,
+    "households_score_65_plus": 314
+  }
+}

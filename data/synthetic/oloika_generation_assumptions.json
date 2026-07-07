@@ -1,0 +1,39 @@
+{
+  "clean_cooking_access_framing": {
+    "model_use": "Firewood collection burden and women/children exposure motivate fuel collection and health proxy fields.",
+    "source": "IEA, A Vision for Clean Cooking Access for All, https://www.iea.org/reports/a-vision-for-clean-cooking-access-for-all"
+  },
+  "defaults": {
+    "commercial_profiles": 16,
+    "metered_accounts": 72,
+    "mini_grid_accounts": 84,
+    "population": 2000,
+    "sub_metered_accounts": 12,
+    "two_fuel_profile_share": 0.69
+  },
+  "fuel_health_framing": {
+    "clean_at_point_of_use": [
+      "electricity",
+      "LPG",
+      "biogas",
+      "alcohol fuels",
+      "solar",
+      "biomass stoves meeting WHO emission targets"
+    ],
+    "polluting_in_this_demo": [
+      "firewood/open fire",
+      "charcoal stove"
+    ],
+    "source": "WHO household air pollution fact sheet, https://www.who.int/news-room/fact-sheets/detail/household-air-pollution-and-health"
+  },
+  "kenya_indicator_anchor": {
+    "indicator": "World Bank EG.CFT.ACCS.ZS, access to clean fuels and technologies for cooking (% of population), Kenya",
+    "source": "https://data.worldbank.org/indicator/EG.CFT.ACCS.ZS?locations=KE"
+  },
+  "location_context": {
+    "county": "Kajiado County, Kenya",
+    "household_size_anchor": "Kajiado County 2019 census context reports about 316,179 households and 1,117,840 people, implying roughly 3.5 people per household.",
+    "village": "Oloika"
+  },
+  "synthetic_data_notice": "These are generated personas for hackathon planning and are not real Oloika resident records."
+}
