@@ -1198,73 +1198,12 @@
   </main>
 
   <script>
-    const topUnserved = [
-      {country:"India", value:335070216},
-      {country:"Nigeria", value:168177613},
-      {country:"China", value:159410230},
-      {country:"Bangladesh", value:122770365},
-      {country:"Ethiopia", value:119554582},
-      {country:"Pakistan", value:111624527},
-      {country:"Congo, Dem. Rep.", value:100500244},
-      {country:"Tanzania", value:60089081},
-      {country:"Uganda", value:47780782},
-      {country:"Philippines", value:46530936}
-    ];
-
-    const targetCountries = [
-      {country:"Kenya", role:"Primary pilot: local mini-grid and e-cooker telemetry available", unserved:37851878, clean:31.6, gap:68.4, electricity:76.0, score:0.744},
-      {country:"Uganda", role:"Replication candidate: extreme cooking gap, nearby market", unserved:47780782, clean:1.8, gap:98.2, electricity:47.1, score:0.770},
-      {country:"Tanzania", role:"Replication candidate: high unserved population", unserved:60089081, clean:9.8, gap:90.2, electricity:45.8, score:0.731},
-      {country:"Rwanda", role:"Smaller controlled pilot candidate", unserved:12656705, clean:9.3, gap:90.7, electricity:50.6, score:0.736},
-      {country:"Ethiopia", role:"Large-scale future market after infrastructure review", unserved:119554582, clean:7.1, gap:92.9, electricity:55.0, score:0.786},
-      {country:"Nigeria", role:"Large-market future expansion; grid constraints need separate design", unserved:168177613, clean:26.2, gap:73.8, electricity:60.5, score:0.724},
-      {country:"India", role:"Benchmark for large clean-cooking transition programs", unserved:335070216, clean:76.7, gap:23.3, electricity:99.2, score:0.652},
-      {country:"Bangladesh", role:"Benchmark for refugee and host-community fuel transition lessons", unserved:122770365, clean:28.4, gap:71.6, electricity:99.4, score:0.860},
-      {country:"Congo, Dem. Rep.", role:"High-need market; implementation risk high", unserved:100500244, clean:5.0, gap:95.0, electricity:21.5, score:0.665},
-      {country:"Mozambique", role:"High-need market; mini-grid assessment needed", unserved:31146158, clean:7.4, gap:92.6, electricity:33.2, score:0.687},
-      {country:"Ghana", role:"Higher electricity readiness comparison case", unserved:22705478, clean:32.8, gap:67.2, electricity:85.1, score:0.768}
-    ];
-
-    const dailyEnergy = [
-      {date:"Jun 1", ac:56.0, pv:34.2, dc:25.7, soc:47},
-      {date:"Jun 2", ac:45.7, pv:33.5, dc:23.2, soc:38},
-      {date:"Jun 3", ac:48.9, pv:33.8, dc:23.4, soc:40},
-      {date:"Jun 4", ac:44.8, pv:30.6, dc:26.2, soc:43},
-      {date:"Jun 5", ac:49.8, pv:34.1, dc:22.7, soc:49},
-      {date:"Jun 6", ac:45.6, pv:26.4, dc:25.5, soc:44},
-      {date:"Jun 7", ac:45.6, pv:29.3, dc:25.3, soc:43},
-      {date:"Jun 8", ac:64.2, pv:41.9, dc:28.6, soc:39},
-      {date:"Jun 9", ac:50.6, pv:34.2, dc:29.2, soc:33},
-      {date:"Jun 10", ac:58.0, pv:36.8, dc:26.7, soc:36},
-      {date:"Jun 11", ac:53.8, pv:41.0, dc:28.8, soc:30},
-      {date:"Jun 12", ac:58.0, pv:37.9, dc:26.1, soc:43},
-      {date:"Jun 13", ac:56.1, pv:37.4, dc:26.0, soc:41},
-      {date:"Jun 14", ac:50.9, pv:35.2, dc:24.9, soc:42},
-      {date:"Jun 15", ac:58.7, pv:37.8, dc:24.7, soc:47},
-      {date:"Jun 16", ac:59.2, pv:37.0, dc:32.1, soc:31},
-      {date:"Jun 17", ac:45.9, pv:28.3, dc:29.6, soc:30},
-      {date:"Jun 18", ac:54.2, pv:38.9, dc:27.5, soc:39},
-      {date:"Jun 19", ac:55.9, pv:36.6, dc:30.8, soc:43},
-      {date:"Jun 20", ac:52.4, pv:35.0, dc:25.2, soc:47},
-      {date:"Jun 21", ac:54.7, pv:34.3, dc:25.2, soc:42},
-      {date:"Jun 22", ac:63.6, pv:39.6, dc:34.2, soc:34},
-      {date:"Jun 23", ac:52.4, pv:34.6, dc:31.6, soc:28},
-      {date:"Jun 24", ac:57.3, pv:39.4, dc:29.5, soc:32},
-      {date:"Jun 25", ac:56.0, pv:37.0, dc:28.3, soc:42},
-      {date:"Jun 26", ac:49.9, pv:34.6, dc:27.0, soc:45},
-      {date:"Jun 27", ac:48.7, pv:34.0, dc:22.9, soc:46},
-      {date:"Jun 28", ac:58.1, pv:32.8, dc:31.8, soc:40},
-      {date:"Jun 29", ac:65.2, pv:37.0, dc:31.8, soc:38},
-      {date:"Jun 30", ac:52.6, pv:28.3, dc:30.4, soc:26}
-    ];
-
-    const sessionsByHour = [
-      {hour:2, sessions:1}, {hour:3, sessions:7}, {hour:4, sessions:11}, {hour:5, sessions:12},
-      {hour:6, sessions:12}, {hour:7, sessions:7}, {hour:8, sessions:5}, {hour:9, sessions:9},
-      {hour:10, sessions:14}, {hour:11, sessions:13}, {hour:12, sessions:8}, {hour:13, sessions:5},
-      {hour:14, sessions:7}, {hour:15, sessions:3}, {hour:16, sessions:3}, {hour:17, sessions:14},
-      {hour:18, sessions:19}, {hour:19, sessions:11}, {hour:20, sessions:11}, {hour:21, sessions:4}
-    ];
+    // Chart datasets are loaded at runtime from aggregate_data.json (see loadData at the bottom).
+    // Edit that file and reload — no code change needed for a data refresh.
+    let topUnserved = [];
+    let targetCountries = [];
+    let dailyEnergy = [];
+    let sessionsByHour = [];
 
     const fmt = new Intl.NumberFormat("en-US");
     const shortFmt = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
@@ -1403,11 +1342,75 @@
       });
     }
 
-    drawBarChart("top-unserved", topUnserved, { xLabel: "Countries" });
-    drawLineChart();
-    drawScatter();
-    drawBarChart("session-hours", sessionsByHour.map(d => ({ hour: d.hour, sessions: d.sessions })), { xLabel: "Hour of day, UTC" });
-    populateTargetTable();
+    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    function monthDay(iso) {
+      const parts = String(iso).split("-").map(Number);
+      if (parts.length >= 3 && !parts.some(Number.isNaN)) return `${MONTHS[parts[1] - 1]} ${parts[2]}`;
+      return String(iso);
+    }
+
+    function showDataError(err) {
+      const msg = `Could not load aggregate_data.json (${err.message}). ` +
+        `If you opened this file directly (file://), serve it over HTTP instead — e.g. "python3 -m http.server" in this folder.`;
+      ["top-unserved", "energy-line", "readiness-scatter", "session-hours"].forEach(id => {
+        const mount = document.getElementById(id);
+        if (mount) mount.innerHTML = `<p style="color:var(--red);font-size:13px;padding:12px 4px;">${msg}</p>`;
+      });
+      const banner = document.createElement("div");
+      banner.style.cssText = "background:var(--pale-red);color:var(--red);border:1px solid var(--red);" +
+        "padding:10px 16px;margin:12px 28px;border-radius:8px;font-size:13px;";
+      banner.textContent = msg;
+      document.body.prepend(banner);
+    }
+
+    async function loadData() {
+      let d;
+      try {
+        const res = await fetch("aggregate_data.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        d = await res.json();
+      } catch (err) {
+        showDataError(err);
+        return;
+      }
+
+      // Map the aggregate JSON into the four dataset shapes the charts expect.
+      topUnserved = d.country.top_unserved.slice(0, 10).map(r => ({
+        country: r["Country Name"],
+        value: r.people_without_clean_cooking_2023
+      }));
+
+      targetCountries = d.country.target_countries.map(r => ({
+        country: r["Country Name"],
+        role: r.recommended_role,
+        unserved: r.people_without_clean_cooking_2023,
+        clean: r.clean_access_2023_pct,
+        gap: r.clean_cooking_gap_pct ?? (100 - r.clean_access_2023_pct),
+        electricity: r.electricity_total_2022_pct,
+        score: r.ecooking_pilot_score
+      }));
+
+      dailyEnergy = d.minigrid.daily.map(r => ({
+        date: monthDay(r.date),
+        ac: r.ac_consumption_kwh_integrated,
+        pv: r.pv_inverter_kwh_integrated,
+        dc: r.dc_solar_yield_kwh,
+        soc: r.mean_battery_soc_pct
+      }));
+
+      sessionsByHour = d.ecooker.session_start_hour.map(r => ({
+        hour: r.start_hour_utc,
+        sessions: r.sessions
+      }));
+
+      drawBarChart("top-unserved", topUnserved, { xLabel: "Countries" });
+      drawLineChart();
+      drawScatter();
+      drawBarChart("session-hours", sessionsByHour, { xLabel: "Hour of day, UTC" });
+      populateTargetTable();
+    }
+
+    loadData();
   </script>
 </body>
 </html>

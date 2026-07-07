@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "source_data": "data/raw/HA_Oloika.sqlite (June 2025, 8 plugs / 5 households, 176 valid cooking sessions)",
+    "session_definition": "split on >20min gap; valid if duration>=2min OR approx_kwh>=0.02; see analysis/analyze_personas.py",
+    "time_zone": "EAT (UTC+3) for cooking windows",
+    "green_window_baseline": "65% of cooking energy already lands in solar (green-light) windows; ~35% (26 kWh of 73.5) is shiftable",
+    "caveat": "5 self-selected e-cooker-trial households are NOT representative of the 84 customers / 5000 people; personas are illustrative. Restaurant persona is SYNTHETIC (no restaurant metered)."
+  },
+  "personas": [
+    {
+      "id": "P1_daytime_ready",
+      "label": "Daytime-ready frequent cook",
+      "grounded": true,
+      "source_households": ["F"],
+      "source_plugs": ["015"],
+      "sessions_per_day": 2.2,
+      "median_session_min": 10.3,
+      "kwh_per_session": 0.19,
+      "kwh_per_day": 0.57,
+      "peak_w": 1149,
+      "primary_windows_eat": ["07:00-09:00", "12:00-14:00"],
+      "green_share_baseline_pct": 62,
+      "flexibility": "high",
+      "shiftable_energy_pct": 15,
+      "role": "Already cooks with the sun. Reinforce with rewards; little to move."
+    },
+    {
+      "id": "P2_evening_anchored",
+      "label": "Evening-anchored short cook (grid-stressing)",
+      "grounded": true,
+      "source_households": ["G", "H"],
+      "source_plugs": ["017", "018", "010", "011"],
+      "sessions_per_day": 1.9,
+      "median_session_min": 8.0,
+      "kwh_per_session": 0.2,
+      "kwh_per_day": 0.53,
+      "peak_w": 2031,
+      "primary_windows_eat": ["18:00-22:00"],
+      "green_share_baseline_pct": 40,
+      "flexibility": "medium",
+      "shiftable_energy_pct": 45,
+      "role": "PRIMARY TARGET. Cooks at the 20:00-22:00 peak on battery. Nudge earlier meals / pre-cook at midday."
+    },
+    {
+      "id": "P3_high_energy_midday",
+      "label": "High-energy midday household",
+      "grounded": true,
+      "source_households": ["B"],
+      "source_plugs": ["002", "006"],
+      "sessions_per_day": 2.2,
+      "median_session_min": 39.3,
+      "kwh_per_session": 0.66,
+      "kwh_per_day": 2.23,
+      "peak_w": 2101,
+      "primary_windows_eat": ["11:00-14:00"],
+      "green_share_baseline_pct": 63,
+      "flexibility": "low",
+      "shiftable_energy_pct": 20,
+      "role": "Biggest household load but well-timed to solar. Protect the window; trim the evening tail."
+    },
+    {
+      "id": "R1_restaurant_synthetic",
+      "label": "Small eatery / 'hotel' (electric-cooking scenario)",
+      "grounded": false,
+      "source_households": [],
+      "assumption_basis": "No restaurant was metered. Sized from an assumed electric appliance list, roughly 8x the heaviest trial household (B).",
+      "assumed_appliances": [
+        {"name": "commercial electric pressure cooker A", "rated_w": 3000, "sessions_per_day": 2, "typical_min": 60},
+        {"name": "commercial electric pressure cooker B", "rated_w": 3000, "sessions_per_day": 2, "typical_min": 45},
+        {"name": "bulk water/tea urn", "rated_w": 2000, "sessions_per_day": 3, "typical_min": 30},
+        {"name": "hotplate / griddle", "rated_w": 2000, "sessions_per_day": 3, "typical_min": 40}
+      ],
+      "sessions_per_day": 10,
+      "kwh_per_day": 18,
+      "peak_concurrent_w": 7000,
+      "primary_windows_eat": ["06:00-09:00", "11:00-14:00", "18:00-21:00"],
+      "green_share_baseline_pct": 45,
+      "flexibility": "split: LOW at meal service, HIGH for bulk prep (beans, water heating)",
+      "shiftable_energy_pct": 40,
+      "role": "SYNTHETIC. Largest single-customer lever if electrified: shift bulk prep (beans/water) to midday solar; keep service-time cooking fixed."
+    }
+  ]
+}
