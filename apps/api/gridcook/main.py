@@ -286,6 +286,43 @@ def account_wallet(account_id: str) -> dict[str, Any]:
     }
 
 
+@app.get(f"{API_PREFIX}/accounts/{{account_id}}/usage-summary", tags=["accounts"])
+def account_usage_summary(account_id: str) -> dict[str, Any]:
+    """Aggregate energy usage for the account over the dataset month.
+
+    One number per account: total kWh, sessions, active days, and the green-window
+    share - the monthly view the per-session / per-day endpoints only expose in raw
+    rows.
+    """
+    _get_one("minigrid_accounts", "account_id", account_id, "Account")
+    rows = db.query(
+        "SELECT COUNT(*) AS sessions, "
+        "COALESCE(SUM(kwh), 0) AS total_kwh, "
+        "COUNT(DISTINCT date) AS active_days, "
+        "MIN(date) AS period_start, MAX(date) AS period_end, "
+        "SUM(CASE WHEN slot_color = 'green' THEN 1 ELSE 0 END) AS green_sessions "
+        "FROM cooking_sessions WHERE account_id = ?",
+        [account_id],
+    )
+    row = rows[0] if rows else {}
+    sessions = int(row.get("sessions") or 0)
+    total_kwh = float(row.get("total_kwh") or 0.0)
+    active_days = int(row.get("active_days") or 0)
+    green_sessions = int(row.get("green_sessions") or 0)
+    return {
+        "account_id": account_id,
+        "period_start": row.get("period_start"),
+        "period_end": row.get("period_end"),
+        "total_kwh": round(total_kwh, 3),
+        "sessions": sessions,
+        "active_days": active_days,
+        "avg_daily_kwh": round(total_kwh / active_days, 3) if active_days else 0.0,
+        "avg_session_kwh": round(total_kwh / sessions, 3) if sessions else 0.0,
+        "green_sessions": green_sessions,
+        "green_session_share": round(green_sessions / sessions, 3) if sessions else 0.0,
+    }
+
+
 @app.get(f"{API_PREFIX}/accounts/{{account_id}}/recommendation", tags=["recommendations"])
 def account_recommendation(
     account_id: str,

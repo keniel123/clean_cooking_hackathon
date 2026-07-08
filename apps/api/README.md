@@ -54,6 +54,7 @@ All list endpoints support `limit` and `offset` pagination and return
 | GET | `/api/v1/accounts/{account_id}/cookers` | Cookers on the account |
 | GET | `/api/v1/accounts/{account_id}/sessions` | Cooking sessions (`date`, `slot_color`) |
 | GET | `/api/v1/accounts/{account_id}/daily-behavior` | Daily behavior features (`date`) |
+| GET | `/api/v1/accounts/{account_id}/usage-summary` | Monthly totals: total/avg kWh, sessions, active days, green share |
 | GET | `/api/v1/accounts/{account_id}/billing` | Billing ledger (`event_type`) |
 | GET | `/api/v1/accounts/{account_id}/credit-balance` | End-of-month credit balance (historical dataset) |
 | GET | `/api/v1/accounts/{account_id}/wallet` | Live earned-credit wallet (accrues from sessions) |

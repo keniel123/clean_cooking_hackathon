@@ -142,6 +142,7 @@ user cooks -> POST /sessions -> gridcook.db + live_sessions.csv -> (every N)
 | Method | Path | Purpose |
 | --- | --- | --- |
 | GET | `/api/v1/accounts/{id}/recommendation` | **Sign-in call**: personalized, capacity-aware 24h windows + credits |
+| GET | `/api/v1/accounts/{id}/usage-summary` | Monthly totals: total/avg kWh, sessions, active days, green share |
 | GET | `/api/v1/grid/daily-plan` | Community 24h color-coded plan |
 | GET | `/api/v1/grid/capacity` | Live per-hour capacity / headroom |
 | POST | `/api/v1/cooking-plans` | Book a chosen time; returns `suggested_credit_gain` |
