@@ -93,6 +93,17 @@ def _month(date_str: str) -> str:
     return date_str[:7]  # 'YYYY-MM'
 
 
+def _latest_balance_month(con: sqlite3.Connection, account_id: str, fallback: str) -> str:
+    """The account's most recent balance-sheet month (where its wallet lives),
+    or `fallback` if it has none yet. Keeps writes on the seeded demo month
+    rather than spawning a fresh zero balance in a later calendar month."""
+    row = con.execute(
+        "SELECT month FROM credit_balances WHERE account_id = ? "
+        "ORDER BY month DESC LIMIT 1", (account_id,)
+    ).fetchone()
+    return row["month"] if row else fallback
+
+
 def charge_for(kwh: float) -> int:
     return max(MIN_CHARGE_CREDITS, round(kwh * CREDITS_PER_KWH_CHARGE))
 
@@ -181,7 +192,9 @@ def complete_session(
                  kwh, slot_color, shifted_daytime),
             )
 
-        month = _month((start_at or now)[:10])
+        # Bill against the account's current balance sheet (seeded demo month),
+        # not the session's calendar month, so the wallet stays coherent.
+        month = _latest_balance_month(con, account_id, _month((start_at or now)[:10]))
         bal_row = con.execute(
             "SELECT ending_balance_credits FROM credit_balances "
             "WHERE account_id = ? AND month = ?", (account_id, month)
@@ -260,7 +273,6 @@ def top_up(con: sqlite3.Connection, account_id: str, cash_kes: int,
         raise WriteError("cash_kes must be > 0")
     credits = cash_kes * CREDITS_PER_KES
     now = _now()
-    month = month or now[:7]
 
     con.execute("BEGIN IMMEDIATE")
     try:
@@ -270,6 +282,10 @@ def top_up(con: sqlite3.Connection, account_id: str, cash_kes: int,
         ).fetchone()
         if acct is None:
             raise UnknownAccount(account_id)
+
+        # Apply to the account's current balance sheet (seeded demo month),
+        # not the calendar month — else a later-month top-up resets the wallet.
+        month = month or _latest_balance_month(con, account_id, now[:7])
 
         row = con.execute(
             "SELECT ending_balance_credits FROM credit_balances "

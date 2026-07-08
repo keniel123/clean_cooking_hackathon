@@ -207,7 +207,7 @@ def _load_table(connection: sqlite3.Connection, table: str, filename: str,
 # user booking a cooking time). They are not part of the shipped CSV dataset.
 _RUNTIME_TABLES = (
     """
-    CREATE TABLE cooking_plans (
+    CREATE TABLE IF NOT EXISTS cooking_plans (
         plan_id TEXT PRIMARY KEY,
         account_id TEXT NOT NULL,
         cooker_id TEXT,
@@ -227,10 +227,22 @@ _RUNTIME_TABLES = (
 
 
 def _build_connection() -> sqlite3.Connection:
-    connection = sqlite3.connect(":memory:", check_same_thread=False)
-    connection.row_factory = sqlite3.Row
-    for table, (filename, numeric_columns) in _TABLE_SOURCES.items():
-        _load_table(connection, table, filename, numeric_columns)
+    # Persistent mode: if GRIDCOOK_DB_PATH points at a seeded oloika.sqlite, use
+    # that file (writes survive restarts). Its table names match the CSV-derived
+    # ones, so every read query works unchanged. Otherwise fall back to the
+    # original ephemeral in-memory build from the synthetic CSVs.
+    db_path = os.environ.get("GRIDCOOK_DB_PATH")
+    if db_path and Path(db_path).exists():
+        connection = sqlite3.connect(db_path, check_same_thread=False)
+        connection.row_factory = sqlite3.Row
+        connection.execute("PRAGMA foreign_keys = ON")
+        connection.execute("PRAGMA journal_mode = WAL")
+        connection.execute("PRAGMA busy_timeout = 10000")
+    else:
+        connection = sqlite3.connect(":memory:", check_same_thread=False)
+        connection.row_factory = sqlite3.Row
+        for table, (filename, numeric_columns) in _TABLE_SOURCES.items():
+            _load_table(connection, table, filename, numeric_columns)
     for statement in _RUNTIME_TABLES:
         connection.execute(statement)
     connection.commit()
