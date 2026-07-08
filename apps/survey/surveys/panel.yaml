@@ -1,0 +1,24 @@
+# Panel calendar for the eCooking study (Schedule & rotation sheet).
+# Slugs must match the instrument files in this directory.
+
+enrolment: ecooking-enrolment
+
+baseline:                      # days counted from consent (day 0)
+  - {slug: ecooking-baseline-1, day: 1}
+  - {slug: ecooking-baseline-2, day: 3}
+  - {slug: ecooking-baseline-3, day: 5}
+
+# Pulse variants for weeks 1-3 of each 4-week month (rotation repeats monthly).
+weekly:
+  - ecooking-pulse-week-1      # anchors + W4 appliance use + W5 dishes
+  - ecooking-pulse-week-2      # anchors + W6 problems + W7 bonus-unit effect
+  - ecooking-pulse-week-3      # anchors + W8 who cooked + W4 appliance use
+
+# Week 4 of each month; alternates a/b so M5/M8 and M6a/M6b rotate.
+monthly:
+  - ecooking-monthly-a
+  - ecooking-monthly-b
+
+quarterly: ecooking-quarterly  # replaces the monthly in months 3, 6, 9, 12
+
+rebaseline: {slug: ecooking-rebaseline, month: 12}   # replaces the week-3 pulse

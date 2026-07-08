@@ -1,0 +1,144 @@
+# Month 12 re-baseline: B7-B23 repeated so 12-month change can be measured
+# against the original baseline. B24 (send-time preference) is not repeated.
+
+slug: ecooking-rebaseline
+title: Re-baseline (month 12) — B7-B23 repeated
+module: rebaseline
+reward_kwh: 2.0
+
+questions:
+  - key: B7
+    var: own_epc
+    type: single
+    choices: 3
+    text:
+      en: "Do you have an electric pressure cooker (EPC)? 1=Yes, working 2=Yes, but broken 3=No"
+      sw: "Je, una jiko la shinikizo la umeme (EPC)? 1=Ndiyo, linafanya kazi 2=Ndiyo, lakini ni bovu 3=Sina"
+
+  - key: B8
+    var: own_hob
+    type: single
+    choices: 3
+    text:
+      en: "Do you have an electric hob or hotplate? 1=Yes, working 2=Yes, but broken 3=No"
+      sw: "Je, una jiko la umeme la sahani (hotplate)? 1=Ndiyo, linafanya kazi 2=Ndiyo, lakini ni bovu 3=Sina"
+
+  - key: B9
+    var: fuels_7d
+    type: multi
+    choices: 5
+    text:
+      en: "Which did you use for cooking in the past 7 days? Reply all that apply, e.g. 1,3: 1=Firewood 2=Charcoal 3=LPG gas 4=Electricity 5=Kerosene"
+      sw: "Ulitumia nini kupika siku 7 zilizopita? Jibu zote, mfano 1,3: 1=Kuni 2=Makaa 3=Gesi 4=Umeme 5=Mafuta ya taa"
+
+  - key: B10
+    var: fuel_main
+    type: single
+    choices: 5
+    text:
+      en: "Which ONE do you use MOST to cook the main meal? 1=Firewood 2=Charcoal 3=LPG gas 4=Electricity 5=Kerosene"
+      sw: "Unatumia nini ZAIDI kupika chakula kikuu? Chagua MOJA: 1=Kuni 2=Makaa 3=Gesi 4=Umeme 5=Mafuta ya taa"
+
+  - key: B11
+    var: fuel_why
+    type: single
+    choices: 5
+    text:
+      en: "Main reason you use that fuel most? 1=Cheapest 2=Cooks fastest 3=Food tastes better 4=Easy to get 5=I know it best"
+      sw: "Sababu kuu ya kutumia nishati hiyo zaidi? 1=Bei nafuu 2=Inapika haraka 3=Chakula kitamu zaidi 4=Rahisi kupata 5=Naifahamu zaidi"
+
+  - key: B12
+    var: fuel_spend_7d
+    type: single
+    choices: 5
+    text:
+      en: "How much did your home spend on charcoal, LPG or kerosene in the last 7 days? 1=Nothing 2=Under 100 3=100-300 4=301-500 5=Over 500 (KSh)"
+      sw: "Mlitumia pesa ngapi kwa makaa, gesi au mafuta ya taa siku 7 zilizopita? 1=Hakuna 2=Chini ya 100 3=100-300 4=301-500 5=Zaidi ya 500 (KSh)"
+
+  - key: B13
+    var: wood_hours
+    type: single
+    choices: 5
+    text:
+      en: "How many hours a week does your household spend collecting firewood? 1=None 2=Under 2 3=2-5 4=6-10 5=Over 10"
+      sw: "Nyumba yako hutumia saa ngapi kwa wiki kutafuta kuni? 1=Hakuna 2=Chini ya 2 3=2-5 4=6-10 5=Zaidi ya 10"
+
+  - key: B14
+    var: meals_yday
+    type: multi
+    choices: 4
+    text:
+      en: "Which meals did you cook yesterday? Reply all, e.g. 1,3: 1=Breakfast 2=Lunch 3=Supper 4=Did not cook"
+      sw: "Ulipika milo gani jana? Jibu zote, mfano 1,3: 1=Asubuhi 2=Mchana 3=Jioni 4=Sikupika"
+
+  - key: B15
+    var: meal_biggest
+    type: single
+    choices: 3
+    text:
+      en: "Which is the biggest meal cooked in your home? 1=Breakfast 2=Lunch 3=Supper"
+      sw: "Mlo mkubwa nyumbani kwako ni upi? 1=Wa asubuhi 2=Wa mchana 3=Wa jioni"
+
+  - key: B16
+    var: longboil_freq
+    type: single
+    choices: 4
+    text:
+      en: "How often do you cook githeri, beans or other foods that boil for long? 1=Most days 2=1-3 times a week 3=Rarely 4=Never"
+      sw: "Unapika githeri, maharagwe au vyakula vya kuchemshwa muda mrefu mara ngapi? 1=Karibu kila siku 2=Mara 1-3 kwa wiki 3=Mara chache 4=Kamwe"
+
+  - key: B17
+    var: time_driver
+    type: single
+    choices: 5
+    text:
+      en: "What most decides WHAT TIME you cook? 1=Farm or work hours 2=When family is home 3=When fuel or stove is ready 4=Habit 5=Other"
+      sw: "Nini huamua zaidi WAKATI unapopika? 1=Kazi au shamba 2=Familia wakiwa nyumbani 3=Nishati au jiko tayari 4=Mazoea 5=Nyingine"
+
+  - key: B18
+    var: midday_freq
+    type: single
+    choices: 3
+    text:
+      en: "Do you cook anything between 10am and 3pm? 1=Most days 2=Some days 3=Rarely or never"
+      sw: "Je, unapika chochote kati ya 10am na 3pm (saa 4 - saa 9 mchana)? 1=Siku nyingi 2=Siku zingine 3=Mara chache"
+
+  - key: B19
+    var: midday_barrier
+    type: single
+    choices: 5
+    text:
+      en: "Main reason you do not cook more at midday? 1=Away at farm or market 2=Main meal is at night 3=No one home then 4=Cost of units 5=Other"
+      sw: "Sababu kuu ya kutopika zaidi mchana? 1=Niko shambani au sokoni 2=Chakula kikuu ni cha jioni 3=Hakuna mtu nyumbani 4=Gharama ya units 5=Nyingine"
+
+  - key: B20
+    var: ecook_barrier
+    type: single
+    choices: 5
+    text:
+      en: "What most stops you cooking with electricity? 1=Cost of units 2=Fear of the appliance 3=Food taste 4=Appliance broken or too small 5=Power cuts"
+      sw: "Nini kinakuzuia zaidi kupika kwa umeme? 1=Gharama ya units 2=Hofu ya kifaa 3=Ladha ya chakula 4=Kifaa ni kibovu au kidogo 5=Umeme kukatika"
+
+  - key: B21
+    var: free_units_intent
+    type: single
+    choices: 3
+    text:
+      en: "If you got FREE units usable only 10am-3pm, would you cook lunch with electricity? 1=Yes 2=Maybe 3=No"
+      sw: "Ukipata units za BURE za kutumia 10am-3pm tu, ungepika chakula cha mchana kwa umeme? 1=Ndiyo 2=Labda 3=Hapana"
+
+  - key: B22
+    var: freed_time_use
+    type: single
+    choices: 5
+    text:
+      en: "If cooking took 2 hours less each day, what would you do with that time? 1=Farming 2=Small business like sewing or selling 3=Childcare 4=Rest 5=Study"
+      sw: "Kama kupika kungechukua saa 2 pungufu kwa siku, ungefanya nini na muda huo? 1=Kilimo 2=Biashara ndogo kama kushona au kuuza 3=Kulea watoto 4=Kupumzika 5=Kusoma"
+
+  - key: B23
+    var: income_interest
+    type: single
+    choices: 3
+    text:
+      en: "If you had more free time, would you start or grow an activity that earns money? 1=Yes, very much 2=Maybe 3=No"
+      sw: "Ukipata muda zaidi, ungeanzisha au kukuza shughuli ya kipato? 1=Ndiyo, sana 2=Labda 3=Hapana"

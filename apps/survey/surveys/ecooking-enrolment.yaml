@@ -1,0 +1,51 @@
+# Day 0: language choice, consent (Kenya DPA 2019), welcome, respondent check.
+
+slug: ecooking-enrolment
+title: Enrolment & consent
+module: enrolment
+reward_kwh: 0.5
+
+questions:
+  - key: S0
+    var: lang_pref
+    type: single
+    choices: 2
+    sets: {attr: language, map: {"1": "sw", "2": "en"}}
+    text:
+      en: "Habari! Hii ni {utility}. Kwa maswali kwa Kiswahili, jibu 1. For questions in English, reply 2."
+      sw: "Habari! Hii ni {utility}. Kwa maswali kwa Kiswahili, jibu 1. For questions in English, reply 2."
+
+  - key: S1
+    var: consent
+    type: yesno
+    sets: {attr: consent}
+    end_if:
+      value: "no"
+      opt_out: true
+      message:
+        en: "Thank you for your reply. You will not receive any survey messages."
+        sw: "Asante kwa jibu lako. Hutatumiwa ujumbe wa utafiti."
+    text:
+      en: "We invite you to short SMS surveys about cooking and power. Each completed survey earns FREE units. Reply YES to join or NO. Text STOP anytime to leave."
+      sw: "Tunakualika kwenye maswali mafupi ya SMS kuhusu upishi na umeme. Ukimaliza unapata units za BURE. Jibu NDIYO kujiunga au HAPANA. Tuma ACHA kuacha."
+
+  - key: S2
+    type: system
+    text:
+      en: "Thank you for joining! Rewards are FREE daytime units usable 10am-3pm (saa 4 asubuhi-saa 9 alasiri) when solar power is strongest. Questions start tomorrow."
+      sw: "Asante kwa kujiunga! Zawadi ni units za BURE za mchana, zinatumika 10am-3pm (saa 4 asubuhi - saa 9 alasiri) wakati nguvu ya jua iko juu. Maswali huanza kesho."
+
+  - key: C1
+    var: main_cook
+    type: single
+    choices: 3
+    text:
+      en: "Are you the person who cooks most meals in your home? 1=Yes 2=I cook sometimes 3=I rarely cook"
+      sw: "Je, wewe ndiye unayepika mara nyingi nyumbani? 1=Ndiyo 2=Napika mara kwa mara tu 3=Sipiki sana"
+
+  - key: SYS_PASS
+    type: system
+    ask_if: [{var: main_cook, equals: 3}]
+    text:
+      en: "Please ask the person who cooks most meals to answer the next questions, if possible."
+      sw: "Tafadhali mwombe anayepika mara nyingi ajibu maswali yajayo, ikiwezekana."

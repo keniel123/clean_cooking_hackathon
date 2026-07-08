@@ -26,9 +26,13 @@ const router = createBrowserRouter([
 ])
 
 // point VITE_API_BASE_URL at a GridCook API (see apps/api, or `npm run dev:api` /
-// `npm run dev:live`) for live data; without it the app runs on the seeded mock
+// `npm run dev:live`) for live data; without it the app runs on the seeded mock.
+// VITE_SURVEY_API_BASE_URL additionally pulls SMS survey history from apps/survey.
 const apiBaseUrl: string | undefined = import.meta.env.VITE_API_BASE_URL
-const provider = apiBaseUrl ? new HttpDataProvider(apiBaseUrl) : new MockDataProvider(42)
+const surveyBaseUrl: string | undefined = import.meta.env.VITE_SURVEY_API_BASE_URL
+const provider = apiBaseUrl
+  ? new HttpDataProvider(apiBaseUrl, { surveyBaseUrl })
+  : new MockDataProvider(42)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

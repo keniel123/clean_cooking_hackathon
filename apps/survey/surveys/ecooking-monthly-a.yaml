@@ -1,0 +1,65 @@
+# Monthly module, odd months (week 4): spend, satisfaction, M5 taste and
+# M6a incentive preference.
+
+slug: ecooking-monthly-a
+title: Monthly — variant A (M5 taste, M6a incentive preference)
+module: monthly
+reward_kwh: 0.7
+
+questions:
+  - key: M1
+    var: m_spend_biomass
+    type: single
+    choices: 5
+    text:
+      en: "In the last 30 days, how much did your home spend on charcoal and firewood? 1=Nothing 2=Under 200 3=200-500 4=501-1000 5=Over 1000 (KSh)"
+      sw: "Siku 30 zilizopita, mlitumia pesa ngapi kwa makaa na kuni? 1=Hakuna 2=Chini ya 200 3=200-500 4=501-1000 5=Zaidi ya 1000 (KSh)"
+
+  - key: M2
+    var: m_spend_lpg
+    type: single
+    choices: 5
+    text:
+      en: "In the last 30 days, how much on LPG gas and kerosene? 1=Nothing 2=Under 200 3=200-500 4=501-1000 5=Over 1000 (KSh)"
+      sw: "Siku 30 zilizopita, mlitumia pesa ngapi kwa gesi na mafuta ya taa? 1=Hakuna 2=Chini ya 200 3=200-500 4=501-1000 5=Zaidi ya 1000 (KSh)"
+
+  - key: M3
+    var: m_wood_hours
+    type: single
+    choices: 5
+    text:
+      en: "How many hours a week does your household spend collecting firewood? 1=None 2=Under 2 3=2-5 4=6-10 5=Over 10"
+      sw: "Nyumba yako hutumia saa ngapi kwa wiki kutafuta kuni? 1=Hakuna 2=Chini ya 2 3=2-5 4=6-10 5=Zaidi ya 10"
+
+  - key: M4
+    var: m_satisfaction
+    type: single
+    choices: 5
+    text:
+      en: "How happy are you with cooking on electricity? 1=Very happy 2=Happy 3=In the middle 4=Unhappy 5=I have not tried"
+      sw: "Umeridhika kiasi gani kupika kwa umeme? 1=Nimefurahi sana 2=Nimefurahi 3=Wastani 4=Sijaridhika 5=Sijajaribu"
+
+  - key: M5
+    var: m_taste
+    type: single
+    choices: 4
+    skip_if: [{var: own_epc, equals: 3}]
+    text:
+      en: "Food cooked in the EPC tastes: 1=Better than usual 2=Same 3=Worse 4=I have not tried"
+      sw: "Chakula kilichopikwa kwa EPC ladha yake ni: 1=Nzuri zaidi 2=Sawa na kawaida 3=Mbaya zaidi 4=Sijajaribu"
+
+  - key: M6a
+    var: m_incentive_pref
+    type: single
+    choices: 4
+    text:
+      en: "Which ONE would most help you cook at midday? 1=More free units 10am-3pm 2=Half-price units at midday 3=Free units anytime 4=Airtime bonus"
+      sw: "Nini kingekusaidia ZAIDI kupika mchana? 1=Units zaidi za bure 10am-3pm 2=Bei nusu mchana 3=Units za bure wakati wowote 4=Bonasi ya airtime"
+
+  - key: M7
+    var: m_time_use
+    type: single
+    choices: 5
+    text:
+      en: "This month, did cooking with electricity save you time for anything new? 1=Farming 2=Business or earning 3=Family time 4=Rest 5=No time saved"
+      sw: "Mwezi huu, kupika kwa umeme kulikupa muda wa jambo jipya? 1=Kilimo 2=Biashara au kipato 3=Muda na familia 4=Kupumzika 5=Hakuna muda"
