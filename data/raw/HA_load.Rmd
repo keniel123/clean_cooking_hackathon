@@ -1,0 +1,84 @@
+---
+title: "Load e-cooker data v1.0"
+author: "L Blunden lsb1@soton.ac.uk"
+date: "July 2026"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+The data was collected in Oloika, Kenya during June 2025. It consists of smart plug readings of e-cooker usage in participating households. There are probably data gaps and the data is not regular in time. Power values lower than 100 W have been excluded. Please do not share data without permission.
+
+## Libraries
+
+```{r include=TRUE,warning=FALSE}
+library(magrittr)
+library(dplyr)
+library(lubridate)
+library(tidyr)
+library(ggplot2)
+library(DBI)
+library(RSQLite)
+```
+
+## Household <--> smartplug lookup
+```{r}
+plug_hh <- data.frame(
+  plug=c("002","006","010","011","013","015","017","018"),
+  hh=c("B","B","H","H","E","F","G","G")
+)
+```
+
+
+## Load data from SQLite database 
+Sort out time stamp and factor variable (data types lost during translation to DB)
+
+```{r load_data}
+mydb <- dbConnect(RSQLite::SQLite(), "HA_Oloika.sqlite")
+pow <- dbGetQuery(mydb, 'SELECT * FROM pow')
+nrg <- dbGetQuery(mydb, 'SELECT * FROM nrg')
+con <- dbGetQuery(mydb, 'SELECT * FROM con')
+vlt <- dbGetQuery(mydb, 'SELECT * FROM vlt')
+dbDisconnect(mydb)
+pow %<>% mutate(tstamp = as.POSIXct(last_changed, "%Y-%m-%dT%H:%M:%OS", tz="Zulu"))
+pow %<>% mutate(plugf = as.factor(plug))
+nrg %<>% mutate(tstamp = as.POSIXct(last_changed, "%Y-%m-%dT%H:%M:%OS", tz="Zulu"))
+nrg %<>% mutate(plugf = as.factor(plug))
+con %<>% mutate(tstamp = as.POSIXct(last_changed, "%Y-%m-%dT%H:%M:%OS", tz="Zulu"))
+con %<>% mutate(plugf = as.factor(plug))
+vlt %<>% mutate(tstamp = as.POSIXct(last_changed, "%Y-%m-%dT%H:%M:%OS", tz="Zulu"))
+vlt %<>% mutate(plugf = as.factor(plug))
+```
+
+
+## Structure
+Subscript 'EAT' indicates East African time (hour of day, etc.). Factor 'gl' indicates if the 'green light' was on (daytime, PV generating). 'Plug' is the smart plug number, which should correspond to one cooker and one location.
+
+  *  'pow' (power), values in W, values below 100 W excluded as these will not be e-cookers. EPC signature will be on/off blocks of around 1000 W. Induction hob more variable, up to around 2000 W.
+  *  'nrg' (cumulative monthly energy), values in kWh. Value buffered by smartplug (continues to increment even if data connection lost)
+  *  'con' (connection), values 1 = data connection established
+  *  'vlt' (voltage), values in VAC
+
+
+```{r}
+head(pow)
+head(nrg)
+head(con)
+head(vlt)
+```
+
+
+## Summary
+```{r}
+summary(pow)
+summary(nrg)
+summary(con)
+summary(vlt)
+```
+
+
+
+
