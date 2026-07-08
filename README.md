@@ -16,6 +16,8 @@ usually publishes within a minute.
 ```
 index.html            # single-page dashboard; charts fetch aggregate_data.json
 aggregate_data.json   # data source (country + Oloika mini-grid + e-cooker aggregates)
+apps/                 # hackathon apps: api (GridCook REST API), dashboard
+                      #   (utility monitoring UI, wired to the API), mobile, model
 build/                # data pipeline
   prepare_data.py     #   builds aggregate_data.json from raw inputs (see data note)
   build_workbook.mjs  #   builds the aggregate .xlsx
