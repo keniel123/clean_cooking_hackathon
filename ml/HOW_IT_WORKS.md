@@ -44,6 +44,17 @@ classifier) but the recommender is what drives the product.
 ## Recommendation
 
 When a user signs in, the app calls **`GET /api/v1/accounts/{id}/recommendation`**.
+
+**What data is used to make the recommendation:**
+
+- **This account's history** (from `oloika_account_daily_behavior` + `oloika_minigrid_accounts`) — their mean sessions, kWh, green-window share, red-window sessions, daytime-shift count, credits earned/spent, fuel-stacking risk. This is what personalizes it.
+- **Persona** (from `oloika_households` / `oloika_commercial_profiles`) — clean-cooking readiness, shiftability, household vs commercial.
+- **Shared-grid state per hour of day** (from `oloika_grid_hourly`) — mean solar/PV power, battery SoC, AC load, voltage, alarms for each hour. This encodes when the one grid has clean, spare capacity.
+- **Live committed load for the chosen date** (from the runtime DB) — other users' bookings (`cooking_plans`) + actual sessions (`cooking_sessions_live`) already on the grid that day, versus the hour's usable capacity.
+- **Newly recorded sessions** — once retraining promotes a new checkpoint, the model weights themselves reflect the latest community usage (see Continual learning).
+
+The first three feed the neural net (per-account + grid features -> color, `P(green)`, expected kWh); the fourth is applied live on top by `capacity.py`; the fifth updates the model over time.
+
 Pipeline:
 
 1. `apps/api` asks `ml/api` for the account's full 24-hour set (per-hour color,
