@@ -89,12 +89,16 @@ and re-ranks windows so the shared grid is not overloaded.
 | Method | Path | Description |
 | --- | --- | --- |
 | POST | `/api/v1/sessions` | Record an actual cooking session; funnels into ML training |
-| GET | `/api/v1/learning/state` | Sessions since last retrain, last trained version |
-| POST | `/api/v1/learning/retrain` | Manually trigger a continual-learning update |
+| GET | `/api/v1/learning/state` | Sessions since last retrain, last version, live retrain job status |
 
 `POST /api/v1/sessions` persists the session, appends it to
 `data/runtime/live_sessions.csv`, and increments the training counter. After
-`GRIDCOOK_RETRAIN_EVERY` (default 20) sessions it fires a background retrain.
+`GRIDCOOK_RETRAIN_EVERY` (default 20) sessions it **automatically** fires a
+retrain - there is no manual retrain endpoint. The retrain runs asynchronously
+in-process on `ml/api` (single-flight background thread, reusing the loaded model
+and cached features), so `POST /sessions` returns instantly, inference keeps
+serving the current model, and the model hot-swaps only if a better checkpoint is
+promoted. `GET /api/v1/learning/state` exposes the live job status (`ml_retrain`).
 
 ### Cooking plans (write)
 | Method | Path | Description |
@@ -409,8 +413,12 @@ This is one shared mini-grid. Two mechanisms keep recommendations honest:
    (`features.load_sessions()`) concatenates those rows onto the June history, so
    retraining learns from the full community. After `GRIDCOOK_RETRAIN_EVERY`
    sessions, the API calls `ml/api` `POST /learning/continual-update?source=live`,
-   which fine-tunes, promotes a new `nn-vN` checkpoint if it wins, and hot-reloads
-   the live model. The next recommendation reflects the newest community data.
+   which returns immediately (202) and runs a **replay-based incremental
+   fine-tune** on a background thread: it warm-starts from the current checkpoint,
+   mixes the new sessions with a replay sample of history (so it doesn't forget),
+   and promotes a new `nn-vN` checkpoint only if it beats the current model +
+   baseline, then hot-swaps it. It is not a from-scratch retrain, and it never
+   blocks inference. The next recommendation reflects the newest community data.
 
 ```
 user cooks -> POST /sessions -> gridcook.db + live_sessions.csv -> (every N)

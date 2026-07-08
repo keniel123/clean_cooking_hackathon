@@ -65,22 +65,31 @@ def community_hours() -> dict[int, dict[str, Any]] | None:
     return {int(row["hour_eat"]): row for row in hours}
 
 
-# Retrains can take a while; use a longer timeout than the read calls.
-RETRAIN_TIMEOUT_SECONDS = float(os.environ.get("GRIDCOOK_ML_RETRAIN_TIMEOUT", "600"))
-
-
 def trigger_continual_update(source: str = "live", epochs: int = 5) -> dict[str, Any] | None:
-    """Ask ml/api to retrain from accumulated live sessions. None on failure.
+    """Kick off a background retrain on ml/api and return immediately. None on failure.
 
-    The ML service must run with ``GRIDCOOK_ENABLE_CONTINUAL_LEARNING=1`` to
-    accept this; otherwise it returns 403 and this returns None.
+    The retrain now runs asynchronously on the ML service, so this returns the
+    accepted-job envelope (``status: started|already_running``) fast - it does
+    not wait for training to finish. The ML service must run with
+    ``GRIDCOOK_ENABLE_CONTINUAL_LEARNING=1``; otherwise it returns 403 -> None.
     """
     try:
-        with httpx.Client(base_url=ML_API_URL, timeout=RETRAIN_TIMEOUT_SECONDS) as client:
+        with _client() as client:
             response = client.post(
                 "/learning/continual-update",
                 params={"source": source, "epochs": epochs},
             )
+            response.raise_for_status()
+            return response.json()
+    except (httpx.HTTPError, ValueError):
+        return None
+
+
+def retrain_status() -> dict[str, Any] | None:
+    """Current retrain job state from ml/api, or None if unavailable."""
+    try:
+        with _client() as client:
+            response = client.get("/learning/status")
             response.raise_for_status()
             return response.json()
     except (httpx.HTTPError, ValueError):

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import csv
 import os
+import time
 import uuid
 from datetime import date as date_cls
 from datetime import datetime, timezone
@@ -37,6 +38,10 @@ PLAN_STATUS_CANCELLED = "cancelled"
 
 # Continual learning: retrain after this many recorded live sessions.
 RETRAIN_EVERY = int(os.environ.get("GRIDCOOK_RETRAIN_EVERY", "20"))
+# The retrain itself runs asynchronously on ml/api; these bound the off-request
+# poll that records the promoted version for bookkeeping.
+RETRAIN_POLL_TIMEOUT_SECONDS = float(os.environ.get("GRIDCOOK_RETRAIN_POLL_TIMEOUT", "300"))
+RETRAIN_POLL_INTERVAL_SECONDS = 3.0
 DAYTIME_START_HOUR = scoring.DAYTIME_START_HOUR
 DAYTIME_END_HOUR = scoring.DAYTIME_END_HOUR
 DEFAULT_SESSION_KWH = scoring.FALLBACK_SESSION_KWH
@@ -82,10 +87,19 @@ def _capacity_aware_assessment(account_id: str, plan_date: str, hour: int,
 
 
 def _run_retrain_and_record() -> None:
-    """Background retrain: trigger ml/api, then record the promoted version."""
-    result = ml_client.trigger_continual_update()
-    if result is not None:
-        db.reset_sessions_since_train(result.get("model_version"))
+    """Kick off the async retrain on ml/api, then (off the request path) wait for
+    it to finish and record the promoted model version for bookkeeping."""
+    if ml_client.trigger_continual_update() is None:
+        return
+    deadline = time.monotonic() + RETRAIN_POLL_TIMEOUT_SECONDS
+    while time.monotonic() < deadline:
+        status = ml_client.retrain_status()
+        if status is None:
+            return
+        if not status.get("running"):
+            db.reset_sessions_since_train(status.get("model_version"))
+            return
+        time.sleep(RETRAIN_POLL_INTERVAL_SECONDS)
 
 
 def _append_live_session_csv(row: dict[str, Any]) -> None:
@@ -574,7 +588,11 @@ def record_session(session: SessionRecordRequest,
 
 @app.get(f"{API_PREFIX}/learning/state", tags=["learning"])
 def learning_state() -> dict[str, Any]:
-    """Continual-learning bookkeeping: sessions since last retrain, last version."""
+    """Continual-learning bookkeeping: sessions since last retrain + live job status.
+
+    Retraining is kicked off automatically once ``retrain_every`` sessions accrue
+    (no manual endpoint needed); this is the read-only view of that loop.
+    """
     state = db.get_train_state()
     return {
         "sessions_since_train": state["sessions_since_train"],
@@ -582,21 +600,8 @@ def learning_state() -> dict[str, Any]:
         "last_trained_version": state["last_trained_version"],
         "last_trained_at": state["last_trained_at"],
         "live_sessions_recorded": db.count_rows("cooking_sessions_live"),
+        "ml_retrain": ml_client.retrain_status(),
     }
-
-
-@app.post(f"{API_PREFIX}/learning/retrain", tags=["learning"])
-def retrain_now() -> dict[str, Any]:
-    """Manually trigger a continual-learning update from accumulated live sessions."""
-    result = ml_client.trigger_continual_update()
-    if result is None:
-        raise HTTPException(
-            status_code=502,
-            detail="ML service unavailable or retrain failed. "
-                   "Ensure ml/api is running with GRIDCOOK_ENABLE_CONTINUAL_LEARNING=1.",
-        )
-    db.reset_sessions_since_train(result.get("model_version"))
-    return result
 
 
 # --------------------------------------------------------------------------- #

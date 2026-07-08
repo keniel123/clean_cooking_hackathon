@@ -3,12 +3,12 @@
   "export": {
     "account_hours": 84,
     "exists": true,
-    "generated_at": "2026-07-08T08:52:10.205403+00:00",
+    "generated_at": "2026-07-08T13:15:09.492116+00:00",
     "generated_hours": 24,
-    "model_version": "nn-v6",
+    "model_version": "nn-v5",
     "path": "ml/exports/nn_predictions.json"
   },
-  "generated_at": "2026-07-08T08:52:11.735482+00:00",
+  "generated_at": "2026-07-08T13:15:11.421825+00:00",
   "models": {
     "demand_forecaster": {
       "checkpoint_path": "ml/checkpoints/demand_forecaster/nn-v3.pt",
@@ -65,8 +65,8 @@
       ]
     },
     "recommender": {
-      "checkpoint_path": "ml/checkpoints/recommender/nn-v6.pt",
-      "current": "nn-v6",
+      "checkpoint_path": "ml/checkpoints/recommender/nn-v5.pt",
+      "current": "nn-v5",
       "feature_columns": [
         "sessions",
         "kwh",
@@ -90,7 +90,6 @@
       "has_manifest": true,
       "metrics": {
         "baseline_slot_macro_f1": 0.2408,
-        "continual_val_macro_f1": 0.6667,
         "test_kwh_mae": 0.2803,
         "test_samples": 656,
         "test_slot_macro_f1": 0.9479
@@ -103,8 +102,7 @@
         "nn-v2",
         "nn-v3",
         "nn-v4",
-        "nn-v5",
-        "nn-v6"
+        "nn-v5"
       ]
     },
     "risk_classifier": {

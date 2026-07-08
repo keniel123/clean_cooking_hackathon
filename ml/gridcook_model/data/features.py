@@ -87,8 +87,14 @@ def _add_cyclical_hour(frame: pd.DataFrame, hour_column: str = "hour_eat") -> pd
     return frame
 
 
+@lru_cache(maxsize=1)
 def build_grid_frame() -> pd.DataFrame:
-    """Return hourly grid rows with engineered features and an integer slot label."""
+    """Return hourly grid rows with engineered features and an integer slot label.
+
+    Cached: the historical grid CSV is static for the life of the process, so this
+    (and the account table below) are built once. This is what keeps live
+    inference and in-process retrains fast - callers treat the result as read-only.
+    """
     frame = load_csv("oloika_grid_hourly_june_2025.csv").copy()
     frame["pv_power_w"] = frame[_PV_SOURCE_COLUMNS].max(axis=1, skipna=True)
     frame["pv_power_w"] = frame["pv_power_w"].fillna(0.0)
@@ -193,8 +199,19 @@ ACCOUNT_BEHAVIOR_COLUMNS = [
 ]
 
 
+@lru_cache(maxsize=1)
+def grid_hour_means() -> pd.DataFrame:
+    """Mean grid features per hour-of-day (cached; drives inference feature rows)."""
+    return build_grid_frame().groupby("hour_eat")[GRID_FEATURE_COLUMNS].mean()
+
+
+@lru_cache(maxsize=1)
 def build_account_feature_table() -> tuple[pd.DataFrame, list[str]]:
-    """One row per account: mean daily behavior + persona + type. Indexed by account_id."""
+    """One row per account: mean daily behavior + persona + type. Indexed by account_id.
+
+    Cached for the process lifetime (see ``build_grid_frame``); returned frame is
+    treated as read-only by callers.
+    """
     accounts = load_csv("oloika_minigrid_accounts.csv")
     behavior = load_csv("oloika_account_daily_behavior_june_2025.csv")
     households = load_csv("oloika_households.csv")
@@ -236,8 +253,7 @@ def build_recommender_dataset() -> tuple[np.ndarray, np.ndarray, np.ndarray, pd.
     session's hour -> (slot index, kwh). Returns (X, y_slot, y_kwh, dates, columns).
     """
     account_table, account_columns = build_account_feature_table()
-    grid = build_grid_frame()
-    grid_hour = grid.groupby("hour_eat")[GRID_FEATURE_COLUMNS].mean()
+    grid_hour = grid_hour_means()
 
     sessions = load_sessions().copy()
     sessions = sessions[sessions["account_id"].isin(account_table.index)]
@@ -260,8 +276,7 @@ def account_grid_feature_row(account_id: str, hour: int) -> tuple[np.ndarray, li
     account_table, account_columns = build_account_feature_table()
     if account_id not in account_table.index:
         return None
-    grid = build_grid_frame()
-    grid_hour = grid.groupby("hour_eat")[GRID_FEATURE_COLUMNS].mean()
+    grid_hour = grid_hour_means()
     hour = int(hour) if int(hour) in grid_hour.index else int(grid_hour.index[0])
 
     account_vector = account_table.loc[account_id, account_columns].to_numpy(np.float32)

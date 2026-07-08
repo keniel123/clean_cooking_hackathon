@@ -1,19 +1,15 @@
 from __future__ import annotations
 
 import os
-import subprocess
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from . import data_store, model_store
+from . import data_store, model_store, retrain
 
-
-REPO_ROOT = Path(__file__).resolve().parents[2]
 
 app = FastAPI(
     title="GridCook ML Serving API",
@@ -140,51 +136,29 @@ def leaderboard(limit: int = Query(10, ge=1, le=84)) -> dict[str, Any]:
     return {"count": len(rows), "results": rows}
 
 
-@app.post("/learning/continual-update")
+@app.post("/learning/continual-update", status_code=202)
 def continual_update(
     source: str = Query("live", pattern="^(live|cutoff)$"),
     cutoff: str = "2025-06-23",
     epochs: int = Query(5, ge=1, le=60),
 ) -> dict[str, Any]:
-    """Retrain the recommender from newly funneled data, then hot-reload it.
+    """Kick off a non-blocking retrain from newly funneled data.
 
-    ``source=live`` learns from sessions the product API recorded; ``cutoff``
-    simulates new data from history. Guarded by an env flag so it cannot be
-    triggered by accident.
+    Runs in-process on a background thread and returns immediately (202); the
+    model hot-swaps only if a better checkpoint is promoted. Poll
+    ``GET /learning/status`` for progress. ``source=live`` learns from sessions
+    the product API recorded; ``cutoff`` simulates new data from history. Guarded
+    by an env flag so it cannot be triggered by accident.
     """
     if os.environ.get("GRIDCOOK_ENABLE_CONTINUAL_LEARNING") != "1":
         raise HTTPException(
             status_code=403,
             detail="Set GRIDCOOK_ENABLE_CONTINUAL_LEARNING=1 to allow model updates from the API.",
         )
-    previous_version = model_store.model_version()
-    result = subprocess.run(
-        [
-            "python3",
-            "ml/scripts/run_continual_update.py",
-            "--source",
-            source,
-            "--cutoff",
-            cutoff,
-            "--epochs",
-            str(epochs),
-        ],
-        cwd=REPO_ROOT,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    if result.returncode != 0:
-        raise HTTPException(status_code=500, detail={"stdout": result.stdout, "stderr": result.stderr})
+    return retrain.trigger(source=source, cutoff=cutoff, epochs=epochs)
 
-    new_version = model_store.reload()
-    return {
-        "returncode": result.returncode,
-        "source": source,
-        "previous_version": previous_version,
-        "model_version": new_version,
-        "promoted": new_version != previous_version,
-        "stdout": result.stdout,
-        "stderr": result.stderr,
-        "model_status": model_status(),
-    }
+
+@app.get("/learning/status")
+def learning_status() -> dict[str, Any]:
+    """Current retrain job state (running/idle), last result, and live model version."""
+    return retrain.status()
