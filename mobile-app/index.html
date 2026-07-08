@@ -4,17 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0f5132" />
-  <meta
-    name="description"
-    content="GridCook mobile interface for selecting affordable clean-cooking time slots."
-  />
   <title>GridCook Mobile</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="app.js" defer></script>
 </head>
 <body>
   <main class="app-shell">
-    <section class="phone-app" aria-label="GridCook mobile application">
+    <section class="phone-app">
       <header class="topbar">
         <div>
           <p class="eyebrow">GridCook</p>
@@ -26,7 +22,6 @@
           id="profileButton"
           type="button"
           aria-label="Open user profile"
-          title="User profile"
         >
           <img
             id="profilePhoto"
@@ -36,7 +31,7 @@
         </button>
       </header>
 
-      <section class="user-card" aria-labelledby="userName">
+      <section class="user-card">
         <div class="user-heading">
           <div>
             <p class="muted-label">Welcome back</p>
@@ -45,7 +40,7 @@
           </div>
 
           <span class="status-pill">
-            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-dot"></span>
             Connected
           </span>
         </div>
@@ -65,31 +60,70 @@
         </div>
       </section>
 
-      <section class="planner-card" aria-labelledby="plannerTitle">
+      <section class="planner-card">
         <div class="section-heading">
           <div>
             <p class="eyebrow dark">Cooking planner</p>
-            <h2 id="plannerTitle">Choose your preferred hours</h2>
+            <h2>Choose your cooking hours</h2>
           </div>
+
           <button id="clearButton" class="text-button" type="button">
             Clear
           </button>
         </div>
 
         <p class="section-copy">
-          Select one or more hourly slots, then press <strong>GO</strong> to
-          compare expected cooking costs.
+          Only the remaining hours of today are shown. Select one or more hours,
+          then press <strong>GO</strong>.
         </p>
 
-        <div
-          class="time-grid"
-          id="timeGrid"
-          role="group"
-          aria-label="Choose cooking time slots"
-        ></div>
+        <div class="legend" aria-label="Cost colour legend">
+          <span><i class="legend-dot low"></i>Lower cost</span>
+          <span><i class="legend-dot medium"></i>Average cost</span>
+          <span><i class="legend-dot high"></i>Peak cost</span>
+        </div>
+
+        <div class="carousel-card">
+          <div class="carousel-heading">
+            <div>
+              <strong>Available times today</strong>
+              <small id="remainingHoursText"></small>
+            </div>
+            <span id="pageIndicator">1 / 1</span>
+          </div>
+
+          <div class="time-carousel">
+            <button
+              id="previousButton"
+              class="arrow-button"
+              type="button"
+              aria-label="Show earlier time slots"
+            >
+              ‹
+            </button>
+
+            <div class="time-viewport">
+              <div
+                id="timeTrack"
+                class="time-track"
+                role="group"
+                aria-label="Remaining cooking time slots"
+              ></div>
+            </div>
+
+            <button
+              id="nextButton"
+              class="arrow-button"
+              type="button"
+              aria-label="Show later time slots"
+            >
+              ›
+            </button>
+          </div>
+        </div>
 
         <p class="selection-summary" id="selectionSummary" aria-live="polite">
-          No time slots selected.
+          No cooking hours selected.
         </p>
 
         <button class="go-button" id="goButton" type="button" disabled>
@@ -98,44 +132,62 @@
         </button>
       </section>
 
-      <section class="results-card is-hidden" id="resultsCard" aria-labelledby="resultsTitle">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow dark">Today's estimate</p>
-            <h2 id="resultsTitle">Best time to cook</h2>
-          </div>
-          <span class="results-badge" id="resultBadge">Calculated</span>
-        </div>
-
-        <div class="legend" aria-label="Cost colour legend">
-          <span><i class="legend-dot low"></i>Lower cost</span>
-          <span><i class="legend-dot medium"></i>Average cost</span>
-          <span><i class="legend-dot high"></i>Peak cost</span>
-        </div>
-
-        <article class="recommendation" id="recommendation">
-          <div class="recommendation-icon" aria-hidden="true">✓</div>
-          <div>
-            <p class="muted-label">Our recommendation</p>
-            <h3 id="recommendationTitle">Choose a green slot</h3>
-            <p id="recommendationText"></p>
-          </div>
-        </article>
-
-        <div class="selected-results" id="selectedResults"></div>
-
-        <p class="demo-note">
-          Demo prices are placeholders. They can later be supplied by the AI,
-          tariff, battery, or mini-grid services.
-        </p>
-      </section>
-
       <footer class="app-footer">
         <span>Clean cooking, smarter timing.</span>
         <span>GridCook prototype</span>
       </footer>
     </section>
   </main>
+
+  <div
+    class="modal-overlay is-hidden"
+    id="resultsModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <section class="modal-card">
+      <div class="modal-handle" aria-hidden="true"></div>
+
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow dark">Today's estimate</p>
+          <h2 id="modalTitle">Your selected cooking hours</h2>
+        </div>
+
+        <button
+          id="closeModalButton"
+          class="close-button"
+          type="button"
+          aria-label="Close results"
+        >
+          ×
+        </button>
+      </header>
+
+      <span class="results-badge" id="resultBadge">Calculated</span>
+
+      <article class="recommendation">
+        <div class="recommendation-icon">✓</div>
+        <div>
+          <p class="muted-label">Our recommendation</p>
+          <h3 id="recommendationTitle">Choose a green slot</h3>
+          <p id="recommendationText"></p>
+        </div>
+      </article>
+
+      <div class="selected-results" id="selectedResults"></div>
+
+      <p class="demo-note">
+        Demo prices are placeholders. They can later be supplied by the AI,
+        tariff, battery, or mini-grid services.
+      </p>
+
+      <button class="modal-done-button" id="doneButton" type="button">
+        Done
+      </button>
+    </section>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
