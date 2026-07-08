@@ -1,0 +1,166 @@
+{
+  "all_modules_have_checkpoints": true,
+  "export": {
+    "account_hours": 84,
+    "exists": true,
+    "generated_at": "2026-07-08T08:52:10.205403+00:00",
+    "generated_hours": 24,
+    "model_version": "nn-v6",
+    "path": "ml/exports/nn_predictions.json"
+  },
+  "generated_at": "2026-07-08T08:52:11.735482+00:00",
+  "models": {
+    "demand_forecaster": {
+      "checkpoint_path": "ml/checkpoints/demand_forecaster/nn-v3.pt",
+      "current": "nn-v3",
+      "feature_columns": [
+        "hour_sin",
+        "hour_cos",
+        "pv_power_w",
+        "battery_soc_percent",
+        "ac_load_w",
+        "voltage_avg_v",
+        "system_alarm_count"
+      ],
+      "has_manifest": true,
+      "metrics": {
+        "baseline_hour_of_day_mae": 0.8676,
+        "test_mae": 1.7145,
+        "test_samples": 168
+      },
+      "model_class": "DemandForecaster",
+      "model_file": "ml/gridcook_model/models/demand_forecaster.py",
+      "trained": true,
+      "versions": [
+        "nn-v1",
+        "nn-v2",
+        "nn-v3"
+      ]
+    },
+    "grid_forecaster": {
+      "checkpoint_path": "ml/checkpoints/grid_forecaster/nn-v3.pt",
+      "current": "nn-v3",
+      "feature_columns": [
+        "hour_sin",
+        "hour_cos",
+        "pv_power_w",
+        "battery_soc_percent",
+        "ac_load_w",
+        "voltage_avg_v",
+        "system_alarm_count"
+      ],
+      "has_manifest": true,
+      "metrics": {
+        "baseline_mean_mae_standardized": 0.841,
+        "test_mae_standardized": 0.3251,
+        "test_samples": 130
+      },
+      "model_class": "GridForecaster",
+      "model_file": "ml/gridcook_model/models/grid_forecaster.py",
+      "trained": true,
+      "versions": [
+        "nn-v1",
+        "nn-v2",
+        "nn-v3"
+      ]
+    },
+    "recommender": {
+      "checkpoint_path": "ml/checkpoints/recommender/nn-v6.pt",
+      "current": "nn-v6",
+      "feature_columns": [
+        "sessions",
+        "kwh",
+        "green_window_share",
+        "red_window_sessions",
+        "shifted_daytime_sessions",
+        "credits_earned",
+        "credits_spent",
+        "fuel_stacking_risk_flag",
+        "clean_cooking_readiness_score",
+        "shiftable_cooking_score",
+        "is_commercial",
+        "hour_sin",
+        "hour_cos",
+        "pv_power_w",
+        "battery_soc_percent",
+        "ac_load_w",
+        "voltage_avg_v",
+        "system_alarm_count"
+      ],
+      "has_manifest": true,
+      "metrics": {
+        "baseline_slot_macro_f1": 0.2408,
+        "continual_val_macro_f1": 0.6667,
+        "test_kwh_mae": 0.2803,
+        "test_samples": 656,
+        "test_slot_macro_f1": 0.9479
+      },
+      "model_class": "Recommender",
+      "model_file": "ml/gridcook_model/models/recommender.py",
+      "trained": true,
+      "versions": [
+        "nn-v1",
+        "nn-v2",
+        "nn-v3",
+        "nn-v4",
+        "nn-v5",
+        "nn-v6"
+      ]
+    },
+    "risk_classifier": {
+      "checkpoint_path": "ml/checkpoints/risk_classifier/nn-v3.pt",
+      "current": "nn-v3",
+      "feature_columns": [
+        "hour_sin",
+        "hour_cos",
+        "pv_power_w",
+        "battery_soc_percent",
+        "ac_load_w",
+        "voltage_avg_v",
+        "system_alarm_count"
+      ],
+      "has_manifest": true,
+      "metrics": {
+        "baseline_macro_f1": 0.2503,
+        "confusion_matrix": [
+          [
+            38,
+            4,
+            0
+          ],
+          [
+            1,
+            21,
+            3
+          ],
+          [
+            0,
+            1,
+            100
+          ]
+        ],
+        "test_macro_f1": 0.9141,
+        "test_samples": 168
+      },
+      "model_class": "RiskClassifier",
+      "model_file": "ml/gridcook_model/models/risk_classifier.py",
+      "trained": true,
+      "versions": [
+        "nn-v1",
+        "nn-v2",
+        "nn-v3"
+      ]
+    }
+  },
+  "notes": [
+    "The recommender and risk classifier are the main hackathon models.",
+    "The demand forecaster is trained but currently underperforms the hour-of-day baseline.",
+    "Do not claim production readiness: the dataset has one real month plus synthetic account/persona fill."
+  ],
+  "verdict": {
+    "demand_forecaster": "experimental_baseline_better",
+    "grid_forecaster": "supporting",
+    "recommender": "use",
+    "risk_classifier": "use"
+  }
+}

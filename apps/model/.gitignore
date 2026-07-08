@@ -1,8 +1,0 @@
-# Trained model checkpoints and exported artifacts are not committed;
-# regenerate them with scripts/train_all.py and scripts/export_for_api.py.
-checkpoints/
-exports/
-
-.venv/
-__pycache__/
-*.pyc

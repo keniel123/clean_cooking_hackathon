@@ -1,6 +1,6 @@
 """Filesystem checkpoint registry with monotonically increasing model versions.
 
-Layout (default ``apps/model/checkpoints``, override with GRIDCOOK_CHECKPOINTS):
+Layout (default ``ml/checkpoints``, override with GRIDCOOK_CHECKPOINTS):
 
     checkpoints/<model_name>/nn-v1.pt
     checkpoints/<model_name>/nn-v2.pt
@@ -21,7 +21,7 @@ from typing import Any
 import torch
 from torch import nn
 
-_MODULE_DIR = Path(__file__).resolve().parents[2]  # apps/model
+_MODULE_DIR = Path(__file__).resolve().parents[2]  # ml/
 _DEFAULT_CHECKPOINTS = _MODULE_DIR / "checkpoints"
 
 VERSION_PREFIX = "nn-v"
