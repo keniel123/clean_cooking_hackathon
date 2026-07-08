@@ -23,6 +23,19 @@ from pydantic import BaseModel, Field
 
 from . import db, scoring
 
+# Ezra's atomic write path (data/oloika_write.py). It lives outside the API
+# package; make it importable via GRIDCOOK_DBTOOLS (dir holding oloika_write.py,
+# /app/dbtools in the container). Writes require persistent DB mode
+# (GRIDCOOK_DB_PATH set); otherwise the write endpoints return 503.
+import os as _os, sys as _sys
+_dbtools = _os.environ.get("GRIDCOOK_DBTOOLS")
+if _dbtools and _dbtools not in _sys.path:
+    _sys.path.insert(0, _dbtools)
+try:
+    import oloika_write  # type: ignore
+except Exception:  # pragma: no cover
+    oloika_write = None
+
 API_PREFIX = "/api/v1"
 DEFAULT_PAGE_SIZE = 50
 MAX_PAGE_SIZE = 500
@@ -40,7 +53,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -369,6 +382,100 @@ def list_credit_balances(
 ) -> dict[str, Any]:
     filters = {"account_type": account_type}
     return _paginated("credit_balances", filters, "ending_balance_credits DESC", limit, offset)
+
+
+# --------------------------------------------------------------------------- #
+# Writes: session billing + wallet top-up (persistent DB mode only).
+# Atomic — backed by Ezra's oloika_write; see data/DB_CONTRACT.md. Each write
+# uses a short-lived writer connection and commits (oloika_write does not commit
+# internally). Exceptions map to the HTTP codes named in the contract.
+# --------------------------------------------------------------------------- #
+
+class SessionCompleteRequest(BaseModel):
+    session_id: str
+    account_id: str
+    kwh: float = Field(..., ge=0)
+    slot_color: str = Field(..., pattern="^(green|orange|red)$")
+    cooker_id: str | None = None
+    shifted_daytime: int = Field(0, ge=0, le=1)
+    start_at: str | None = None
+
+
+class TopUpRequest(BaseModel):
+    cash_kes: int = Field(..., gt=0)
+
+
+def _writer():
+    db_path = _os.environ.get("GRIDCOOK_DB_PATH")
+    if oloika_write is None or not db_path:
+        raise HTTPException(
+            status_code=503,
+            detail="Write path unavailable: set GRIDCOOK_DB_PATH + GRIDCOOK_DBTOOLS "
+                   "(persistent DB mode). Reads still work in in-memory mode.",
+        )
+    return oloika_write.connect(db_path)
+
+
+def _http_for(exc: Exception) -> HTTPException:
+    mapping = [
+        ("InsufficientCredits", 402),
+        ("SessionAlreadyBilled", 409),
+        ("UnknownAccount", 404),
+        ("WriteError", 400),
+    ]
+    for name, code in mapping:
+        cls = getattr(oloika_write, name, None)
+        if cls is not None and isinstance(exc, cls):
+            return HTTPException(status_code=code, detail=str(exc))
+    return HTTPException(status_code=400, detail=str(exc))
+
+
+@app.post(f"{API_PREFIX}/sessions/complete", status_code=201, tags=["writes"])
+def complete_cooking_session(req: SessionCompleteRequest) -> dict[str, Any]:
+    """Bill a finished cooking session: charge kWh + award the window reward +
+    update the wallet, atomically; then refresh the leaderboard."""
+    con = _writer()
+    try:
+        result = oloika_write.complete_session(
+            con,
+            session_id=req.session_id,
+            account_id=req.account_id,
+            kwh=req.kwh,
+            slot_color=req.slot_color,
+            cooker_id=req.cooker_id,
+            shifted_daytime=req.shifted_daytime,
+            start_at=req.start_at,
+        )
+        con.commit()
+    except Exception as exc:  # noqa: BLE001 - re-raised as HTTP below
+        con.rollback()
+        con.close()
+        raise _http_for(exc)
+    # Leaderboard refresh runs in its own transaction (contract: not inside
+    # complete_session). Best-effort — a stale board must not fail the cook.
+    try:
+        oloika_write.refresh_leaderboard(con)
+        con.commit()
+    except Exception:  # pragma: no cover
+        con.rollback()
+    finally:
+        con.close()
+    return result
+
+
+@app.post(f"{API_PREFIX}/accounts/{{account_id}}/top-up", status_code=201, tags=["writes"])
+def account_top_up(account_id: str, req: TopUpRequest) -> dict[str, Any]:
+    """Add prepaid credit to an account's wallet (atomic)."""
+    con = _writer()
+    try:
+        result = oloika_write.top_up(con, account_id, req.cash_kes)
+        con.commit()
+        return result
+    except Exception as exc:  # noqa: BLE001
+        con.rollback()
+        raise _http_for(exc)
+    finally:
+        con.close()
 
 
 @app.get(f"{API_PREFIX}/leaderboard", tags=["leaderboard"])
