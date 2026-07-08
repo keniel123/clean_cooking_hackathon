@@ -228,6 +228,48 @@ def get_account(account_id: str) -> dict[str, Any]:
     return _get_one("minigrid_accounts", "account_id", account_id, "Account")
 
 
+@app.get(f"{API_PREFIX}/customers/{{identifier}}", tags=["accounts"])
+def find_customer(identifier: str) -> dict[str, Any]:
+    """Find a customer by account_id OR phone number (SMS / ops lookup) and
+    return identity plus a usage summary: recent consumption, total charged, and
+    remaining credits."""
+    matches = db.query(
+        "SELECT * FROM minigrid_accounts WHERE account_id = ? OR phone = ?",
+        (identifier, identifier),
+    )
+    if not matches:
+        raise HTTPException(status_code=404, detail=f"No customer for {identifier!r}")
+    acct = matches[0]
+    aid = acct["account_id"]
+    bal = db.query(
+        "SELECT ending_balance_credits FROM credit_balances "
+        "WHERE account_id = ? ORDER BY month DESC LIMIT 1", (aid,)
+    )
+    charged = db.query(
+        "SELECT COALESCE(SUM(-credits_delta), 0) AS c FROM billing_ledger "
+        "WHERE account_id = ? AND event_type = 'cook_charge'", (aid,)
+    )
+    totals = db.query(
+        "SELECT COALESCE(SUM(kwh), 0) AS kwh, COUNT(*) AS n "
+        "FROM cooking_sessions WHERE account_id = ?", (aid,)
+    )
+    recent = db.query(
+        "SELECT date, start_hour_eat, kwh, slot_color FROM cooking_sessions "
+        "WHERE account_id = ? ORDER BY start_at DESC LIMIT 5", (aid,)
+    )
+    return {
+        "account_id": aid,
+        "account_type": acct["account_type"],
+        "entity_id": acct["entity_id"],
+        "phone": acct.get("phone"),
+        "remaining_credits": bal[0]["ending_balance_credits"] if bal else 0,
+        "total_charged_credits": charged[0]["c"] if charged else 0,
+        "total_kwh": round(totals[0]["kwh"], 3) if totals else 0.0,
+        "session_count": totals[0]["n"] if totals else 0,
+        "recent_sessions": recent,
+    }
+
+
 @app.get(f"{API_PREFIX}/accounts/{{account_id}}/cookers", tags=["accounts"])
 def account_cookers(account_id: str) -> dict[str, Any]:
     _get_one("minigrid_accounts", "account_id", account_id, "Account")
