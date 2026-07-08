@@ -9,4 +9,3 @@ __MACOSX/
 __pycache__/
 *.pyc
 node_modules/
-data/build_db.py
