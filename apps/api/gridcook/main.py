@@ -535,8 +535,22 @@ def grid_capacity(
 def recommendations(
     top: int = Query(scoring.DEFAULT_TOP_WINDOWS, ge=1, le=24),
     date: str | None = Query(None, description="Plan date for shared-grid capacity; defaults to today"),
+    identifier: str | None = Query(
+        None,
+        description="Account id OR phone number. If given, returns that customer's "
+                    "personalised recommendations instead of the community-wide ones.",
+    ),
 ) -> dict[str, Any]:
-    """Grid-level best cooking windows with live capacity overlaid (community-wide)."""
+    """Best cooking windows with live capacity overlaid. Community-wide by default;
+    pass ?identifier=<account_id or phone> for one customer's personalised recs."""
+    if identifier is not None:
+        matches = db.query(
+            "SELECT account_id FROM minigrid_accounts WHERE account_id = ? OR phone = ?",
+            (identifier, identifier),
+        )
+        if not matches:
+            raise HTTPException(status_code=404, detail=f"No customer for {identifier!r}")
+        return account_recommendation(matches[0]["account_id"], top=top, date=date)
     plan_date = date or _today()
     windows = capacity.adjust_and_rank(scoring.rank_cooking_windows(), plan_date)[:top]
     return {"date": plan_date, "count": len(windows), "results": windows}
