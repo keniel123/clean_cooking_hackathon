@@ -1,8 +1,9 @@
-"""Optional consumer of the trained model export (nn-v1).
+"""Cached-export fallback for model predictions.
 
-If the model app (``apps/model``) has exported per-hour predictions, the API
-surfaces them; otherwise every caller falls back to the rules baseline. This
-keeps the API torch-free: it only reads a small JSON artifact.
+Read tier used when the live ML service (``ml/api``) is unreachable: if the ML
+suite has exported per-hour predictions to ``ml/exports/nn_predictions.json``,
+the API surfaces them; otherwise callers fall back to the rules baseline. This
+keeps the API torch-free - it only reads a small JSON artifact.
 """
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ from typing import Any
 
 # apps/api/gridcook/model_predictions.py -> repo root is three parents up.
 _REPO_ROOT = Path(__file__).resolve().parents[3]
-_DEFAULT_EXPORT = _REPO_ROOT / "apps" / "model" / "exports" / "nn_predictions.json"
+_DEFAULT_EXPORT = _REPO_ROOT / "ml" / "exports" / "nn_predictions.json"
 
 _cache: dict[str, Any] = {"mtime": None, "data": None}
 

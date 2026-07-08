@@ -1,7 +1,7 @@
 """Train the full model suite on the historical month and save checkpoints.
 
 Uses a temporal split (train on the early part of June, test on later days) and
-compares every model against a transparent baseline. Run from apps/model:
+compares every model against a transparent baseline. Run from ml/:
 
     python3 scripts/train_all.py
 """

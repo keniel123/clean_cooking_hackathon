@@ -1,10 +1,16 @@
 # GridCook Oloika API
 
-A lightweight, read-only REST API over the Oloika June 2025 synthetic dataset
-(`data/synthetic/`). On startup it loads the documented CSV/JSON files into an
-in-memory SQLite database, so no external database is required. It also exposes
-a rules-first **best time to cook** recommendation engine derived from the
-hourly grid telemetry.
+A lightweight REST API over the Oloika June 2025 dataset (`data/synthetic/`).
+On first startup it seeds the documented CSV/JSON files into a **file-backed**
+SQLite database (`data/runtime/gridcook.db`); durable runtime tables (bookings,
+live sessions, training counter) then persist across restarts. Recommendations
+come from the live ML model (`ml/api`) with a rules baseline fallback, and are
+**coordinated against the shared grid's live capacity** so users are steered
+away from hours the rest of the community has already committed to.
+
+This is one shared mini-grid with many users: every recorded session funnels
+back into the model so the next user's recommendations reflect the whole
+community's latest usage. See "Shared-grid capacity + continual learning" below.
 
 ## Run
 
@@ -49,7 +55,8 @@ All list endpoints support `limit` and `offset` pagination and return
 | GET | `/api/v1/accounts/{account_id}/sessions` | Cooking sessions (`date`, `slot_color`) |
 | GET | `/api/v1/accounts/{account_id}/daily-behavior` | Daily behavior features (`date`) |
 | GET | `/api/v1/accounts/{account_id}/billing` | Billing ledger (`event_type`) |
-| GET | `/api/v1/accounts/{account_id}/credit-balance` | End-of-month credit balance |
+| GET | `/api/v1/accounts/{account_id}/credit-balance` | End-of-month credit balance (historical dataset) |
+| GET | `/api/v1/accounts/{account_id}/wallet` | Live earned-credit wallet (accrues from sessions) |
 | GET | `/api/v1/accounts/{account_id}/recommendation` | Personalized best cooking windows |
 
 ### Cookers
@@ -69,8 +76,29 @@ All list endpoints support `limit` and `offset` pagination and return
 | Method | Path | Description |
 | --- | --- | --- |
 | GET | `/api/v1/grid/hourly` | Hourly grid telemetry (`date`, `hour`, `slot_color`) |
-| GET | `/api/v1/grid/daily-plan` | Per hour-of-day cooking plan, ranked |
-| GET | `/api/v1/recommendations` | Top grid-level cooking windows (`top`) |
+| GET | `/api/v1/grid/daily-plan` | Per hour-of-day plan with live capacity overlay (`date`) |
+| GET | `/api/v1/grid/capacity` | Per-hour capacity, committed load, headroom (`date`) |
+| GET | `/api/v1/recommendations` | Top grid-level windows, capacity-adjusted (`top`, `date`) |
+
+The `/accounts/{id}/recommendation` and the three endpoints above accept an
+optional `date` (defaults to today). Committed load from `cooking_plans` and
+`cooking_sessions_live` for that date reduces headroom, downgrades busy hours,
+and re-ranks windows so the shared grid is not overloaded.
+
+### Live sessions & learning (write)
+| Method | Path | Description |
+| --- | --- | --- |
+| POST | `/api/v1/sessions` | Record an actual cooking session; funnels into ML training |
+| GET | `/api/v1/learning/state` | Sessions since last retrain, last version, live retrain job status |
+
+`POST /api/v1/sessions` persists the session, appends it to
+`data/runtime/live_sessions.csv`, and increments the training counter. After
+`GRIDCOOK_RETRAIN_EVERY` (default 20) sessions it **automatically** fires a
+retrain - there is no manual retrain endpoint. The retrain runs asynchronously
+in-process on `ml/api` (single-flight background thread, reusing the loaded model
+and cached features), so `POST /sessions` returns instantly, inference keeps
+serving the current model, and the model hot-swaps only if a better checkpoint is
+promoted. `GET /api/v1/learning/state` exposes the live job status (`ml_retrain`).
 
 ### Cooking plans (write)
 | Method | Path | Description |
@@ -102,8 +130,8 @@ Response (`201 Created`) — note the credit-model fields:
   "start_hour_eat": 11,
   "slot_color": "green",
   "expected_kwh": 1.059,
-  "suggested_credit_gain": 19,
-  "credit_gain_basis": "green window x1 on 1.06 kWh + 8 daytime-shift bonus",
+  "suggested_credit_gain": 0.15,
+  "credit_gain_basis": "green session +0.1 +0.05 daytime-shift",
   "model_version": "rules-v1",
   "status": "planned",
   "created_at": "2026-07-07T15:59:05Z",
@@ -336,22 +364,79 @@ plain-language reason. This is the explainable MVP baseline described in
 `docs/oloika_data_schema_and_prediction_notes.md`; a trained model can replace
 the scoring function later without changing the API surface.
 
-## Credit-gain model (AI-ready schema)
+## Credit-gain model (smart, model-derived + accumulating)
 
-When a user books a cooking time, `POST /api/v1/cooking-plans` returns a
-`suggested_credit_gain` plus `credit_gain_basis` and `model_version`. These
-three fields are the stable contract. Today they are filled by a transparent
-rules baseline; swapping in a trained AI model later requires no API change.
+Credits are small fractional rewards that **accumulate**, and the amount is
+**intelligent** - driven by the learned recommender, not a flat rate. Only green
+windows earn anything (orange/red earn nothing), and a single session never
+grants a whole credit: users accrue fractions and realize a whole credit once
+their running total crosses `1.0`.
 
 ```
-multiplier      = { green: 1.0, orange: 0.5, red: 0.0 }[slot_color]
-energy_credits  = expected_kwh * 10 * multiplier
-shift_bonus     = 8 if hour in 10:00-15:00 and slot_color != red else 0
-suggested_credit_gain = round(energy_credits) + shift_bonus
+reward = BASE(0.2)
+       x P(green)          # model's confidence this hour is genuinely good (learned)
+       x grid_benefit      # solar surplus / low grid stress at the hour (learned)
+       x (1 + 0.5*shift)   # personalization: shift = 1 - account's green_window_share
+       x scarcity          # live capacity: more headroom -> more credit
+   0 for orange/red, capped at 1.0 per session
 ```
 
-Example: an 11:00 green window at ~1.06 kWh → `1.06 * 10 * 1.0 + 8 = 19` credits.
-A 20:00 red window → `0` credits.
+Every factor is model/data-driven, so rewards adapt each time continual learning
+retrains on new community data: a strongly green, high-solar, underused hour for
+a user with bad habits pays far more than a barely green one, and a user who
+already always cooks green earns a smaller shift bonus. When the ML service is
+down, `scoring.py` falls back to the same shape using hourly aggregates
+(green-share x grid-benefit).
+
+When a real session is recorded via `POST /api/v1/sessions`, the reward is added
+to the account wallet (`credit_wallet`): `accumulated_credit` grows and
+`credits_awarded` (its floor) ticks up a whole credit each time the total
+crosses an integer. Read progress at `GET /api/v1/accounts/{id}/wallet`.
+
+Because capacity coordination can downgrade a busy green hour to orange/red, a
+window that fills up drops to `0` credit - the reward follows the final
+(capacity-adjusted) color, and green rewards shrink as headroom shrinks.
+
+## Shared-grid capacity + continual learning
+
+This is one shared mini-grid. Two mechanisms keep recommendations honest:
+
+1. **Live capacity overlay** (`capacity.py`): per-hour usable capacity is derived
+   from historical PV/battery availability; committed load (bookings + live
+   sessions for the date) is subtracted to get headroom. Hours above 60%
+   utilisation are downgraded a color, hours at/above 85% (or the concurrent
+   cooker cap) are marked full (red) with zero credit, and windows are re-ranked
+   toward headroom. So if others book 12:00, the next user is steered elsewhere.
+
+2. **Closed learning loop**: `POST /api/v1/sessions` records real usage and
+   appends it to `data/runtime/live_sessions.csv`. The ML trainer
+   (`features.load_sessions()`) concatenates those rows onto the June history, so
+   retraining learns from the full community. After `GRIDCOOK_RETRAIN_EVERY`
+   sessions, the API calls `ml/api` `POST /learning/continual-update?source=live`,
+   which returns immediately (202) and runs a **replay-based incremental
+   fine-tune** on a background thread: it warm-starts from the current checkpoint,
+   mixes the new sessions with a replay sample of history (so it doesn't forget),
+   and promotes a new `nn-vN` checkpoint only if it beats the current model +
+   baseline, then hot-swaps it. It is not a from-scratch retrain, and it never
+   blocks inference. The next recommendation reflects the newest community data.
+
+```
+user cooks -> POST /sessions -> gridcook.db + live_sessions.csv -> (every N)
+   -> ml/api retrain -> promote nn-vN -> hot-reload -> next user's recs updated
+```
+
+### Configuration
+| Env var | Default | Purpose |
+| --- | --- | --- |
+| `GRIDCOOK_DB_PATH` | `data/runtime/gridcook.db` | File-backed SQLite location |
+| `GRIDCOOK_LIVE_SESSIONS` | `data/runtime/live_sessions.csv` | Live-session training bridge |
+| `GRIDCOOK_RETRAIN_EVERY` | `20` | Sessions between automatic retrains |
+| `GRIDCOOK_ML_API_URL` | `http://127.0.0.1:8100` | ML serving API base URL |
+| `GRIDCOOK_GRID_CAPACITY_KWH` | `12.0` | Base shared-grid cooking capacity per hour |
+| `GRIDCOOK_MAX_CONCURRENT_COOKERS` | `8` | Hard cap on concurrent cookers per hour |
+
+Automatic retrain requires `ml/api` to run with
+`GRIDCOOK_ENABLE_CONTINUAL_LEARNING=1`.
 
 ## Example responses
 

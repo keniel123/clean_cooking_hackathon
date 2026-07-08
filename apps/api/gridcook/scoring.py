@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from . import db, model_predictions
+from . import db, ml_client, model_predictions
 
 SLOT_GREEN = "green"
 SLOT_ORANGE = "orange"
@@ -27,13 +27,14 @@ LOAD_PENALTY_WEIGHT = 20.0
 MAX_BATTERY_SOC_PERCENT = 100.0
 DEFAULT_TOP_WINDOWS = 3
 
-# Credit-gain model. This is the explainable rules baseline; the same schema
-# (suggested_credit_gain + credit_gain_basis + model_version) is intended to be
-# populated by a trained AI model later without changing the API contract.
+# Credit-gain model. Fallback for when the live ML service is unavailable: it
+# mirrors the model's smart reward using hourly aggregates instead of learned
+# outputs. Only green windows earn credit; the amount scales with how reliably
+# green the hour is and how much it benefits the grid. Whole credits are realized
+# by accumulation, not per session (see db.award_session_credit).
 CREDIT_MODEL_VERSION = "rules-v1"
-REWARD_CREDITS_PER_KWH = 10.0
-SLOT_CREDIT_MULTIPLIER = {SLOT_GREEN: 1.0, SLOT_ORANGE: 0.5, SLOT_RED: 0.0}
-SHIFTED_DAYTIME_BONUS_CREDITS = 8
+BASE_REWARD = 0.2
+MAX_SESSION_CREDIT = 1.0
 DAYTIME_START_HOUR = 10
 DAYTIME_END_HOUR = 15
 FALLBACK_SESSION_KWH = 1.0
@@ -139,43 +140,101 @@ def rank_cooking_windows() -> list[dict[str, Any]]:
             "reason": _explain(color, avg_pv, avg_soc, avg_load),
         })
 
+    _overlay_model(windows)
     windows.sort(key=lambda window: window["favorability_score"], reverse=True)
     return windows
+
+
+def _overlay_model(windows: list[dict[str, Any]]) -> None:
+    """Attach credit fields to each window, preferring model output over rules.
+
+    Grid ordering (favorability_score) is left untouched; only the surfaced
+    slot color, expected kWh, credit, and model_version reflect the model when a
+    prediction is available, otherwise the rules baseline fills them in.
+    """
+    community = ml_client.community_hours() or {}
+    for window in windows:
+        hour = window["hour_eat"]
+        model_row = community.get(hour) or model_predictions.hour_prediction(hour)
+        if model_row is not None:
+            window["slot_color"] = model_row["slot_color"]
+            window["expected_kwh"] = model_row["expected_kwh"]
+            window["reason"] = f"Model prediction ({model_row['model_version']}) for this hour."
+            window["suggested_credit_gain"] = model_row["suggested_credit_gain"]
+            window["credit_gain_basis"] = model_row["credit_gain_basis"]
+            window["model_version"] = model_row["model_version"]
+            continue
+        kwh = window["expected_kwh"] if window["expected_kwh"] is not None else FALLBACK_SESSION_KWH
+        window.update(estimate_credit_gain(window["slot_color"], kwh, hour))
 
 
 def top_cooking_windows(top: int = DEFAULT_TOP_WINDOWS) -> list[dict[str, Any]]:
     return rank_cooking_windows()[:top]
 
 
-def _is_shifted_daytime(hour: int, slot_color: str) -> bool:
-    in_daytime = DAYTIME_START_HOUR <= hour <= DAYTIME_END_HOUR
-    return in_daytime and slot_color != SLOT_RED
+def _hour_reward_signals() -> dict[int, tuple[float, float]]:
+    """Per hour-of-day (green_share, grid_benefit), both in [0, 1].
+
+    The rules-baseline analogue of the model's green-probability and grid-benefit
+    factors, computed from the hourly telemetry aggregates.
+    """
+    aggregates = _hourly_aggregates()
+    if not aggregates:
+        return {}
+    pv_by_hour = {hour: bucket["pv_power_w_sum"] / bucket["samples"]
+                  for hour, bucket in aggregates.items()}
+    load_by_hour = {hour: bucket["load_w_sum"] / bucket["samples"]
+                    for hour, bucket in aggregates.items()}
+    peak_pv = max(pv_by_hour.values()) or 1.0
+    peak_load = max(load_by_hour.values()) or 1.0
+
+    signals: dict[int, tuple[float, float]] = {}
+    for hour, bucket in aggregates.items():
+        green_share = bucket["green"] / bucket["samples"]
+        soc_norm = (bucket["battery_soc_sum"] / bucket["samples"]) / MAX_BATTERY_SOC_PERCENT
+        benefit = (
+            0.5 * (pv_by_hour[hour] / peak_pv)
+            + 0.3 * soc_norm
+            + 0.2 * (1.0 - load_by_hour[hour] / peak_load)
+        )
+        signals[hour] = (green_share, min(max(benefit, 0.0), 1.0))
+    return signals
 
 
 def estimate_credit_gain(slot_color: str, expected_kwh: float, hour: int) -> dict[str, Any]:
-    """Estimate reward credits for cooking a session in the given hour.
+    """Fallback smart reward when the ML service is down; 0 for non-green windows.
 
-    Placeholder for the AI credit model; keeps the schema stable. Reward scales
-    with energy and slot color, plus a daytime-shift bonus that mirrors the
-    leaderboard incentive in the dataset docs.
+    Mirrors the model's ``BASE x confidence x grid_benefit`` shape using the
+    hourly green-share (confidence proxy) and grid-benefit aggregates. Capped at
+    1.0 per session; whole credits come from accumulation. ``expected_kwh`` is
+    kept for signature stability.
     """
-    multiplier = SLOT_CREDIT_MULTIPLIER.get(slot_color, 0.0)
-    energy_credits = expected_kwh * REWARD_CREDITS_PER_KWH * multiplier
-    shift_bonus = SHIFTED_DAYTIME_BONUS_CREDITS if _is_shifted_daytime(hour, slot_color) else 0
-    suggested = int(round(energy_credits)) + shift_bonus
-    basis = (
-        f"{slot_color} window x{multiplier:g} on {expected_kwh:.2f} kWh"
-        + (f" + {shift_bonus} daytime-shift bonus" if shift_bonus else "")
-    )
+    if slot_color != SLOT_GREEN:
+        return {
+            "suggested_credit_gain": 0.0,
+            "credit_gain_basis": f"{slot_color} window earns no credit",
+            "model_version": CREDIT_MODEL_VERSION,
+        }
+
+    green_share, grid_benefit = _hour_reward_signals().get(hour, (0.5, 0.5))
+    suggested = round(min(BASE_REWARD * green_share * grid_benefit, MAX_SESSION_CREDIT), 3)
     return {
         "suggested_credit_gain": suggested,
-        "credit_gain_basis": basis,
+        "credit_gain_basis": (
+            f"rules smart: green_share={green_share:.2f} x grid_benefit={grid_benefit:.2f}"
+        ),
         "model_version": CREDIT_MODEL_VERSION,
     }
 
 
-def assess_cooking_time(hour: int, planned_duration_minutes: float | None = None) -> dict[str, Any]:
-    """Assess a user-chosen cooking hour and return slot, energy, and credit gain."""
+def assess_cooking_time(hour: int, planned_duration_minutes: float | None = None,
+                        account_id: str | None = None) -> dict[str, Any]:
+    """Assess a user-chosen cooking hour and return slot, energy, and credit gain.
+
+    Preference order: live per-account model (``ml/api``) -> grid-level model
+    (live community / cached export, already applied in ``rank_cooking_windows``)
+    -> rules baseline.
+    """
     ranked = rank_cooking_windows()
     by_hour = {window["hour_eat"]: window for window in ranked}
     window = by_hour.get(hour)
@@ -184,25 +243,29 @@ def assess_cooking_time(hour: int, planned_duration_minutes: float | None = None
         slot_color = SLOT_RED
         expected_kwh = FALLBACK_SESSION_KWH
         reason = "No grid history for this hour; treated as an off-peak window."
+        credit = estimate_credit_gain(slot_color, expected_kwh, hour)
     else:
         slot_color = window["slot_color"]
         expected_kwh = window["expected_kwh"] or FALLBACK_SESSION_KWH
         reason = window["reason"]
-
-    credit = estimate_credit_gain(slot_color, expected_kwh, hour)
-
-    # Prefer the trained model's prediction when apps/model has exported one;
-    # otherwise keep the rules-v1 result computed above.
-    prediction = model_predictions.hour_prediction(hour)
-    if prediction is not None:
-        slot_color = prediction["slot_color"]
-        expected_kwh = prediction["expected_kwh"]
-        reason = f"Model prediction ({prediction['model_version']}) for this hour."
         credit = {
-            "suggested_credit_gain": prediction["suggested_credit_gain"],
-            "credit_gain_basis": prediction["credit_gain_basis"],
-            "model_version": prediction["model_version"],
+            "suggested_credit_gain": window["suggested_credit_gain"],
+            "credit_gain_basis": window["credit_gain_basis"],
+            "model_version": window["model_version"],
         }
+
+    # Most specific tier: a live forward pass for this exact account.
+    if account_id is not None:
+        live = ml_client.plan(account_id, hour, planned_duration_minutes=planned_duration_minutes)
+        if live is not None:
+            slot_color = live["slot_color"]
+            expected_kwh = live["expected_kwh"]
+            reason = f"Live model prediction ({live['model_version']}) for {account_id}."
+            credit = {
+                "suggested_credit_gain": live["suggested_credit_gain"],
+                "credit_gain_basis": live["credit_gain_basis"],
+                "model_version": live["model_version"],
+            }
 
     best_window = ranked[0] if ranked else None
     is_optimal = bool(best_window and hour == best_window["hour_eat"])

@@ -13,15 +13,20 @@ Interactive docs are then available at http://127.0.0.1:8000/docs
 
 from __future__ import annotations
 
+import csv
+import os
+import time
 import uuid
+from datetime import date as date_cls
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from . import db, scoring
+from . import capacity, db, ml_client, scoring
 
 # Ezra's atomic write path (data/oloika_write.py). It lives outside the API
 # package; make it importable via GRIDCOOK_DBTOOLS (dir holding oloika_write.py,
@@ -43,6 +48,82 @@ MAX_PAGE_SIZE = 500
 PLAN_STATUS_PLANNED = "planned"
 PLAN_STATUS_CONFIRMED = "confirmed"
 PLAN_STATUS_CANCELLED = "cancelled"
+
+# Continual learning: retrain after this many recorded live sessions.
+RETRAIN_EVERY = int(os.environ.get("GRIDCOOK_RETRAIN_EVERY", "20"))
+# The retrain itself runs asynchronously on ml/api; these bound the off-request
+# poll that records the promoted version for bookkeeping.
+RETRAIN_POLL_TIMEOUT_SECONDS = float(os.environ.get("GRIDCOOK_RETRAIN_POLL_TIMEOUT", "300"))
+RETRAIN_POLL_INTERVAL_SECONDS = 3.0
+DAYTIME_START_HOUR = scoring.DAYTIME_START_HOUR
+DAYTIME_END_HOUR = scoring.DAYTIME_END_HOUR
+DEFAULT_SESSION_KWH = scoring.FALLBACK_SESSION_KWH
+
+# apps/api/gridcook/main.py -> repo root is three parents up.
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+_LIVE_SESSIONS_PATH = Path(
+    os.environ.get("GRIDCOOK_LIVE_SESSIONS")
+    or (_REPO_ROOT / "data" / "runtime" / "live_sessions.csv")
+)
+
+# Schema mirrors data/synthetic/oloika_cooking_sessions_june_2025.csv so the ML
+# trainer can concatenate live rows with history without any remapping.
+_LIVE_SESSION_COLUMNS = [
+    "session_id", "account_id", "entity_id", "account_type", "cooker_id", "plug",
+    "observed_group", "source", "start_at", "end_at", "date", "start_hour_eat",
+    "duration_minutes", "kwh", "avg_w", "peak_w", "slot_color", "shifted_daytime",
+]
+
+
+def _today() -> str:
+    return date_cls.today().isoformat()
+
+
+def _capacity_aware_assessment(account_id: str, plan_date: str, hour: int,
+                               duration_minutes: float | None) -> dict[str, Any]:
+    """Score a chosen hour with the model, then overlay live shared-grid capacity."""
+    assessment = scoring.assess_cooking_time(hour, duration_minutes, account_id=account_id)
+    window = {
+        "hour_eat": hour,
+        "slot_color": assessment["slot_color"],
+        "expected_kwh": assessment["expected_kwh"],
+        "suggested_credit_gain": assessment["suggested_credit_gain"],
+    }
+    adjusted = capacity.adjust_windows([window], plan_date)[0]
+    assessment["slot_color"] = adjusted["slot_color"]
+    assessment["suggested_credit_gain"] = adjusted["suggested_credit_gain"]
+    assessment["capacity_note"] = adjusted.get("capacity_note")
+    assessment["capacity_utilisation"] = adjusted.get("capacity_utilisation")
+    assessment["headroom_kwh"] = adjusted.get("headroom_kwh")
+    assessment["committed_cookers"] = adjusted.get("committed_cookers")
+    return assessment
+
+
+def _run_retrain_and_record() -> None:
+    """Kick off the async retrain on ml/api, then (off the request path) wait for
+    it to finish and record the promoted model version for bookkeeping."""
+    if ml_client.trigger_continual_update() is None:
+        return
+    deadline = time.monotonic() + RETRAIN_POLL_TIMEOUT_SECONDS
+    while time.monotonic() < deadline:
+        status = ml_client.retrain_status()
+        if status is None:
+            return
+        if not status.get("running"):
+            db.reset_sessions_since_train(status.get("model_version"))
+            return
+        time.sleep(RETRAIN_POLL_INTERVAL_SECONDS)
+
+
+def _append_live_session_csv(row: dict[str, Any]) -> None:
+    """Append one session to the ML-readable live sessions CSV (create header once)."""
+    _LIVE_SESSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    write_header = not _LIVE_SESSIONS_PATH.exists()
+    with _LIVE_SESSIONS_PATH.open("a", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=_LIVE_SESSION_COLUMNS)
+        if write_header:
+            writer.writeheader()
+        writer.writerow({column: row.get(column, "") for column in _LIVE_SESSION_COLUMNS})
 
 app = FastAPI(
     title="GridCook Oloika API",
@@ -85,6 +166,17 @@ class CookingPlanRequest(BaseModel):
 
 class PlanStatusUpdate(BaseModel):
     status: str = Field(..., examples=[PLAN_STATUS_CONFIRMED, PLAN_STATUS_CANCELLED])
+
+
+class SessionRecordRequest(BaseModel):
+    """An actual cooking session a user ran on the shared grid."""
+
+    account_id: str = Field(..., examples=["HH-0007"])
+    date: str = Field(..., description="Calendar date, YYYY-MM-DD", examples=["2025-06-15"])
+    start_hour_eat: int = Field(..., ge=0, le=23, description="Hour the session started (EAT)")
+    duration_minutes: float | None = Field(None, gt=0)
+    cooker_id: str | None = Field(None, description="Optional specific cooker")
+    kwh: float | None = Field(None, gt=0, description="Measured energy; estimated if omitted")
 
 
 # --------------------------------------------------------------------------- #
@@ -182,24 +274,69 @@ def account_credit_balance(account_id: str) -> dict[str, Any]:
     return _get_one("credit_balances", "account_id", account_id, "Credit balance")
 
 
+@app.get(f"{API_PREFIX}/accounts/{{account_id}}/wallet", tags=["accounts"])
+def account_wallet(account_id: str) -> dict[str, Any]:
+    """Live earned-credit wallet: fractional credits accrue and realize at 1.0."""
+    _get_one("minigrid_accounts", "account_id", account_id, "Account")
+    rows = db.select_rows("credit_wallet", {"account_id": account_id}, limit=1)
+    if rows:
+        row = rows[0]
+        total = float(row["accumulated_credit"])
+        awarded = int(row["credits_awarded"])
+        return {
+            "account_id": account_id,
+            "accumulated_credit": round(total, 3),
+            "credits_awarded": awarded,
+            "progress_to_next_credit": round(total - awarded, 3),
+            "updated_at": row["updated_at"],
+        }
+    return {
+        "account_id": account_id,
+        "accumulated_credit": 0.0,
+        "credits_awarded": 0,
+        "progress_to_next_credit": 0.0,
+        "updated_at": None,
+    }
+
+
 @app.get(f"{API_PREFIX}/accounts/{{account_id}}/recommendation", tags=["recommendations"])
 def account_recommendation(
     account_id: str,
     top: int = Query(scoring.DEFAULT_TOP_WINDOWS, ge=1, le=24),
+    date: str | None = Query(None, description="Plan date for shared-grid capacity; defaults to today"),
 ) -> dict[str, Any]:
     account = _get_one("minigrid_accounts", "account_id", account_id, "Account")
     behavior = db.select_rows(
         "account_daily_behavior", {"account_id": account_id}, order_by="date DESC", limit=1
     )
     latest = behavior[0] if behavior else {}
-    windows = scoring.top_cooking_windows(top)
+    plan_date = date or _today()
+
+    # Model produces the full 24-hour day (community + per-account history).
+    live = ml_client.account_recommendations(account_id, 24)
+    if live is not None and live.get("all_windows"):
+        base_windows = live["all_windows"]
+        source = live.get("model_version", "model")
+    else:
+        base_windows = sorted(scoring.rank_cooking_windows(), key=lambda w: w["hour_eat"])
+        source = base_windows[0].get("model_version") if base_windows else None
+
+    # Overlay live shared-grid capacity so hours others already committed to are
+    # down-weighted for this user.
+    all_windows = capacity.adjust_windows(base_windows, plan_date)
+    all_windows.sort(key=lambda window: window["hour_eat"])
+    windows = capacity.adjust_and_rank(base_windows, plan_date)[:top]
+
     best = windows[0]["window"] if windows else None
     return {
         "account_id": account_id,
         "account_type": account["account_type"],
+        "date": plan_date,
         "current_preferred_hour": latest.get("preferred_cooking_hour"),
         "recent_green_window_share": latest.get("green_window_share"),
+        "model_version": source,
         "recommended_windows": windows,
+        "all_windows": all_windows,
         "message": (
             f"Shift cooking towards {best} for the best reward window."
             if best else "No grid data available to recommend a window."
@@ -282,18 +419,48 @@ def grid_hourly(
 
 
 @app.get(f"{API_PREFIX}/grid/daily-plan", tags=["grid"])
-def grid_daily_plan() -> dict[str, Any]:
-    """Per hour-of-day cooking plan ranked by favorability across the month."""
-    windows = scoring.rank_cooking_windows()
+def grid_daily_plan(
+    date: str | None = Query(None, description="Plan date for shared-grid capacity; defaults to today"),
+) -> dict[str, Any]:
+    """Per hour-of-day cooking plan with live shared-grid capacity overlaid."""
+    plan_date = date or _today()
+    windows = capacity.adjust_windows(scoring.rank_cooking_windows(), plan_date)
     by_hour = sorted(windows, key=lambda window: window["hour_eat"])
-    return {"count": len(by_hour), "results": by_hour}
+    return {"date": plan_date, "count": len(by_hour), "results": by_hour}
+
+
+@app.get(f"{API_PREFIX}/grid/capacity", tags=["grid"])
+def grid_capacity(
+    date: str | None = Query(None, description="Date to report committed load for; defaults to today"),
+) -> dict[str, Any]:
+    """Per-hour shared-grid capacity, committed load, and remaining headroom."""
+    plan_date = date or _today()
+    capacity_by_hour = capacity.capacity_kwh_by_hour()
+    load = capacity.committed_load(plan_date)
+    hours = []
+    for hour in range(24):
+        cap = capacity_by_hour.get(hour, 0.0)
+        committed_kwh = load[hour]["kwh"]
+        hours.append({
+            "hour_eat": hour,
+            "window": f"{hour:02d}:00-{(hour + 1) % 24:02d}:00",
+            "capacity_kwh": round(cap, 3),
+            "committed_kwh": round(committed_kwh, 3),
+            "headroom_kwh": round(max(cap - committed_kwh, 0.0), 3),
+            "committed_cookers": load[hour]["cookers"],
+        })
+    return {"date": plan_date, "count": len(hours), "results": hours}
 
 
 @app.get(f"{API_PREFIX}/recommendations", tags=["recommendations"])
-def recommendations(top: int = Query(scoring.DEFAULT_TOP_WINDOWS, ge=1, le=24)) -> dict[str, Any]:
-    """Grid-level best cooking windows (not tied to a specific account)."""
-    windows = scoring.top_cooking_windows(top)
-    return {"count": len(windows), "results": windows}
+def recommendations(
+    top: int = Query(scoring.DEFAULT_TOP_WINDOWS, ge=1, le=24),
+    date: str | None = Query(None, description="Plan date for shared-grid capacity; defaults to today"),
+) -> dict[str, Any]:
+    """Grid-level best cooking windows with live capacity overlaid (community-wide)."""
+    plan_date = date or _today()
+    windows = capacity.adjust_and_rank(scoring.rank_cooking_windows(), plan_date)[:top]
+    return {"date": plan_date, "count": len(windows), "results": windows}
 
 
 # --------------------------------------------------------------------------- #
@@ -311,7 +478,9 @@ def create_cooking_plan(plan: CookingPlanRequest) -> dict[str, Any]:
     if plan.cooker_id is not None:
         _get_one("cooker_assets", "cooker_id", plan.cooker_id, "Cooker")
 
-    assessment = scoring.assess_cooking_time(plan.start_hour_eat, plan.planned_duration_minutes)
+    assessment = _capacity_aware_assessment(
+        plan.account_id, plan.date, plan.start_hour_eat, plan.planned_duration_minutes
+    )
     record = {
         "plan_id": f"PLAN-{uuid.uuid4().hex[:8]}",
         "account_id": plan.account_id,
@@ -356,6 +525,96 @@ def update_cooking_plan_status(plan_id: str, update: PlanStatusUpdate) -> dict[s
     _get_one("cooking_plans", "plan_id", plan_id, "Cooking plan")
     db.update_value("cooking_plans", "plan_id", plan_id, "status", update.status)
     return _get_one("cooking_plans", "plan_id", plan_id, "Cooking plan")
+
+
+# --------------------------------------------------------------------------- #
+# Live sessions (write): a user actually cooks -> record usage + feed learning
+# --------------------------------------------------------------------------- #
+
+@app.post(f"{API_PREFIX}/sessions", status_code=201, tags=["sessions"])
+def record_session(session: SessionRecordRequest,
+                   background_tasks: BackgroundTasks) -> dict[str, Any]:
+    """Record an actual cooking session on the shared grid.
+
+    Persists the session durably, appends it to the ML-readable live-sessions
+    file, and increments the continual-learning counter. Once
+    ``GRIDCOOK_RETRAIN_EVERY`` sessions accrue, a background retrain is fired so
+    the next user's recommendations reflect the newest community data.
+    """
+    account = _get_one("minigrid_accounts", "account_id", session.account_id, "Account")
+    if session.cooker_id is not None:
+        _get_one("cooker_assets", "cooker_id", session.cooker_id, "Cooker")
+
+    # Score against grid state *before* this session is added to committed load.
+    assessment = _capacity_aware_assessment(
+        session.account_id, session.date, session.start_hour_eat, session.duration_minutes
+    )
+    kwh = session.kwh if session.kwh is not None else (
+        assessment["expected_kwh"] or DEFAULT_SESSION_KWH
+    )
+    shifted = int(
+        DAYTIME_START_HOUR <= session.start_hour_eat <= DAYTIME_END_HOUR
+        and assessment["slot_color"] != scoring.SLOT_RED
+    )
+    now = datetime.now(timezone.utc).isoformat()
+    record = {
+        "session_id": f"SESS-{uuid.uuid4().hex[:8]}",
+        "account_id": session.account_id,
+        "cooker_id": session.cooker_id,
+        "date": session.date,
+        "start_hour_eat": session.start_hour_eat,
+        "duration_minutes": session.duration_minutes,
+        "kwh": round(float(kwh), 3),
+        "slot_color": assessment["slot_color"],
+        "suggested_credit_gain": assessment["suggested_credit_gain"],
+        "credit_gain_basis": assessment["credit_gain_basis"],
+        "model_version": assessment["model_version"],
+        "shifted_daytime": shifted,
+        "source": "live_api",
+        "created_at": now,
+    }
+    db.insert_row("cooking_sessions_live", record)
+    _append_live_session_csv({
+        **record,
+        "entity_id": account.get("entity_id", session.account_id),
+        "account_type": account.get("account_type", ""),
+        "start_at": f"{session.date}T{session.start_hour_eat:02d}:00:00",
+    })
+
+    # Fractional credit accrues to the account wallet; whole credits realize at 1.0.
+    wallet = db.award_session_credit(session.account_id, record["suggested_credit_gain"])
+
+    count = db.bump_sessions_since_train(1)
+    retrain_triggered = count >= RETRAIN_EVERY
+    if retrain_triggered:
+        db.reset_sessions_since_train()
+        background_tasks.add_task(_run_retrain_and_record)
+
+    return {
+        **record,
+        "assessment": assessment,
+        "wallet": wallet,
+        "sessions_since_train": 0 if retrain_triggered else count,
+        "retrain_triggered": retrain_triggered,
+    }
+
+
+@app.get(f"{API_PREFIX}/learning/state", tags=["learning"])
+def learning_state() -> dict[str, Any]:
+    """Continual-learning bookkeeping: sessions since last retrain + live job status.
+
+    Retraining is kicked off automatically once ``retrain_every`` sessions accrue
+    (no manual endpoint needed); this is the read-only view of that loop.
+    """
+    state = db.get_train_state()
+    return {
+        "sessions_since_train": state["sessions_since_train"],
+        "retrain_every": RETRAIN_EVERY,
+        "last_trained_version": state["last_trained_version"],
+        "last_trained_at": state["last_trained_at"],
+        "live_sessions_recorded": db.count_rows("cooking_sessions_live"),
+        "ml_retrain": ml_client.retrain_status(),
+    }
 
 
 # --------------------------------------------------------------------------- #
