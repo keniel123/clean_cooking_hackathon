@@ -1,0 +1,45 @@
+{
+  "account_id": "BIZ-005",
+  "account_type": "commercial",
+  "current_preferred_hour": "10",
+  "recent_green_window_share": 1.0,
+  "recommended_windows": [
+    {
+      "hour_eat": 11,
+      "window": "11:00-12:00",
+      "slot_color": "green",
+      "favorability_score": 82.43,
+      "green_window_share": 1.0,
+      "avg_pv_power_w": 6114.1,
+      "avg_battery_soc_percent": 85.5,
+      "avg_load_w": 2577.1,
+      "expected_kwh": 1.059,
+      "reason": "Recommended: high solar, battery healthy, community load manageable."
+    },
+    {
+      "hour_eat": 10,
+      "window": "10:00-11:00",
+      "slot_color": "green",
+      "favorability_score": 81.49,
+      "green_window_share": 1.0,
+      "avg_pv_power_w": 6282.5,
+      "avg_battery_soc_percent": 68.8,
+      "avg_load_w": 2419.5,
+      "expected_kwh": 2.022,
+      "reason": "Recommended: high solar, battery healthy, community load manageable."
+    },
+    {
+      "hour_eat": 12,
+      "window": "12:00-13:00",
+      "slot_color": "green",
+      "favorability_score": 74.09,
+      "green_window_share": 1.0,
+      "avg_pv_power_w": 3489.5,
+      "avg_battery_soc_percent": 92.4,
+      "avg_load_w": 2388.5,
+      "expected_kwh": 0.461,
+      "reason": "Recommended: high solar, battery healthy, community load manageable."
+    }
+  ],
+  "message": "Shift cooking towards 11:00-12:00 for the best reward window."
+}

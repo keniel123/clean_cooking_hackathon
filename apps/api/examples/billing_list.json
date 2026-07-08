@@ -1,0 +1,40 @@
+{
+  "count": 4102,
+  "limit": 3,
+  "offset": 0,
+  "results": [
+    {
+      "ledger_id": "LED-000001",
+      "account_id": "BIZ-001",
+      "event_type": "top_up",
+      "session_id": null,
+      "credits_delta": 1200,
+      "cash_kes": 600,
+      "balance_after": 1200,
+      "reason": "opening prepaid balance",
+      "created_at": "2025-06-01T00:00:00"
+    },
+    {
+      "ledger_id": "LED-000075",
+      "account_id": "BIZ-002",
+      "event_type": "top_up",
+      "session_id": null,
+      "credits_delta": 1200,
+      "cash_kes": 600,
+      "balance_after": 1200,
+      "reason": "opening prepaid balance",
+      "created_at": "2025-06-01T00:00:00"
+    },
+    {
+      "ledger_id": "LED-000148",
+      "account_id": "BIZ-003",
+      "event_type": "top_up",
+      "session_id": null,
+      "credits_delta": 1200,
+      "cash_kes": 600,
+      "balance_after": 1200,
+      "reason": "opening prepaid balance",
+      "created_at": "2025-06-01T00:00:00"
+    }
+  ]
+}

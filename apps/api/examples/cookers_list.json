@@ -1,0 +1,37 @@
+{
+  "count": 87,
+  "limit": 3,
+  "offset": 0,
+  "results": [
+    {
+      "cooker_id": "C-OBS-002",
+      "account_id": "HH-0007",
+      "entity_id": "HH-0007",
+      "account_type": "household",
+      "plug": "002",
+      "observed_group": "B",
+      "asset_type": "smart_plug_ecooker",
+      "source": "observed_smartplug"
+    },
+    {
+      "cooker_id": "C-OBS-006",
+      "account_id": "HH-0007",
+      "entity_id": "HH-0007",
+      "account_type": "household",
+      "plug": "006",
+      "observed_group": "B",
+      "asset_type": "smart_plug_ecooker",
+      "source": "observed_smartplug"
+    },
+    {
+      "cooker_id": "C-OBS-010",
+      "account_id": "HH-0010",
+      "entity_id": "HH-0010",
+      "account_type": "household",
+      "plug": "010",
+      "observed_group": "H",
+      "asset_type": "smart_plug_ecooker",
+      "source": "observed_smartplug"
+    }
+  ]
+}

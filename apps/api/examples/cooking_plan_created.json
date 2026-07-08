@@ -1,0 +1,28 @@
+{
+  "plan_id": "PLAN-8d37e512",
+  "account_id": "HH-0007",
+  "cooker_id": null,
+  "date": "2025-06-15",
+  "start_hour_eat": 11,
+  "planned_duration_minutes": 45.0,
+  "slot_color": "green",
+  "expected_kwh": 1.059,
+  "suggested_credit_gain": 19,
+  "credit_gain_basis": "green window x1 on 1.06 kWh + 8 daytime-shift bonus",
+  "model_version": "rules-v1",
+  "status": "planned",
+  "created_at": "2026-07-07T15:59:05.544174+00:00",
+  "assessment": {
+    "requested_hour_eat": 11,
+    "window": "11:00-12:00",
+    "slot_color": "green",
+    "expected_kwh": 1.059,
+    "planned_duration_minutes": 45.0,
+    "reason": "Recommended: high solar, battery healthy, community load manageable.",
+    "is_optimal": true,
+    "best_alternative": null,
+    "suggested_credit_gain": 19,
+    "credit_gain_basis": "green window x1 on 1.06 kWh + 8 daytime-shift bonus",
+    "model_version": "rules-v1"
+  }
+}

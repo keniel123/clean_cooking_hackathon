@@ -9,3 +9,7 @@ __MACOSX/
 __pycache__/
 *.pyc
 node_modules/
+
+# Python virtualenvs
+.venv/
+venv/

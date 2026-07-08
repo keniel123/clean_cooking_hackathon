@@ -1,0 +1,41 @@
+{
+  "count": 4,
+  "results": [
+    {
+      "person_id": "P-00001",
+      "household_id": "HH-0001",
+      "age_band": "35-44",
+      "gender": "male",
+      "role": "household_head",
+      "student_or_worker_status": "worker",
+      "primary_activity": "casual_labor"
+    },
+    {
+      "person_id": "P-00002",
+      "household_id": "HH-0001",
+      "age_band": "0-5",
+      "gender": "male",
+      "role": "child",
+      "student_or_worker_status": "dependent",
+      "primary_activity": "retail_trade"
+    },
+    {
+      "person_id": "P-00003",
+      "household_id": "HH-0001",
+      "age_band": "6-12",
+      "gender": "male",
+      "role": "child",
+      "student_or_worker_status": "student",
+      "primary_activity": "casual_labor"
+    },
+    {
+      "person_id": "P-00004",
+      "household_id": "HH-0001",
+      "age_band": "25-34",
+      "gender": "female",
+      "role": "adult",
+      "student_or_worker_status": "caregiver",
+      "primary_activity": "retail_trade"
+    }
+  ]
+}

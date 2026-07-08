@@ -1,0 +1,40 @@
+{
+  "count": 84,
+  "limit": 3,
+  "offset": 0,
+  "results": [
+    {
+      "account_id": "BIZ-003",
+      "account_type": "commercial",
+      "entity_id": "BIZ-003",
+      "month": "2025-06",
+      "ending_balance_credits": 850,
+      "total_top_up_credits": 1200,
+      "total_reward_credits": 2202,
+      "total_spent_credits": 2552,
+      "cash_paid_kes": 600
+    },
+    {
+      "account_id": "BIZ-005",
+      "account_type": "commercial",
+      "entity_id": "BIZ-005",
+      "month": "2025-06",
+      "ending_balance_credits": 815,
+      "total_top_up_credits": 1200,
+      "total_reward_credits": 2286,
+      "total_spent_credits": 2671,
+      "cash_paid_kes": 600
+    },
+    {
+      "account_id": "BIZ-007",
+      "account_type": "commercial",
+      "entity_id": "BIZ-007",
+      "month": "2025-06",
+      "ending_balance_credits": 717,
+      "total_top_up_credits": 3900,
+      "total_reward_credits": 0,
+      "total_spent_credits": 3183,
+      "cash_paid_kes": 1950
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "cooker_id": "C-SYN-BIZ-005",
+  "account_id": "BIZ-005",
+  "entity_id": "BIZ-005",
+  "account_type": "commercial",
+  "plug": null,
+  "observed_group": null,
+  "asset_type": "profile_estimated_ecooker",
+  "source": "synthetic_profile"
+}

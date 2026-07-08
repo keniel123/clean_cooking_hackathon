@@ -1,0 +1,1880 @@
+{
+  "info": {
+    "_postman_id": "02ccca02-5eac-4add-907e-40304080ed0e",
+    "name": "GridCook Oloika API",
+    "description": "Mockable REST API for the Oloika June 2025 clean-cooking dataset.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Meta & stats",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Health (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"month\": \"2025-06\",\n  \"accounts\": 84\n}"
+            }
+          ]
+        },
+        {
+          "name": "Dataset summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/stats/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "stats",
+                "summary"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Dataset summary (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/stats/summary",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "stats",
+                    "summary"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": 84,\n  \"billing_ledger_rows\": 4102,\n  \"cooker_assets\": 87,\n  \"grid_hour_rows\": 720,\n  \"leaderboard_rows\": 84,\n  \"month\": \"2025-06\",\n  \"observed_plug_groups\": {\n    \"B\": \"HH-0007\",\n    \"E\": \"HH-0018\",\n    \"F\": \"HH-0020\",\n    \"G\": \"HH-0031\",\n    \"H\": \"HH-0010\"\n  },\n  \"observed_sessions\": 157,\n  \"outputs\": [\n    \"oloika_account_daily_behavior_june_2025.csv\",\n    \"oloika_billing_ledger_june_2025.csv\",\n    \"oloika_cooker_assets.csv\",\n    \"oloika_cooker_utilization_daily_june_2025.csv\",\n    \"oloika_cooking_sessions_june_2025.csv\",\n    \"oloika_credit_balances_june_2025.csv\",\n    \"oloika_grid_hourly_june_2025.csv\",\n    \"oloika_leaderboard_june_2025.csv\",\n    \"oloika_monthly_dataset_summary.json\",\n    \"oloika_dataset_schema.json\"\n  ],\n  \"seed\": 42,\n  \"session_kwh\": 2004.784,\n  \"sessions\": 2740,\n  \"slot_color_counts\": {\n    \"green\": 998,\n    \"orange\": 267,\n    \"red\": 1475\n  },\n  \"synthetic_sessions\": 2583\n}"
+            }
+          ]
+        },
+        {
+          "name": "Persona summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/stats/personas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "stats",
+                "personas"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Persona summary (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/stats/personas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "stats",
+                    "personas"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avg_collection_minutes_week_by_primary_fuel\": {\n    \"LPG stove\": 139.3,\n    \"charcoal stove\": 103.9,\n    \"electric hob\": 141.5,\n    \"electric pressure cooker\": 145.8,\n    \"firewood/open fire\": 438.6\n  },\n  \"avg_commercial_fuel_cost_kes_week\": 4930.6,\n  \"avg_household_fuel_cost_kes_week\": 668.2,\n  \"commercial_fuel_type_count\": {\n    \"one_fuel\": 5,\n    \"two_fuels\": 11\n  },\n  \"commercial_primary_fuel_mix\": {\n    \"LPG stove\": 1,\n    \"charcoal stove\": 5,\n    \"electric hob\": 3,\n    \"electric pressure cooker\": 5,\n    \"firewood/open fire\": 2\n  },\n  \"commercial_profiles\": 16,\n  \"estimated_clean_cooking_impact_proxy\": {\n    \"high_fuel_stacking_risk_households\": 151,\n    \"polluting_primary_fuel_households\": 344,\n    \"weekly_firewood_collection_hours_avoided_if_shifted\": 1666.7\n  },\n  \"household_fuel_type_count\": {\n    \"one_fuel\": 177,\n    \"two_fuels\": 394\n  },\n  \"household_primary_fuel_mix\": {\n    \"LPG stove\": 115,\n    \"charcoal stove\": 152,\n    \"electric hob\": 33,\n    \"electric pressure cooker\": 79,\n    \"firewood/open fire\": 192\n  },\n  \"households\": 571,\n  \"meter_status_counts\": {\n    \"metered\": 72,\n    \"sub_metered\": 12\n  },\n  \"mini_grid_accounts\": 84,\n  \"mini_grid_commercial_accounts\": 10,\n  \"mini_grid_household_accounts\": 74,\n  \"minigrid_vs_non_minigrid_households\": {\n    \"minigrid\": 74,\n    \"non_minigrid\": 497\n  },\n  \"population\": 2000,\n  \"seed\": 42,\n  \"shiftable_cooking_opportunity\": {\n    \"avg_commercial_daytime_shift_potential\": 78.9,\n    \"avg_household_shiftable_score\": 64.4,\n    \"households_score_65_plus\": 314\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "List accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List accounts (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 84,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"account_id\": \"BIZ-001\",\n      \"account_type\": \"commercial\",\n      \"entity_id\": \"BIZ-001\",\n      \"community_id\": \"oloika\",\n      \"meter_status\": \"metered\"\n    },\n    {\n      \"account_id\": \"BIZ-002\",\n      \"account_type\": \"commercial\",\n      \"entity_id\": \"BIZ-002\",\n      \"community_id\": \"oloika\",\n      \"meter_status\": \"metered\"\n    },\n    {\n      \"account_id\": \"BIZ-003\",\n      \"account_type\": \"commercial\",\n      \"entity_id\": \"BIZ-003\",\n      \"community_id\": \"oloika\",\n      \"meter_status\": \"metered\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get account (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"BIZ-005\",\n  \"account_type\": \"commercial\",\n  \"entity_id\": \"BIZ-005\",\n  \"community_id\": \"oloika\",\n  \"meter_status\": \"metered\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Account cookers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/cookers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005",
+                "cookers"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Account cookers (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/cookers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005",
+                    "cookers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 1,\n  \"results\": [\n    {\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"asset_type\": \"profile_estimated_ecooker\",\n      \"source\": \"synthetic_profile\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Account sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/sessions?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005",
+                "sessions"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Account sessions (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/sessions?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005",
+                    "sessions"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 50,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"session_id\": \"SYN-00029\",\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"source\": \"synthetic_profile\",\n      \"start_at\": \"2025-06-01T10:15:00\",\n      \"end_at\": \"2025-06-01T12:01:00\",\n      \"date\": \"2025-06-01\",\n      \"start_hour_eat\": 10,\n      \"duration_minutes\": 106.0,\n      \"kwh\": 3.261,\n      \"avg_w\": 1845.8,\n      \"peak_w\": 1867,\n      \"slot_color\": \"green\",\n      \"shifted_daytime\": 1\n    },\n    {\n      \"session_id\": \"SYN-00031\",\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"source\": \"synthetic_profile\",\n      \"start_at\": \"2025-06-01T10:40:00\",\n      \"end_at\": \"2025-06-01T12:21:00\",\n      \"date\": \"2025-06-01\",\n      \"start_hour_eat\": 10,\n      \"duration_minutes\": 101.0,\n      \"kwh\": 1.685,\n      \"avg_w\": 1001.0,\n      \"peak_w\": 1647,\n      \"slot_color\": \"green\",\n      \"shifted_daytime\": 1\n    },\n    {\n      \"session_id\": \"SYN-00121\",\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"source\": \"synthetic_profile\",\n      \"start_at\": \"2025-06-02T10:30:00\",\n      \"end_at\": \"2025-06-02T11:59:00\",\n      \"date\": \"2025-06-02\",\n      \"start_hour_eat\": 10,\n      \"duration_minutes\": 89.0,\n      \"kwh\": 2.375,\n      \"avg_w\": 1601.1,\n      \"peak_w\": 2162,\n      \"slot_color\": \"green\",\n      \"shifted_daytime\": 1\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Account daily behavior",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/daily-behavior",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005",
+                "daily-behavior"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Account daily behavior (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/daily-behavior",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005",
+                    "daily-behavior"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 30,\n  \"results\": [\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-01\",\n      \"sessions\": 2,\n      \"kwh\": 4.946,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 101,\n      \"credits_spent\": 120,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-02\",\n      \"sessions\": 2,\n      \"kwh\": 3.322,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 72,\n      \"credits_spent\": 80,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-03\",\n      \"sessions\": 2,\n      \"kwh\": 6.444,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 128,\n      \"credits_spent\": 155,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-04\",\n      \"sessions\": 2,\n      \"kwh\": 5.358,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 108,\n      \"credits_spent\": 129,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-05\",\n      \"sessions\": 2,\n      \"kwh\": 3.609,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 77,\n      \"credits_spent\": 87,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-06\",\n      \"sessions\": 2,\n      \"kwh\": 3.849,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 81,\n      \"credits_spent\": 94,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-07\",\n      \"sessions\": 1,\n      \"kwh\": 1.338,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 30,\n      \"credits_spent\": 33,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-08\",\n      \"sessions\": 1,\n      \"kwh\": 1.093,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 26,\n      \"credits_spent\": 27,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-09\",\n      \"sessions\": 2,\n      \"kwh\": 6.787,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 134,\n      \"credits_spent\": 164,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-10\",\n      \"sessions\": 2,\n      \"kwh\": 5.61,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 113,\n      \"credits_spent\": 136,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-11\",\n      \"sessions\": 1,\n      \"kwh\": 3.425,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 68,\n      \"credits_spent\": 83,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-12\",\n      \"sessions\": 2,\n      \"kwh\": 3.197,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 69,\n      \"credits_spent\": 77,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-13\",\n      \"sessions\": 2,\n      \"kwh\": 4.564,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 94,\n      \"credits_spent\": 110,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-14\",\n      \"sessions\": 2,\n      \"kwh\": 4.699,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 96,\n      \"credits_spent\": 113,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-15\",\n      \"sessions\": 1,\n      \"kwh\": 0.941,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 23,\n      \"credits_spent\": 23,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-16\",\n      \"sessions\": 2,\n      \"kwh\": 2.347,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 55,\n      \"credits_spent\": 57,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-17\",\n      \"sessions\": 2,\n      \"kwh\": 4.285,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 89,\n      \"credits_spent\": 103,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-18\",\n      \"sessions\": 2,\n      \"kwh\": 4.218,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 88,\n      \"credits_spent\": 102,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-19\",\n      \"sessions\": 2,\n      \"kwh\": 6.15,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 123,\n      \"credits_spent\": 149,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-20\",\n      \"sessions\": 1,\n      \"kwh\": 4.72,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 91,\n      \"credits_spent\": 114,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-21\",\n      \"sessions\": 2,\n      \"kwh\": 2.373,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 55,\n      \"credits_spent\": 58,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-22\",\n      \"sessions\": 2,\n      \"kwh\": 3.931,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 82,\n      \"credits_spent\": 95,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-23\",\n      \"sessions\": 2,\n      \"kwh\": 4.034,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 85,\n      \"credits_spent\": 98,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-24\",\n      \"sessions\": 1,\n      \"kwh\": 1.862,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 40,\n      \"credits_spent\": 45,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-25\",\n      \"sessions\": 2,\n      \"kwh\": 5.841,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 117,\n      \"credits_spent\": 142,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-26\",\n      \"sessions\": 1,\n      \"kwh\": 1.361,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 30,\n      \"credits_spent\": 33,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-27\",\n      \"sessions\": 1,\n      \"kwh\": 2.279,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 47,\n      \"credits_spent\": 55,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-28\",\n      \"sessions\": 2,\n      \"kwh\": 4.89,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 2,\n      \"credits_earned\": 100,\n      \"credits_spent\": 118,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-29\",\n      \"sessions\": 1,\n      \"kwh\": 0.544,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 16,\n      \"credits_spent\": 14,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"date\": \"2025-06-30\",\n      \"sessions\": 1,\n      \"kwh\": 2.337,\n      \"preferred_cooking_hour\": \"10\",\n      \"green_window_share\": 1.0,\n      \"red_window_sessions\": 0,\n      \"shifted_daytime_sessions\": 1,\n      \"credits_earned\": 48,\n      \"credits_spent\": 57,\n      \"fuel_stacking_risk_flag\": 1,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Account billing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/billing?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005",
+                "billing"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Account billing (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/billing?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005",
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 101,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"ledger_id\": \"LED-000306\",\n      \"account_id\": \"BIZ-005\",\n      \"event_type\": \"top_up\",\n      \"session_id\": null,\n      \"credits_delta\": 1200,\n      \"cash_kes\": 600,\n      \"balance_after\": 1200,\n      \"reason\": \"opening prepaid balance\",\n      \"created_at\": \"2025-06-01T00:00:00\"\n    },\n    {\n      \"ledger_id\": \"LED-000307\",\n      \"account_id\": \"BIZ-005\",\n      \"event_type\": \"cook_charge\",\n      \"session_id\": \"SYN-00029\",\n      \"credits_delta\": -79,\n      \"cash_kes\": 0,\n      \"balance_after\": 1121,\n      \"reason\": \"3.261 kWh cooking charge\",\n      \"created_at\": \"2025-06-01T12:01:00\"\n    },\n    {\n      \"ledger_id\": \"LED-000308\",\n      \"account_id\": \"BIZ-005\",\n      \"event_type\": \"green_reward\",\n      \"session_id\": \"SYN-00029\",\n      \"credits_delta\": 65,\n      \"cash_kes\": 0,\n      \"balance_after\": 1186,\n      \"reason\": \"green cooking behavior reward\",\n      \"created_at\": \"2025-06-01T12:01:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Account credit balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/credit-balance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005",
+                "credit-balance"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Account credit balance (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/credit-balance",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005",
+                    "credit-balance"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"BIZ-005\",\n  \"account_type\": \"commercial\",\n  \"entity_id\": \"BIZ-005\",\n  \"month\": \"2025-06\",\n  \"ending_balance_credits\": 815,\n  \"total_top_up_credits\": 1200,\n  \"total_reward_credits\": 2286,\n  \"total_spent_credits\": 2671,\n  \"cash_paid_kes\": 600\n}"
+            }
+          ]
+        },
+        {
+          "name": "Account recommendation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/recommendation?top=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "accounts",
+                "BIZ-005",
+                "recommendation"
+              ],
+              "query": [
+                {
+                  "key": "top",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Account recommendation (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/accounts/BIZ-005/recommendation?top=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "accounts",
+                    "BIZ-005",
+                    "recommendation"
+                  ],
+                  "query": [
+                    {
+                      "key": "top",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"BIZ-005\",\n  \"account_type\": \"commercial\",\n  \"current_preferred_hour\": \"10\",\n  \"recent_green_window_share\": 1.0,\n  \"recommended_windows\": [\n    {\n      \"hour_eat\": 11,\n      \"window\": \"11:00-12:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 82.43,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 6114.1,\n      \"avg_battery_soc_percent\": 85.5,\n      \"avg_load_w\": 2577.1,\n      \"expected_kwh\": 1.059,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 10,\n      \"window\": \"10:00-11:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 81.49,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 6282.5,\n      \"avg_battery_soc_percent\": 68.8,\n      \"avg_load_w\": 2419.5,\n      \"expected_kwh\": 2.022,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 12,\n      \"window\": \"12:00-13:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 74.09,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 3489.5,\n      \"avg_battery_soc_percent\": 92.4,\n      \"avg_load_w\": 2388.5,\n      \"expected_kwh\": 0.461,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    }\n  ],\n  \"message\": \"Shift cooking towards 11:00-12:00 for the best reward window.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cookers",
+      "item": [
+        {
+          "name": "List cookers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cookers?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cookers"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List cookers (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cookers?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cookers"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 87,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"cooker_id\": \"C-OBS-002\",\n      \"account_id\": \"HH-0007\",\n      \"entity_id\": \"HH-0007\",\n      \"account_type\": \"household\",\n      \"plug\": \"002\",\n      \"observed_group\": \"B\",\n      \"asset_type\": \"smart_plug_ecooker\",\n      \"source\": \"observed_smartplug\"\n    },\n    {\n      \"cooker_id\": \"C-OBS-006\",\n      \"account_id\": \"HH-0007\",\n      \"entity_id\": \"HH-0007\",\n      \"account_type\": \"household\",\n      \"plug\": \"006\",\n      \"observed_group\": \"B\",\n      \"asset_type\": \"smart_plug_ecooker\",\n      \"source\": \"observed_smartplug\"\n    },\n    {\n      \"cooker_id\": \"C-OBS-010\",\n      \"account_id\": \"HH-0010\",\n      \"entity_id\": \"HH-0010\",\n      \"account_type\": \"household\",\n      \"plug\": \"010\",\n      \"observed_group\": \"H\",\n      \"asset_type\": \"smart_plug_ecooker\",\n      \"source\": \"observed_smartplug\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get cooker",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cookers/C-SYN-BIZ-005",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cookers",
+                "C-SYN-BIZ-005"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get cooker (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cookers/C-SYN-BIZ-005",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cookers",
+                    "C-SYN-BIZ-005"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cooker_id\": \"C-SYN-BIZ-005\",\n  \"account_id\": \"BIZ-005\",\n  \"entity_id\": \"BIZ-005\",\n  \"account_type\": \"commercial\",\n  \"plug\": null,\n  \"observed_group\": null,\n  \"asset_type\": \"profile_estimated_ecooker\",\n  \"source\": \"synthetic_profile\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cooker utilization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cookers/C-SYN-BIZ-005/utilization",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cookers",
+                "C-SYN-BIZ-005",
+                "utilization"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Cooker utilization (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cookers/C-SYN-BIZ-005/utilization",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cookers",
+                    "C-SYN-BIZ-005",
+                    "utilization"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 30,\n  \"results\": [\n    {\n      \"date\": \"2025-06-01\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 207.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 14.37,\n      \"kwh\": 4.946,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-02\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 165.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 11.46,\n      \"kwh\": 3.322,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-03\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 239.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 16.6,\n      \"kwh\": 6.444,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-04\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 244.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 16.94,\n      \"kwh\": 5.358,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-05\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 142.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 9.86,\n      \"kwh\": 3.609,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-06\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 153.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 10.62,\n      \"kwh\": 3.849,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-07\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 69.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 4.79,\n      \"kwh\": 1.338,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-08\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 51.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 3.54,\n      \"kwh\": 1.093,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-09\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 217.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 15.07,\n      \"kwh\": 6.787,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-10\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 280.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 19.44,\n      \"kwh\": 5.61,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-11\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 116.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 8.06,\n      \"kwh\": 3.425,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-12\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 130.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 9.03,\n      \"kwh\": 3.197,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-13\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 151.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 10.49,\n      \"kwh\": 4.564,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-14\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 260.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 18.06,\n      \"kwh\": 4.699,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-15\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 91.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 6.32,\n      \"kwh\": 0.941,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-16\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 166.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 11.53,\n      \"kwh\": 2.347,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-17\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 161.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 11.18,\n      \"kwh\": 4.285,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-18\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 172.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 11.94,\n      \"kwh\": 4.218,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-19\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 198.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 13.75,\n      \"kwh\": 6.15,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-20\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 148.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 10.28,\n      \"kwh\": 4.72,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-21\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 150.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 10.42,\n      \"kwh\": 2.373,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-22\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 199.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 13.82,\n      \"kwh\": 3.931,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-23\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 207.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 14.37,\n      \"kwh\": 4.034,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-24\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 58.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 4.03,\n      \"kwh\": 1.862,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-25\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 186.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 12.92,\n      \"kwh\": 5.841,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-26\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 91.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 6.32,\n      \"kwh\": 1.361,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-27\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 123.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 8.54,\n      \"kwh\": 2.279,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-28\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 2,\n      \"active_minutes\": 282.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 19.58,\n      \"kwh\": 4.89,\n      \"green_sessions\": 2,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 2,\n      \"peak_concurrent_cookers\": 2\n    },\n    {\n      \"date\": \"2025-06-29\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 59.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 4.1,\n      \"kwh\": 0.544,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    },\n    {\n      \"date\": \"2025-06-30\",\n      \"cooker_id\": \"C-SYN-BIZ-005\",\n      \"account_id\": \"BIZ-005\",\n      \"plug\": null,\n      \"source\": \"synthetic_profile\",\n      \"session_count\": 1,\n      \"active_minutes\": 83.0,\n      \"available_minutes\": 1440.0,\n      \"utilization_percent\": 5.76,\n      \"kwh\": 2.337,\n      \"green_sessions\": 1,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"observed_sessions\": 0,\n      \"synthetic_sessions\": 1,\n      \"peak_concurrent_cookers\": 1\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "List sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List sessions (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/sessions?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "sessions"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2740,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"session_id\": \"SYN-00001\",\n      \"account_id\": \"BIZ-002\",\n      \"entity_id\": \"BIZ-002\",\n      \"account_type\": \"commercial\",\n      \"cooker_id\": \"C-SYN-BIZ-002\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"source\": \"synthetic_profile\",\n      \"start_at\": \"2025-06-01T06:00:00\",\n      \"end_at\": \"2025-06-01T07:16:00\",\n      \"date\": \"2025-06-01\",\n      \"start_hour_eat\": 6,\n      \"duration_minutes\": 76.0,\n      \"kwh\": 0.944,\n      \"avg_w\": 745.3,\n      \"peak_w\": 1233,\n      \"slot_color\": \"red\",\n      \"shifted_daytime\": 0\n    },\n    {\n      \"session_id\": \"SYN-00002\",\n      \"account_id\": \"BIZ-008\",\n      \"entity_id\": \"BIZ-008\",\n      \"account_type\": \"commercial\",\n      \"cooker_id\": \"C-SYN-BIZ-008\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"source\": \"synthetic_profile\",\n      \"start_at\": \"2025-06-01T06:05:00\",\n      \"end_at\": \"2025-06-01T07:24:00\",\n      \"date\": \"2025-06-01\",\n      \"start_hour_eat\": 6,\n      \"duration_minutes\": 79.0,\n      \"kwh\": 1.057,\n      \"avg_w\": 802.8,\n      \"peak_w\": 2040,\n      \"slot_color\": \"red\",\n      \"shifted_daytime\": 0\n    },\n    {\n      \"session_id\": \"SYN-00003\",\n      \"account_id\": \"HH-0563\",\n      \"entity_id\": \"HH-0563\",\n      \"account_type\": \"household\",\n      \"cooker_id\": \"C-SYN-HH-0563\",\n      \"plug\": null,\n      \"observed_group\": null,\n      \"source\": \"synthetic_profile\",\n      \"start_at\": \"2025-06-01T06:05:00\",\n      \"end_at\": \"2025-06-01T06:40:00\",\n      \"date\": \"2025-06-01\",\n      \"start_hour_eat\": 6,\n      \"duration_minutes\": 35.0,\n      \"kwh\": 0.258,\n      \"avg_w\": 442.3,\n      \"peak_w\": 1844,\n      \"slot_color\": \"red\",\n      \"shifted_daytime\": 0\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/SYN-00029",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "SYN-00029"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get session (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/sessions/SYN-00029",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "sessions",
+                    "SYN-00029"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"session_id\": \"SYN-00029\",\n  \"account_id\": \"BIZ-005\",\n  \"entity_id\": \"BIZ-005\",\n  \"account_type\": \"commercial\",\n  \"cooker_id\": \"C-SYN-BIZ-005\",\n  \"plug\": null,\n  \"observed_group\": null,\n  \"source\": \"synthetic_profile\",\n  \"start_at\": \"2025-06-01T10:15:00\",\n  \"end_at\": \"2025-06-01T12:01:00\",\n  \"date\": \"2025-06-01\",\n  \"start_hour_eat\": 10,\n  \"duration_minutes\": 106.0,\n  \"kwh\": 3.261,\n  \"avg_w\": 1845.8,\n  \"peak_w\": 1867,\n  \"slot_color\": \"green\",\n  \"shifted_daytime\": 1\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Grid & recommendations",
+      "item": [
+        {
+          "name": "Grid hourly",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grid/hourly?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grid",
+                "hourly"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Grid hourly (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/grid/hourly?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "grid",
+                    "hourly"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 720,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"timestamp_hour\": \"2025-06-01T00:00:00\",\n      \"date\": \"2025-06-01\",\n      \"hour_eat\": 0,\n      \"battery_soc_percent\": 65.5,\n      \"battery_power_w\": -1785.25,\n      \"pv_dc_power_w\": null,\n      \"pv_ac_power_w\": null,\n      \"fronius_pv_power_w\": null,\n      \"ac_load_w\": 1570.0,\n      \"fronius_consumption_w\": 329.98,\n      \"voltage_avg_v\": 240.05,\n      \"system_alarm_count\": 4,\n      \"slot_color\": \"red\",\n      \"source\": \"victron+fronius\"\n    },\n    {\n      \"timestamp_hour\": \"2025-06-01T01:00:00\",\n      \"date\": \"2025-06-01\",\n      \"hour_eat\": 1,\n      \"battery_soc_percent\": 62.0,\n      \"battery_power_w\": -1584.5,\n      \"pv_dc_power_w\": null,\n      \"pv_ac_power_w\": null,\n      \"fronius_pv_power_w\": null,\n      \"ac_load_w\": 1391.5,\n      \"fronius_consumption_w\": 329.98,\n      \"voltage_avg_v\": 239.95,\n      \"system_alarm_count\": 4,\n      \"slot_color\": \"red\",\n      \"source\": \"victron+fronius\"\n    },\n    {\n      \"timestamp_hour\": \"2025-06-01T02:00:00\",\n      \"date\": \"2025-06-01\",\n      \"hour_eat\": 2,\n      \"battery_soc_percent\": 59.25,\n      \"battery_power_w\": -1545.25,\n      \"pv_dc_power_w\": null,\n      \"pv_ac_power_w\": null,\n      \"fronius_pv_power_w\": null,\n      \"ac_load_w\": 1338.5,\n      \"fronius_consumption_w\": 329.98,\n      \"voltage_avg_v\": 239.98,\n      \"system_alarm_count\": 4,\n      \"slot_color\": \"red\",\n      \"source\": \"victron+fronius\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Grid daily plan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/grid/daily-plan",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grid",
+                "daily-plan"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Grid daily plan (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/grid/daily-plan",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "grid",
+                    "daily-plan"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 24,\n  \"results\": [\n    {\n      \"hour_eat\": 0,\n      \"window\": \"00:00-01:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -0.55,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 59.9,\n      \"avg_load_w\": 1669.8,\n      \"expected_kwh\": 0.215,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 1,\n      \"window\": \"01:00-02:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": 0.19,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 56.6,\n      \"avg_load_w\": 1452.2,\n      \"expected_kwh\": null,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 2,\n      \"window\": \"02:00-03:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": 0.19,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 53.6,\n      \"avg_load_w\": 1374.4,\n      \"expected_kwh\": null,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 3,\n      \"window\": \"03:00-04:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -0.02,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 50.6,\n      \"avg_load_w\": 1331.0,\n      \"expected_kwh\": null,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 4,\n      \"window\": \"04:00-05:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -0.52,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 47.7,\n      \"avg_load_w\": 1344.1,\n      \"expected_kwh\": null,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 5,\n      \"window\": \"05:00-06:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -1.29,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 44.7,\n      \"avg_load_w\": 1399.4,\n      \"expected_kwh\": 0.11,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 6,\n      \"window\": \"06:00-07:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -2.11,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 3.5,\n      \"avg_battery_soc_percent\": 42.0,\n      \"avg_load_w\": 1473.8,\n      \"expected_kwh\": 1.142,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 7,\n      \"window\": \"07:00-08:00\",\n      \"slot_color\": \"orange\",\n      \"favorability_score\": 1.07,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 1019.3,\n      \"avg_battery_soc_percent\": 39.8,\n      \"avg_load_w\": 1568.8,\n      \"expected_kwh\": 0.396,\n      \"reason\": \"Usable window, but battery low and load headroom is moderate.\"\n    },\n    {\n      \"hour_eat\": 8,\n      \"window\": \"08:00-09:00\",\n      \"slot_color\": \"orange\",\n      \"favorability_score\": 7.46,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 3023.4,\n      \"avg_battery_soc_percent\": 43.3,\n      \"avg_load_w\": 1935.9,\n      \"expected_kwh\": 0.374,\n      \"reason\": \"Usable window, but battery low and load headroom is moderate.\"\n    },\n    {\n      \"hour_eat\": 9,\n      \"window\": \"09:00-10:00\",\n      \"slot_color\": \"orange\",\n      \"favorability_score\": 14.99,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 4884.9,\n      \"avg_battery_soc_percent\": 53.4,\n      \"avg_load_w\": 2180.7,\n      \"expected_kwh\": 0.255,\n      \"reason\": \"Usable window, but battery healthy and load headroom is moderate.\"\n    },\n    {\n      \"hour_eat\": 10,\n      \"window\": \"10:00-11:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 81.49,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 6282.5,\n      \"avg_battery_soc_percent\": 68.8,\n      \"avg_load_w\": 2419.5,\n      \"expected_kwh\": 2.022,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 11,\n      \"window\": \"11:00-12:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 82.43,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 6114.1,\n      \"avg_battery_soc_percent\": 85.5,\n      \"avg_load_w\": 2577.1,\n      \"expected_kwh\": 1.059,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 12,\n      \"window\": \"12:00-13:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 74.09,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 3489.5,\n      \"avg_battery_soc_percent\": 92.4,\n      \"avg_load_w\": 2388.5,\n      \"expected_kwh\": 0.461,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 13,\n      \"window\": \"13:00-14:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 73.89,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 3643.9,\n      \"avg_battery_soc_percent\": 95.9,\n      \"avg_load_w\": 2622.0,\n      \"expected_kwh\": 0.453,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 14,\n      \"window\": \"14:00-15:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 70.21,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 2875.0,\n      \"avg_battery_soc_percent\": 97.5,\n      \"avg_load_w\": 2775.1,\n      \"expected_kwh\": 0.465,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 15,\n      \"window\": \"15:00-16:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 69.41,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 2643.7,\n      \"avg_battery_soc_percent\": 98.2,\n      \"avg_load_w\": 2772.2,\n      \"expected_kwh\": 0.56,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 16,\n      \"window\": \"16:00-17:00\",\n      \"slot_color\": \"orange\",\n      \"favorability_score\": 8.97,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 2417.4,\n      \"avg_battery_soc_percent\": 98.4,\n      \"avg_load_w\": 2695.2,\n      \"expected_kwh\": 0.403,\n      \"reason\": \"Usable window, but battery healthy and load headroom is moderate.\"\n    },\n    {\n      \"hour_eat\": 17,\n      \"window\": \"17:00-18:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": 4.84,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 1275.3,\n      \"avg_battery_soc_percent\": 98.2,\n      \"avg_load_w\": 2618.4,\n      \"expected_kwh\": 1.126,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 18,\n      \"window\": \"18:00-19:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -2.65,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 5.9,\n      \"avg_battery_soc_percent\": 93.6,\n      \"avg_load_w\": 2923.0,\n      \"expected_kwh\": 0.379,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 19,\n      \"window\": \"19:00-20:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -6.33,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 91.1,\n      \"avg_load_w\": 3499.3,\n      \"expected_kwh\": 0.383,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 20,\n      \"window\": \"20:00-21:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -7.41,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 81.1,\n      \"avg_load_w\": 3423.5,\n      \"expected_kwh\": 0.383,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 21,\n      \"window\": \"21:00-22:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -7.27,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 74.1,\n      \"avg_load_w\": 3217.0,\n      \"expected_kwh\": 0.387,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 22,\n      \"window\": \"22:00-23:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -4.6,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 67.9,\n      \"avg_load_w\": 2586.9,\n      \"expected_kwh\": 0.343,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    },\n    {\n      \"hour_eat\": 23,\n      \"window\": \"23:00-00:00\",\n      \"slot_color\": \"red\",\n      \"favorability_score\": -2.01,\n      \"green_window_share\": 0.0,\n      \"avg_pv_power_w\": 0.0,\n      \"avg_battery_soc_percent\": 63.1,\n      \"avg_load_w\": 2007.0,\n      \"expected_kwh\": 0.201,\n      \"reason\": \"Avoid if possible: grid is under stress and there is no reward now.\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/recommendations?top=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "recommendations"
+              ],
+              "query": [
+                {
+                  "key": "top",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Recommendations (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/recommendations?top=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "recommendations"
+                  ],
+                  "query": [
+                    {
+                      "key": "top",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3,\n  \"results\": [\n    {\n      \"hour_eat\": 11,\n      \"window\": \"11:00-12:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 82.43,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 6114.1,\n      \"avg_battery_soc_percent\": 85.5,\n      \"avg_load_w\": 2577.1,\n      \"expected_kwh\": 1.059,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 10,\n      \"window\": \"10:00-11:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 81.49,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 6282.5,\n      \"avg_battery_soc_percent\": 68.8,\n      \"avg_load_w\": 2419.5,\n      \"expected_kwh\": 2.022,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    },\n    {\n      \"hour_eat\": 12,\n      \"window\": \"12:00-13:00\",\n      \"slot_color\": \"green\",\n      \"favorability_score\": 74.09,\n      \"green_window_share\": 1.0,\n      \"avg_pv_power_w\": 3489.5,\n      \"avg_battery_soc_percent\": 92.4,\n      \"avg_load_w\": 2388.5,\n      \"expected_kwh\": 0.461,\n      \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cooking plans",
+      "item": [
+        {
+          "name": "Create cooking plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cooking-plans",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cooking-plans"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"HH-0007\",\n  \"date\": \"2025-06-15\",\n  \"start_hour_eat\": 11,\n  \"cooker_id\": null,\n  \"planned_duration_minutes\": 45\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Create cooking plan (201)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cooking-plans",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cooking-plans"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"HH-0007\",\n  \"date\": \"2025-06-15\",\n  \"start_hour_eat\": 11,\n  \"cooker_id\": null,\n  \"planned_duration_minutes\": 45\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plan_id\": \"PLAN-8d37e512\",\n  \"account_id\": \"HH-0007\",\n  \"cooker_id\": null,\n  \"date\": \"2025-06-15\",\n  \"start_hour_eat\": 11,\n  \"planned_duration_minutes\": 45.0,\n  \"slot_color\": \"green\",\n  \"expected_kwh\": 1.059,\n  \"suggested_credit_gain\": 19,\n  \"credit_gain_basis\": \"green window x1 on 1.06 kWh + 8 daytime-shift bonus\",\n  \"model_version\": \"rules-v1\",\n  \"status\": \"planned\",\n  \"created_at\": \"2026-07-07T15:59:05.544174+00:00\",\n  \"assessment\": {\n    \"requested_hour_eat\": 11,\n    \"window\": \"11:00-12:00\",\n    \"slot_color\": \"green\",\n    \"expected_kwh\": 1.059,\n    \"planned_duration_minutes\": 45.0,\n    \"reason\": \"Recommended: high solar, battery healthy, community load manageable.\",\n    \"is_optimal\": true,\n    \"best_alternative\": null,\n    \"suggested_credit_gain\": 19,\n    \"credit_gain_basis\": \"green window x1 on 1.06 kWh + 8 daytime-shift bonus\",\n    \"model_version\": \"rules-v1\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "List cooking plans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cooking-plans?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cooking-plans"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List cooking plans (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cooking-plans?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cooking-plans"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"plan_id\": \"PLAN-8d37e512\",\n      \"account_id\": \"HH-0007\",\n      \"cooker_id\": null,\n      \"date\": \"2025-06-15\",\n      \"start_hour_eat\": 11,\n      \"planned_duration_minutes\": 45.0,\n      \"slot_color\": \"green\",\n      \"expected_kwh\": 1.059,\n      \"suggested_credit_gain\": 19,\n      \"credit_gain_basis\": \"green window x1 on 1.06 kWh + 8 daytime-shift bonus\",\n      \"model_version\": \"rules-v1\",\n      \"status\": \"planned\",\n      \"created_at\": \"2026-07-07T15:59:05.544174+00:00\"\n    },\n    {\n      \"plan_id\": \"PLAN-e3ad5aab\",\n      \"account_id\": \"HH-0007\",\n      \"cooker_id\": null,\n      \"date\": \"2025-06-15\",\n      \"start_hour_eat\": 11,\n      \"planned_duration_minutes\": 45.0,\n      \"slot_color\": \"green\",\n      \"expected_kwh\": 1.059,\n      \"suggested_credit_gain\": 19,\n      \"credit_gain_basis\": \"green window x1 on 1.06 kWh + 8 daytime-shift bonus\",\n      \"model_version\": \"rules-v1\",\n      \"status\": \"planned\",\n      \"created_at\": \"2026-07-07T15:59:05.481727+00:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get cooking plan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cooking-plans/PLAN-e3ad5aab",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cooking-plans",
+                "PLAN-e3ad5aab"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get cooking plan (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cooking-plans/PLAN-e3ad5aab",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cooking-plans",
+                    "PLAN-e3ad5aab"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plan_id\": \"PLAN-e3ad5aab\",\n  \"account_id\": \"HH-0007\",\n  \"cooker_id\": null,\n  \"date\": \"2025-06-15\",\n  \"start_hour_eat\": 11,\n  \"planned_duration_minutes\": 45.0,\n  \"slot_color\": \"green\",\n  \"expected_kwh\": 1.059,\n  \"suggested_credit_gain\": 19,\n  \"credit_gain_basis\": \"green window x1 on 1.06 kWh + 8 daytime-shift bonus\",\n  \"model_version\": \"rules-v1\",\n  \"status\": \"planned\",\n  \"created_at\": \"2026-07-07T15:59:05.481727+00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update plan status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cooking-plans/PLAN-e3ad5aab/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cooking-plans",
+                "PLAN-e3ad5aab",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"confirmed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "Update plan status (200)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/cooking-plans/PLAN-e3ad5aab/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cooking-plans",
+                    "PLAN-e3ad5aab",
+                    "status"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"confirmed\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plan_id\": \"PLAN-e3ad5aab\",\n  \"account_id\": \"HH-0007\",\n  \"cooker_id\": null,\n  \"date\": \"2025-06-15\",\n  \"start_hour_eat\": 11,\n  \"planned_duration_minutes\": 45.0,\n  \"slot_color\": \"green\",\n  \"expected_kwh\": 1.059,\n  \"suggested_credit_gain\": 19,\n  \"credit_gain_basis\": \"green window x1 on 1.06 kWh + 8 daytime-shift bonus\",\n  \"model_version\": \"rules-v1\",\n  \"status\": \"confirmed\",\n  \"created_at\": \"2026-07-07T15:59:05.481727+00:00\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Billing & leaderboard",
+      "item": [
+        {
+          "name": "List billing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/billing?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "billing"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List billing (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/billing?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "billing"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 4102,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"ledger_id\": \"LED-000001\",\n      \"account_id\": \"BIZ-001\",\n      \"event_type\": \"top_up\",\n      \"session_id\": null,\n      \"credits_delta\": 1200,\n      \"cash_kes\": 600,\n      \"balance_after\": 1200,\n      \"reason\": \"opening prepaid balance\",\n      \"created_at\": \"2025-06-01T00:00:00\"\n    },\n    {\n      \"ledger_id\": \"LED-000075\",\n      \"account_id\": \"BIZ-002\",\n      \"event_type\": \"top_up\",\n      \"session_id\": null,\n      \"credits_delta\": 1200,\n      \"cash_kes\": 600,\n      \"balance_after\": 1200,\n      \"reason\": \"opening prepaid balance\",\n      \"created_at\": \"2025-06-01T00:00:00\"\n    },\n    {\n      \"ledger_id\": \"LED-000148\",\n      \"account_id\": \"BIZ-003\",\n      \"event_type\": \"top_up\",\n      \"session_id\": null,\n      \"credits_delta\": 1200,\n      \"cash_kes\": 600,\n      \"balance_after\": 1200,\n      \"reason\": \"opening prepaid balance\",\n      \"created_at\": \"2025-06-01T00:00:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Credit balances",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/credit-balances?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "credit-balances"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Credit balances (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/credit-balances?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "credit-balances"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 84,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"account_id\": \"BIZ-003\",\n      \"account_type\": \"commercial\",\n      \"entity_id\": \"BIZ-003\",\n      \"month\": \"2025-06\",\n      \"ending_balance_credits\": 850,\n      \"total_top_up_credits\": 1200,\n      \"total_reward_credits\": 2202,\n      \"total_spent_credits\": 2552,\n      \"cash_paid_kes\": 600\n    },\n    {\n      \"account_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"entity_id\": \"BIZ-005\",\n      \"month\": \"2025-06\",\n      \"ending_balance_credits\": 815,\n      \"total_top_up_credits\": 1200,\n      \"total_reward_credits\": 2286,\n      \"total_spent_credits\": 2671,\n      \"cash_paid_kes\": 600\n    },\n    {\n      \"account_id\": \"BIZ-007\",\n      \"account_type\": \"commercial\",\n      \"entity_id\": \"BIZ-007\",\n      \"month\": \"2025-06\",\n      \"ending_balance_credits\": 717,\n      \"total_top_up_credits\": 3900,\n      \"total_reward_credits\": 0,\n      \"total_spent_credits\": 3183,\n      \"cash_paid_kes\": 1950\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Leaderboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/leaderboard?limit=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "leaderboard"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Leaderboard (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/leaderboard?limit=5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "leaderboard"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 84,\n  \"limit\": 5,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"rank\": 1,\n      \"account_id\": \"BIZ-005\",\n      \"entity_id\": \"BIZ-005\",\n      \"account_type\": \"commercial\",\n      \"display_name\": \"Business BIZ-005\",\n      \"leaderboard_group\": \"commercial\",\n      \"sessions\": 50,\n      \"kwh\": 110.354,\n      \"green_sessions\": 50,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"green_window_share\": 1.0,\n      \"shifted_daytime_sessions\": 50,\n      \"credits_earned\": 2286,\n      \"credits_spent\": 2671,\n      \"ending_balance_credits\": 815,\n      \"cash_paid_kes\": 600,\n      \"fuel_stacking_risk_days\": 30,\n      \"score\": 2986,\n      \"privacy_level\": \"synthetic_id_only\"\n    },\n    {\n      \"rank\": 2,\n      \"account_id\": \"BIZ-003\",\n      \"entity_id\": \"BIZ-003\",\n      \"account_type\": \"commercial\",\n      \"display_name\": \"Business BIZ-003\",\n      \"leaderboard_group\": \"commercial\",\n      \"sessions\": 51,\n      \"kwh\": 105.283,\n      \"green_sessions\": 51,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 0,\n      \"green_window_share\": 1.0,\n      \"shifted_daytime_sessions\": 51,\n      \"credits_earned\": 2202,\n      \"credits_spent\": 2552,\n      \"ending_balance_credits\": 850,\n      \"cash_paid_kes\": 600,\n      \"fuel_stacking_risk_days\": 30,\n      \"score\": 2916,\n      \"privacy_level\": \"synthetic_id_only\"\n    },\n    {\n      \"rank\": 3,\n      \"account_id\": \"BIZ-009\",\n      \"entity_id\": \"BIZ-009\",\n      \"account_type\": \"commercial\",\n      \"display_name\": \"Business BIZ-009\",\n      \"leaderboard_group\": \"commercial\",\n      \"sessions\": 51,\n      \"kwh\": 112.652,\n      \"green_sessions\": 27,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 24,\n      \"green_window_share\": 0.529,\n      \"shifted_daytime_sessions\": 27,\n      \"credits_earned\": 1278,\n      \"credits_spent\": 2731,\n      \"ending_balance_credits\": 647,\n      \"cash_paid_kes\": 1050,\n      \"fuel_stacking_risk_days\": 30,\n      \"score\": 1560,\n      \"privacy_level\": \"synthetic_id_only\"\n    },\n    {\n      \"rank\": 4,\n      \"account_id\": \"BIZ-010\",\n      \"entity_id\": \"BIZ-010\",\n      \"account_type\": \"commercial\",\n      \"display_name\": \"Business BIZ-010\",\n      \"leaderboard_group\": \"commercial\",\n      \"sessions\": 51,\n      \"kwh\": 110.57,\n      \"green_sessions\": 27,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 24,\n      \"green_window_share\": 0.529,\n      \"shifted_daytime_sessions\": 27,\n      \"credits_earned\": 1168,\n      \"credits_spent\": 2679,\n      \"ending_balance_credits\": 589,\n      \"cash_paid_kes\": 1050,\n      \"fuel_stacking_risk_days\": 30,\n      \"score\": 1450,\n      \"privacy_level\": \"synthetic_id_only\"\n    },\n    {\n      \"rank\": 5,\n      \"account_id\": \"BIZ-002\",\n      \"entity_id\": \"BIZ-002\",\n      \"account_type\": \"commercial\",\n      \"display_name\": \"Business BIZ-002\",\n      \"leaderboard_group\": \"commercial\",\n      \"sessions\": 49,\n      \"kwh\": 101.577,\n      \"green_sessions\": 22,\n      \"orange_sessions\": 0,\n      \"red_sessions\": 27,\n      \"green_window_share\": 0.449,\n      \"shifted_daytime_sessions\": 22,\n      \"credits_earned\": 1013,\n      \"credits_spent\": 2465,\n      \"ending_balance_credits\": 648,\n      \"cash_paid_kes\": 1050,\n      \"fuel_stacking_risk_days\": 30,\n      \"score\": 1213,\n      \"privacy_level\": \"synthetic_id_only\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Personas",
+      "item": [
+        {
+          "name": "List households",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/households?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "households"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List households (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/households?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "households"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 571,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"household_id\": \"HH-0001\",\n      \"head_person_id\": \"P-00001\",\n      \"occupants\": 4,\n      \"children_count\": 2,\n      \"income_band_kes_month\": \"lower_middle\",\n      \"meal_count_per_day\": 2,\n      \"breakfast_window\": null,\n      \"lunch_window\": \"12:00-13:00\",\n      \"dinner_window\": \"19:00-20:00\",\n      \"primary_equipment\": \"charcoal stove\",\n      \"secondary_equipment\": null,\n      \"fuel_stack\": \"charcoal stove\",\n      \"current_fuel_cost_kes_week\": 307.0,\n      \"fuel_collection_minutes_week\": 77.0,\n      \"time_spent_cooking_minutes_day\": 125.0,\n      \"other_grid_uses\": \"lighting;phone charging\",\n      \"estimated_other_grid_kwh_week\": 0.39,\n      \"secondary_microeconomic_activity\": \"milk sales\",\n      \"clean_cooking_readiness_score\": 48.0,\n      \"fuel_stacking_risk\": \"55\",\n      \"shiftable_cooking_score\": 51.0,\n      \"is_minigrid_user\": \"False\",\n      \"meter_status\": \"none\"\n    },\n    {\n      \"household_id\": \"HH-0002\",\n      \"head_person_id\": \"P-00005\",\n      \"occupants\": 2,\n      \"children_count\": 1,\n      \"income_band_kes_month\": \"low\",\n      \"meal_count_per_day\": 3,\n      \"breakfast_window\": \"06:00-07:00\",\n      \"lunch_window\": \"12:00-13:00\",\n      \"dinner_window\": \"18:00-19:00\",\n      \"primary_equipment\": \"firewood/open fire\",\n      \"secondary_equipment\": \"electric pressure cooker\",\n      \"fuel_stack\": \"electric pressure cooker+firewood/open fire\",\n      \"current_fuel_cost_kes_week\": 495.0,\n      \"fuel_collection_minutes_week\": 408.0,\n      \"time_spent_cooking_minutes_day\": 219.0,\n      \"other_grid_uses\": \"lighting;phone charging\",\n      \"estimated_other_grid_kwh_week\": 0.0,\n      \"secondary_microeconomic_activity\": \"vegetable kiosk\",\n      \"clean_cooking_readiness_score\": 40.0,\n      \"fuel_stacking_risk\": \"64\",\n      \"shiftable_cooking_score\": 62.0,\n      \"is_minigrid_user\": \"False\",\n      \"meter_status\": \"none\"\n    },\n    {\n      \"household_id\": \"HH-0003\",\n      \"head_person_id\": \"P-00007\",\n      \"occupants\": 1,\n      \"children_count\": 0,\n      \"income_band_kes_month\": \"low\",\n      \"meal_count_per_day\": 3,\n      \"breakfast_window\": \"06:00-07:00\",\n      \"lunch_window\": \"11:00-12:00\",\n      \"dinner_window\": \"19:00-20:00\",\n      \"primary_equipment\": \"charcoal stove\",\n      \"secondary_equipment\": null,\n      \"fuel_stack\": \"charcoal stove\",\n      \"current_fuel_cost_kes_week\": 365.0,\n      \"fuel_collection_minutes_week\": 120.0,\n      \"time_spent_cooking_minutes_day\": 147.0,\n      \"other_grid_uses\": \"lighting;phone charging\",\n      \"estimated_other_grid_kwh_week\": 0.48,\n      \"secondary_microeconomic_activity\": \"beadwork\",\n      \"clean_cooking_readiness_score\": 43.0,\n      \"fuel_stacking_risk\": \"55\",\n      \"shiftable_cooking_score\": 60.0,\n      \"is_minigrid_user\": \"False\",\n      \"meter_status\": \"none\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get household",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/households/HH-0001",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "households",
+                "HH-0001"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get household (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/households/HH-0001",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "households",
+                    "HH-0001"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"household_id\": \"HH-0001\",\n  \"head_person_id\": \"P-00001\",\n  \"occupants\": 4,\n  \"children_count\": 2,\n  \"income_band_kes_month\": \"lower_middle\",\n  \"meal_count_per_day\": 2,\n  \"breakfast_window\": null,\n  \"lunch_window\": \"12:00-13:00\",\n  \"dinner_window\": \"19:00-20:00\",\n  \"primary_equipment\": \"charcoal stove\",\n  \"secondary_equipment\": null,\n  \"fuel_stack\": \"charcoal stove\",\n  \"current_fuel_cost_kes_week\": 307.0,\n  \"fuel_collection_minutes_week\": 77.0,\n  \"time_spent_cooking_minutes_day\": 125.0,\n  \"other_grid_uses\": \"lighting;phone charging\",\n  \"estimated_other_grid_kwh_week\": 0.39,\n  \"secondary_microeconomic_activity\": \"milk sales\",\n  \"clean_cooking_readiness_score\": 48.0,\n  \"fuel_stacking_risk\": \"55\",\n  \"shiftable_cooking_score\": 51.0,\n  \"is_minigrid_user\": \"False\",\n  \"meter_status\": \"none\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Household people",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/households/HH-0001/people",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "households",
+                "HH-0001",
+                "people"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Household people (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/households/HH-0001/people",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "households",
+                    "HH-0001",
+                    "people"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 4,\n  \"results\": [\n    {\n      \"person_id\": \"P-00001\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"35-44\",\n      \"gender\": \"male\",\n      \"role\": \"household_head\",\n      \"student_or_worker_status\": \"worker\",\n      \"primary_activity\": \"casual_labor\"\n    },\n    {\n      \"person_id\": \"P-00002\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"0-5\",\n      \"gender\": \"male\",\n      \"role\": \"child\",\n      \"student_or_worker_status\": \"dependent\",\n      \"primary_activity\": \"retail_trade\"\n    },\n    {\n      \"person_id\": \"P-00003\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"6-12\",\n      \"gender\": \"male\",\n      \"role\": \"child\",\n      \"student_or_worker_status\": \"student\",\n      \"primary_activity\": \"casual_labor\"\n    },\n    {\n      \"person_id\": \"P-00004\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"25-34\",\n      \"gender\": \"female\",\n      \"role\": \"adult\",\n      \"student_or_worker_status\": \"caregiver\",\n      \"primary_activity\": \"retail_trade\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "List commercial profiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/commercial-profiles?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "commercial-profiles"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List commercial profiles (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/commercial-profiles?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "commercial-profiles"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 16,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"business_id\": \"BIZ-001\",\n      \"business_type\": \"tea kiosk\",\n      \"owner_person_id\": \"P-00017\",\n      \"opening_time\": \"07:00\",\n      \"closing_time\": \"19:00\",\n      \"customers_avg_week\": 152,\n      \"primary_equipment\": \"electric pressure cooker\",\n      \"secondary_equipment\": \"firewood/open fire\",\n      \"fuel_stack\": \"electric pressure cooker+firewood/open fire\",\n      \"fuel_cost_kes_week\": 2832.0,\n      \"cooking_hours_day\": 5.7,\n      \"peak_prep_windows\": \"06:00-09:00;11:00-14:00\",\n      \"estimated_cooking_kwh_week\": 13.05,\n      \"is_minigrid_user\": \"True\",\n      \"meter_status\": \"metered\",\n      \"clean_cooking_readiness_score\": 96.0,\n      \"daytime_shift_potential\": 100.0\n    },\n    {\n      \"business_id\": \"BIZ-002\",\n      \"business_type\": \"tea kiosk\",\n      \"owner_person_id\": \"P-00029\",\n      \"opening_time\": \"07:00\",\n      \"closing_time\": \"19:00\",\n      \"customers_avg_week\": 328,\n      \"primary_equipment\": \"electric pressure cooker\",\n      \"secondary_equipment\": \"charcoal stove\",\n      \"fuel_stack\": \"charcoal stove+electric pressure cooker\",\n      \"fuel_cost_kes_week\": 4166.0,\n      \"cooking_hours_day\": 5.0,\n      \"peak_prep_windows\": \"06:00-09:00;11:00-14:00\",\n      \"estimated_cooking_kwh_week\": 8.12,\n      \"is_minigrid_user\": \"True\",\n      \"meter_status\": \"metered\",\n      \"clean_cooking_readiness_score\": 96.0,\n      \"daytime_shift_potential\": 100.0\n    },\n    {\n      \"business_id\": \"BIZ-003\",\n      \"business_type\": \"tea kiosk\",\n      \"owner_person_id\": \"P-00052\",\n      \"opening_time\": \"07:00\",\n      \"closing_time\": \"17:00\",\n      \"customers_avg_week\": 563,\n      \"primary_equipment\": \"electric hob\",\n      \"secondary_equipment\": null,\n      \"fuel_stack\": \"electric hob\",\n      \"fuel_cost_kes_week\": 7597.0,\n      \"cooking_hours_day\": 4.8,\n      \"peak_prep_windows\": \"10:00-15:00\",\n      \"estimated_cooking_kwh_week\": 11.04,\n      \"is_minigrid_user\": \"True\",\n      \"meter_status\": \"metered\",\n      \"clean_cooking_readiness_score\": 96.0,\n      \"daytime_shift_potential\": 100.0\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get commercial profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/commercial-profiles/BIZ-001",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "commercial-profiles",
+                "BIZ-001"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get commercial profile (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/commercial-profiles/BIZ-001",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "commercial-profiles",
+                    "BIZ-001"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_id\": \"BIZ-001\",\n  \"business_type\": \"tea kiosk\",\n  \"owner_person_id\": \"P-00017\",\n  \"opening_time\": \"07:00\",\n  \"closing_time\": \"19:00\",\n  \"customers_avg_week\": 152,\n  \"primary_equipment\": \"electric pressure cooker\",\n  \"secondary_equipment\": \"firewood/open fire\",\n  \"fuel_stack\": \"electric pressure cooker+firewood/open fire\",\n  \"fuel_cost_kes_week\": 2832.0,\n  \"cooking_hours_day\": 5.7,\n  \"peak_prep_windows\": \"06:00-09:00;11:00-14:00\",\n  \"estimated_cooking_kwh_week\": 13.05,\n  \"is_minigrid_user\": \"True\",\n  \"meter_status\": \"metered\",\n  \"clean_cooking_readiness_score\": 96.0,\n  \"daytime_shift_potential\": 100.0\n}"
+            }
+          ]
+        },
+        {
+          "name": "List people",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/people?limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "people"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List people (200)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/people?limit=3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "people"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2000,\n  \"limit\": 3,\n  \"offset\": 0,\n  \"results\": [\n    {\n      \"person_id\": \"P-00001\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"35-44\",\n      \"gender\": \"male\",\n      \"role\": \"household_head\",\n      \"student_or_worker_status\": \"worker\",\n      \"primary_activity\": \"casual_labor\"\n    },\n    {\n      \"person_id\": \"P-00002\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"0-5\",\n      \"gender\": \"male\",\n      \"role\": \"child\",\n      \"student_or_worker_status\": \"dependent\",\n      \"primary_activity\": \"retail_trade\"\n    },\n    {\n      \"person_id\": \"P-00003\",\n      \"household_id\": \"HH-0001\",\n      \"age_band\": \"6-12\",\n      \"gender\": \"male\",\n      \"role\": \"child\",\n      \"student_or_worker_status\": \"student\",\n      \"primary_activity\": \"casual_labor\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
