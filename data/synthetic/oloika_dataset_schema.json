@@ -1,0 +1,211 @@
+{
+  "caveats": [
+    "Real smart-plug data only covers observed cooker plugs 002,006,010,011,013,015,017,018.",
+    "Synthetic behavior fills missing user-level behavior for the remaining mini-grid accounts.",
+    "Health and clean-cooking impact fields are proxy metrics, not clinical outcomes."
+  ],
+  "dataset": "Oloika June 2025 linked behavior, grid, utilization, and prepay billing dataset",
+  "files": {
+    "oloika_account_daily_behavior_june_2025.csv": {
+      "columns": {
+        "account_id": "Mini-grid account ID.",
+        "account_type": "household or commercial.",
+        "credits_earned": "Reward credits earned.",
+        "credits_spent": "Cooking credits spent.",
+        "date": "Calendar date.",
+        "entity_id": "Household or business profile ID.",
+        "fuel_stacking_risk_flag": "Fuel stacking risk flag.",
+        "green_sessions": "Green sessions.",
+        "green_window_share": "Green window share.",
+        "kwh": "Energy in kilowatt-hours.",
+        "orange_sessions": "Orange sessions.",
+        "preferred_cooking_hour": "Preferred cooking hour.",
+        "red_sessions": "Red sessions.",
+        "red_window_sessions": "Red window sessions.",
+        "sessions": "Number of sessions.",
+        "shifted_daytime_sessions": "Shifted daytime sessions."
+      },
+      "foreign_keys": {
+        "account_id": "oloika_minigrid_accounts.csv.account_id"
+      },
+      "primary_key": [
+        "account_id",
+        "date"
+      ],
+      "source": "derived"
+    },
+    "oloika_billing_ledger_june_2025.csv": {
+      "columns": {
+        "account_id": "Mini-grid account ID.",
+        "balance_after": "Balance after.",
+        "cash_kes": "Cash kes.",
+        "created_at": "Created at.",
+        "credits_delta": "Credits delta.",
+        "event_type": "Event type.",
+        "ledger_id": "Ledger id.",
+        "reason": "Reason.",
+        "session_id": "Session id."
+      },
+      "foreign_keys": {
+        "account_id": "oloika_minigrid_accounts.csv.account_id",
+        "session_id": "oloika_cooking_sessions_june_2025.csv.session_id"
+      },
+      "primary_key": [
+        "ledger_id"
+      ],
+      "source": "billing"
+    },
+    "oloika_cooker_assets.csv": {
+      "columns": {
+        "account_id": "Mini-grid account connected to the cooker.",
+        "account_type": "household or commercial.",
+        "asset_type": "Observed smart-plug cooker or profile-estimated cooker.",
+        "cooker_id": "Cooker asset identifier used by sessions and utilization.",
+        "entity_id": "Household or business profile ID.",
+        "observed_group": "Research group label from HA_load.Rmd.",
+        "plug": "Observed smart-plug ID when available.",
+        "source": "observed_smartplug or synthetic_profile."
+      },
+      "foreign_keys": {
+        "account_id": "oloika_minigrid_accounts.csv.account_id"
+      },
+      "primary_key": [
+        "cooker_id"
+      ],
+      "source": "observed+synthetic_linking"
+    },
+    "oloika_cooker_utilization_daily_june_2025.csv": {
+      "columns": {
+        "account_id": "Mini-grid account ID.",
+        "active_minutes": "Active minutes.",
+        "available_minutes": "Available minutes.",
+        "cooker_id": "Cooker id.",
+        "date": "Calendar date.",
+        "green_sessions": "Green sessions.",
+        "kwh": "Energy in kilowatt-hours.",
+        "observed_sessions": "Observed sessions.",
+        "orange_sessions": "Orange sessions.",
+        "peak_concurrent_cookers": "Peak concurrent cookers.",
+        "plug": "Plug.",
+        "red_sessions": "Red sessions.",
+        "session_count": "Session count.",
+        "source": "Source.",
+        "synthetic_sessions": "Synthetic sessions.",
+        "utilization_percent": "Utilization percent."
+      },
+      "foreign_keys": {
+        "cooker_id": "oloika_cooker_assets.csv.cooker_id"
+      },
+      "primary_key": [
+        "date",
+        "cooker_id"
+      ],
+      "source": "derived"
+    },
+    "oloika_cooking_sessions_june_2025.csv": {
+      "columns": {
+        "account_id": "Mini-grid account.",
+        "account_type": "household or commercial.",
+        "avg_w": "Average power.",
+        "cooker_id": "Cooker used.",
+        "date": "Session date.",
+        "duration_minutes": "Session duration.",
+        "end_at": "Session end in EAT.",
+        "entity_id": "Household or business profile ID.",
+        "kwh": "Estimated or observed session energy.",
+        "observed_group": "Observed research household group if applicable.",
+        "peak_w": "Peak power.",
+        "plug": "Observed smart plug if applicable.",
+        "session_id": "Cooking session identifier.",
+        "shifted_daytime": "1 when session is in a daytime green/orange window.",
+        "slot_color": "GridCook reward window.",
+        "source": "observed_smartplug or synthetic_profile.",
+        "start_at": "Session start in EAT.",
+        "start_hour_eat": "Starting hour."
+      },
+      "foreign_keys": {
+        "account_id": "oloika_minigrid_accounts.csv.account_id",
+        "cooker_id": "oloika_cooker_assets.csv.cooker_id"
+      },
+      "primary_key": [
+        "session_id"
+      ],
+      "source": "observed+synthetic"
+    },
+    "oloika_credit_balances_june_2025.csv": {
+      "columns": {
+        "account_id": "Mini-grid account ID.",
+        "account_type": "household or commercial.",
+        "cash_paid_kes": "Cash paid kes.",
+        "ending_balance_credits": "Ending balance credits.",
+        "entity_id": "Household or business profile ID.",
+        "month": "Month.",
+        "total_reward_credits": "Total reward credits.",
+        "total_spent_credits": "Total spent credits.",
+        "total_top_up_credits": "Total top up credits."
+      },
+      "foreign_keys": {
+        "account_id": "oloika_minigrid_accounts.csv.account_id"
+      },
+      "primary_key": [
+        "account_id",
+        "month"
+      ],
+      "source": "billing_derived"
+    },
+    "oloika_grid_hourly_june_2025.csv": {
+      "columns": {
+        "ac_load_w": "Hourly average AC consumption load.",
+        "battery_power_w": "Hourly average battery power.",
+        "battery_soc_percent": "Hourly average battery state of charge from Victron.",
+        "date": "Calendar date.",
+        "fronius_consumption_w": "Hourly average Fronius/PowerMeter consumption where available.",
+        "fronius_pv_power_w": "Hourly average PV inverter power from Fronius where available.",
+        "hour_eat": "Hour of day in EAT.",
+        "pv_ac_power_w": "Hourly average AC-coupled PV power.",
+        "pv_dc_power_w": "Hourly average DC-coupled PV power.",
+        "slot_color": "Reward window color: green, orange, or red.",
+        "source": "Telemetry sources contributing to this hour.",
+        "system_alarm_count": "Count of non-empty alarm-like states observed in the hour.",
+        "timestamp_hour": "Hour in East Africa Time, ISO format.",
+        "voltage_avg_v": "Average output voltage across phases where available."
+      },
+      "primary_key": [
+        "timestamp_hour"
+      ],
+      "source": "observed_derived"
+    },
+    "oloika_leaderboard_june_2025.csv": {
+      "columns": {
+        "account_id": "Mini-grid account ID.",
+        "account_type": "household or commercial.",
+        "cash_paid_kes": "Cash paid kes.",
+        "credits_earned": "Reward credits earned.",
+        "credits_spent": "Cooking credits spent.",
+        "display_name": "Display name.",
+        "ending_balance_credits": "Ending balance credits.",
+        "entity_id": "Household or business profile ID.",
+        "fuel_stacking_risk_days": "Fuel stacking risk days.",
+        "green_sessions": "Green sessions.",
+        "green_window_share": "Green window share.",
+        "kwh": "Energy in kilowatt-hours.",
+        "leaderboard_group": "Leaderboard group.",
+        "orange_sessions": "Orange sessions.",
+        "privacy_level": "Synthetic display privacy marker; no real names are included.",
+        "rank": "Rank.",
+        "red_sessions": "Red sessions.",
+        "score": "Leaderboard score: credits earned + green/orange/shifted behavior bonuses - red-window penalty.",
+        "sessions": "Number of sessions.",
+        "shifted_daytime_sessions": "Shifted daytime sessions."
+      },
+      "foreign_keys": {
+        "account_id": "oloika_minigrid_accounts.csv.account_id"
+      },
+      "primary_key": [
+        "rank"
+      ],
+      "source": "derived"
+    }
+  },
+  "month": "2025-06"
+}
