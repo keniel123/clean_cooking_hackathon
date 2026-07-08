@@ -1,0 +1,6 @@
+survey.db
+*.db
+.env
+.venv/
+__pycache__/
+*.egg-info/

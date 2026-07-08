@@ -1,0 +1,73 @@
+# Baseline session 3 (day 5): timing, barriers, aspirations.
+# B24 sets each household's preferred send time for the scheduler.
+
+slug: ecooking-baseline-3
+title: Baseline 3 — timing, barriers, aspirations
+module: baseline
+reward_kwh: 1.0
+
+questions:
+  - key: B17
+    var: time_driver
+    type: single
+    choices: 5
+    text:
+      en: "What most decides WHAT TIME you cook? 1=Farm or work hours 2=When family is home 3=When fuel or stove is ready 4=Habit 5=Other"
+      sw: "Nini huamua zaidi WAKATI unapopika? 1=Kazi au shamba 2=Familia wakiwa nyumbani 3=Nishati au jiko tayari 4=Mazoea 5=Nyingine"
+
+  - key: B18
+    var: midday_freq
+    type: single
+    choices: 3
+    text:
+      en: "Do you cook anything between 10am and 3pm? 1=Most days 2=Some days 3=Rarely or never"
+      sw: "Je, unapika chochote kati ya 10am na 3pm (saa 4 - saa 9 mchana)? 1=Siku nyingi 2=Siku zingine 3=Mara chache"
+
+  - key: B19
+    var: midday_barrier
+    type: single
+    choices: 5
+    text:
+      en: "Main reason you do not cook more at midday? 1=Away at farm or market 2=Main meal is at night 3=No one home then 4=Cost of units 5=Other"
+      sw: "Sababu kuu ya kutopika zaidi mchana? 1=Niko shambani au sokoni 2=Chakula kikuu ni cha jioni 3=Hakuna mtu nyumbani 4=Gharama ya units 5=Nyingine"
+
+  - key: B20
+    var: ecook_barrier
+    type: single
+    choices: 5
+    text:
+      en: "What most stops you cooking with electricity? 1=Cost of units 2=Fear of the appliance 3=Food taste 4=Appliance broken or too small 5=Power cuts"
+      sw: "Nini kinakuzuia zaidi kupika kwa umeme? 1=Gharama ya units 2=Hofu ya kifaa 3=Ladha ya chakula 4=Kifaa ni kibovu au kidogo 5=Umeme kukatika"
+
+  - key: B21
+    var: free_units_intent
+    type: single
+    choices: 3
+    text:
+      en: "If you got FREE units usable only 10am-3pm, would you cook lunch with electricity? 1=Yes 2=Maybe 3=No"
+      sw: "Ukipata units za BURE za kutumia 10am-3pm tu, ungepika chakula cha mchana kwa umeme? 1=Ndiyo 2=Labda 3=Hapana"
+
+  - key: B22
+    var: freed_time_use
+    type: single
+    choices: 5
+    text:
+      en: "If cooking took 2 hours less each day, what would you do with that time? 1=Farming 2=Small business like sewing or selling 3=Childcare 4=Rest 5=Study"
+      sw: "Kama kupika kungechukua saa 2 pungufu kwa siku, ungefanya nini na muda huo? 1=Kilimo 2=Biashara ndogo kama kushona au kuuza 3=Kulea watoto 4=Kupumzika 5=Kusoma"
+
+  - key: B23
+    var: income_interest
+    type: single
+    choices: 3
+    text:
+      en: "If you had more free time, would you start or grow an activity that earns money? 1=Yes, very much 2=Maybe 3=No"
+      sw: "Ukipata muda zaidi, ungeanzisha au kukuza shughuli ya kipato? 1=Ndiyo, sana 2=Labda 3=Hapana"
+
+  - key: B24
+    var: sms_time_pref
+    type: single
+    choices: 3
+    sets: {attr: preferred_send_time, map: {"1": "morning", "2": "midday", "3": "evening"}}
+    text:
+      en: "What time is best to send you these questions? 1=Morning 2=Midday 3=Evening"
+      sw: "Wakati gani ni mzuri kukutumia maswali haya? 1=Asubuhi 2=Mchana 3=Jioni"

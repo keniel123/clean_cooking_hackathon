@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:api": "VITE_API_BASE_URL=http://127.0.0.1:8000 vite",
+    "dev:api": "VITE_API_BASE_URL=http://127.0.0.1:8000 VITE_SURVEY_API_BASE_URL=http://127.0.0.1:8001 vite",
     "dev:live": "VITE_API_BASE_URL=https://delft-api.flonat.com vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",

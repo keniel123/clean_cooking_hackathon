@@ -1,0 +1,64 @@
+# Monthly module, even months (week 4): spend, satisfaction, M6b price
+# response and M8 appliance aspiration.
+
+slug: ecooking-monthly-b
+title: Monthly — variant B (M6b price response, M8 appliance wish)
+module: monthly
+reward_kwh: 0.7
+
+questions:
+  - key: M1
+    var: m_spend_biomass
+    type: single
+    choices: 5
+    text:
+      en: "In the last 30 days, how much did your home spend on charcoal and firewood? 1=Nothing 2=Under 200 3=200-500 4=501-1000 5=Over 1000 (KSh)"
+      sw: "Siku 30 zilizopita, mlitumia pesa ngapi kwa makaa na kuni? 1=Hakuna 2=Chini ya 200 3=200-500 4=501-1000 5=Zaidi ya 1000 (KSh)"
+
+  - key: M2
+    var: m_spend_lpg
+    type: single
+    choices: 5
+    text:
+      en: "In the last 30 days, how much on LPG gas and kerosene? 1=Nothing 2=Under 200 3=200-500 4=501-1000 5=Over 1000 (KSh)"
+      sw: "Siku 30 zilizopita, mlitumia pesa ngapi kwa gesi na mafuta ya taa? 1=Hakuna 2=Chini ya 200 3=200-500 4=501-1000 5=Zaidi ya 1000 (KSh)"
+
+  - key: M3
+    var: m_wood_hours
+    type: single
+    choices: 5
+    text:
+      en: "How many hours a week does your household spend collecting firewood? 1=None 2=Under 2 3=2-5 4=6-10 5=Over 10"
+      sw: "Nyumba yako hutumia saa ngapi kwa wiki kutafuta kuni? 1=Hakuna 2=Chini ya 2 3=2-5 4=6-10 5=Zaidi ya 10"
+
+  - key: M4
+    var: m_satisfaction
+    type: single
+    choices: 5
+    text:
+      en: "How happy are you with cooking on electricity? 1=Very happy 2=Happy 3=In the middle 4=Unhappy 5=I have not tried"
+      sw: "Umeridhika kiasi gani kupika kwa umeme? 1=Nimefurahi sana 2=Nimefurahi 3=Wastani 4=Sijaridhika 5=Sijajaribu"
+
+  - key: M6b
+    var: m_price_response
+    type: single
+    choices: 3
+    text:
+      en: "Would you cook lunch with electricity if midday units cost HALF price? 1=Yes, daily 2=Some days 3=No"
+      sw: "Ungepika chakula cha mchana kwa umeme kama units za mchana zingekuwa bei NUSU? 1=Ndiyo, kila siku 2=Siku zingine 3=Hapana"
+
+  - key: M7
+    var: m_time_use
+    type: single
+    choices: 5
+    text:
+      en: "This month, did cooking with electricity save you time for anything new? 1=Farming 2=Business or earning 3=Family time 4=Rest 5=No time saved"
+      sw: "Mwezi huu, kupika kwa umeme kulikupa muda wa jambo jipya? 1=Kilimo 2=Biashara au kipato 3=Muda na familia 4=Kupumzika 5=Hakuna muda"
+
+  - key: M8
+    var: m_appliance_wish
+    type: single
+    choices: 5
+    text:
+      en: "Which would you most like to use MORE at home? 1=EPC 2=Electric kettle 3=Fridge 4=Iron 5=TV or radio"
+      sw: "Ungependa kutumia nini ZAIDI nyumbani? 1=EPC 2=Birika la umeme 3=Friji 4=Pasi 5=TV au redio"

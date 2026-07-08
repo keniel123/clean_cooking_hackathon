@@ -1,0 +1,51 @@
+# Weekly pulse, week 2 of each month: anchors W1-W2 (+W3 conditional)
+# plus rotation slots W6 (problems) and W7 (bonus-unit effect — option 4
+# doubles as a credit-delivery-failure detector).
+
+slug: ecooking-pulse-week-2
+title: Weekly pulse — week 2 rotation
+module: weekly
+reward_kwh: 0.4
+
+questions:
+  - key: W1
+    var: w_fuels_yday
+    type: multi
+    choices: 5
+    text:
+      en: "Yesterday, which did you use to cook? Reply all, e.g. 1,4: 1=Firewood 2=Charcoal 3=LPG gas 4=Electricity 5=Did not cook"
+      sw: "Jana ulitumia nini kupika? Jibu zote, mfano 1,4: 1=Kuni 2=Makaa 3=Gesi 4=Umeme 5=Sikupika"
+
+  - key: W2
+    var: w_midday_cooked
+    type: single
+    choices: 2
+    text:
+      en: "Did you cook anything between 10am and 3pm yesterday? 1=Yes 2=No"
+      sw: "Ulipika chochote kati ya 10am na 3pm jana? 1=Ndiyo 2=Hapana"
+
+  - key: W3
+    var: w_midday_barrier
+    type: single
+    choices: 5
+    ask_if: [{var: w_midday_cooked, equals: 2}]
+    text:
+      en: "What stopped you cooking at midday yesterday? 1=Away from home 2=No meal needed then 3=Units finished 4=Power problem 5=Other"
+      sw: "Nini kilikuzuia kupika mchana jana? 1=Sikuwa nyumbani 2=Sikuhitaji mlo 3=Units ziliisha 4=Shida ya umeme 5=Nyingine"
+
+  - key: W6
+    var: w_problem
+    type: single
+    choices: 5
+    skip_if: [{var: own_epc, equals: 3}, {var: own_hob, equals: 3}]
+    text:
+      en: "Any problem cooking with electricity this week? 1=No problem 2=Power cut 3=Appliance problem 4=Units ran out 5=Other"
+      sw: "Ulipata shida kupika kwa umeme wiki hii? 1=Hakuna shida 2=Umeme ulikatika 3=Shida ya kifaa 4=Units ziliisha 5=Nyingine"
+
+  - key: W7
+    var: w_bonus_effect
+    type: single
+    choices: 4
+    text:
+      en: "Did your free bonus units help you cook in the daytime this week? 1=Yes 2=A little 3=No 4=I did not get units"
+      sw: "Units za bure zilikusaidia kupika mchana wiki hii? 1=Ndiyo 2=Kidogo 3=Hapana 4=Sikupata units"

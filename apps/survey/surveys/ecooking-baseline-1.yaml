@@ -1,0 +1,57 @@
+# Baseline session 1 (day 1): household composition and availability.
+
+slug: ecooking-baseline-1
+title: Baseline 1 — household
+module: baseline
+reward_kwh: 1.0
+
+questions:
+  - key: B1
+    var: hh_size
+    type: number
+    min: 1
+    max: 30
+    text:
+      en: "How many people usually eat the evening meal in your home? Reply with a number, e.g. 5"
+      sw: "Kwa kawaida watu wangapi hula chakula cha jioni nyumbani kwako? Jibu kwa namba, mfano 5"
+
+  - key: B2
+    var: hh_under5
+    type: number
+    min: 0
+    max: 15
+    text:
+      en: "How many children under 5 years live in your home? Reply with a number. Reply 0 if none"
+      sw: "Watoto wangapi chini ya miaka 5 wanaishi nyumbani kwako? Jibu kwa namba. Jibu 0 kama hakuna"
+
+  - key: B3
+    var: phone_owner
+    type: single
+    choices: 4
+    text:
+      en: "Whose phone is receiving these messages? 1=Mine 2=My spouse's 3=Shared family phone 4=Other"
+      sw: "Simu inayopokea ujumbe huu ni ya nani? 1=Yangu 2=Ya mke/mume wangu 3=Ya familia 4=Nyingine"
+
+  - key: B4
+    var: income_src
+    type: single
+    choices: 5
+    text:
+      en: "What is your household's main source of income? 1=Farming 2=Own business 3=Casual work 4=Salary 5=Other"
+      sw: "Kipato kikuu cha nyumba yako ni nini? 1=Kilimo 2=Biashara yangu 3=Vibarua 4=Mshahara 5=Nyingine"
+
+  - key: B5
+    var: fuel_decider
+    type: single
+    choices: 4
+    text:
+      en: "Who decides how money is spent on cooking fuel? 1=Me 2=My spouse 3=We decide together 4=Someone else"
+      sw: "Nani huamua matumizi ya pesa za nishati ya kupikia? 1=Mimi 2=Mke/mume wangu 3=Tunaamua pamoja 4=Mtu mwingine"
+
+  - key: B6
+    var: home_midday
+    type: single
+    choices: 3
+    text:
+      en: "On most days, are you at home between 10am and 3pm? 1=Yes, most days 2=Some days 3=Rarely"
+      sw: "Siku nyingi, uko nyumbani kati ya 10am na 3pm (saa 4 - saa 9 mchana)? 1=Ndiyo siku nyingi 2=Siku zingine 3=Mara chache"

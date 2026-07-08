@@ -1,0 +1,51 @@
+# Weekly pulse, week 1 of each month: anchors W1-W2 (+W3 conditional)
+# plus rotation slots W4 (appliance use) and W5 (dishes cooked).
+
+slug: ecooking-pulse-week-1
+title: Weekly pulse — week 1 rotation
+module: weekly
+reward_kwh: 0.4
+
+questions:
+  - key: W1
+    var: w_fuels_yday
+    type: multi
+    choices: 5
+    text:
+      en: "Yesterday, which did you use to cook? Reply all, e.g. 1,4: 1=Firewood 2=Charcoal 3=LPG gas 4=Electricity 5=Did not cook"
+      sw: "Jana ulitumia nini kupika? Jibu zote, mfano 1,4: 1=Kuni 2=Makaa 3=Gesi 4=Umeme 5=Sikupika"
+
+  - key: W2
+    var: w_midday_cooked
+    type: single
+    choices: 2
+    text:
+      en: "Did you cook anything between 10am and 3pm yesterday? 1=Yes 2=No"
+      sw: "Ulipika chochote kati ya 10am na 3pm jana? 1=Ndiyo 2=Hapana"
+
+  - key: W3
+    var: w_midday_barrier
+    type: single
+    choices: 5
+    ask_if: [{var: w_midday_cooked, equals: 2}]
+    text:
+      en: "What stopped you cooking at midday yesterday? 1=Away from home 2=No meal needed then 3=Units finished 4=Power problem 5=Other"
+      sw: "Nini kilikuzuia kupika mchana jana? 1=Sikuwa nyumbani 2=Sikuhitaji mlo 3=Units ziliisha 4=Shida ya umeme 5=Nyingine"
+
+  - key: W4
+    var: w_appliance_use
+    type: single
+    choices: 4
+    skip_if: [{var: own_epc, equals: 3}, {var: own_hob, equals: 3}]
+    text:
+      en: "Did you use the EPC or electric hob in the past 7 days? 1=Both 2=EPC only 3=Hob only 4=Neither"
+      sw: "Ulitumia EPC au jiko la umeme siku 7 zilizopita? 1=Vyote viwili 2=EPC tu 3=Jiko la sahani tu 4=Hakuna"
+
+  - key: W5
+    var: w_edish
+    type: multi
+    choices: 5
+    ask_if: [{var: w_appliance_use, in: [1, 2, 3]}]
+    text:
+      en: "What did you cook with electricity this week? Reply all: 1=Ugali 2=Githeri or beans 3=Rice 4=Tea or hot water 5=Other"
+      sw: "Ulipika nini kwa umeme wiki hii? Jibu zote: 1=Ugali 2=Githeri au maharagwe 3=Wali 4=Chai au maji moto 5=Nyingine"

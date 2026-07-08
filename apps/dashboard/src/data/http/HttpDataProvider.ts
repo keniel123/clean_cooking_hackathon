@@ -151,6 +151,17 @@ interface PersonaProfile {
   answers: Record<string, string>
 }
 
+/** One session from the SMS panel's GET /api/respondents/{id}/responses (apps/survey). */
+interface SurveyApiSession {
+  session_id: number
+  survey: string
+  title: string
+  status: string
+  started_at: string | null
+  completed_at: string | null
+  answers: Record<string, string>
+}
+
 // --------------------------------------------------------------------------
 
 /** FNV-1a; stable per-account seed for synthesized placeholder fields. */
@@ -205,14 +216,18 @@ function toPayment(row: ApiBillingRow): Payment {
 
 export class HttpDataProvider implements DataProvider {
   private readonly baseUrl: string
+  /** SMS panel service (apps/survey); when unset or unreachable, the persona
+   *  record stands in as the survey history. */
+  private readonly surveyBaseUrl?: string
 
   private accountsPromise?: Promise<ApiAccount[]>
   private customersPromise?: Promise<CustomerRow[]>
   private gridPromise?: Promise<ApiGridHour[]>
   private topUpsPromise?: Promise<Payment[]>
 
-  constructor(baseUrl: string) {
+  constructor(baseUrl: string, options: { surveyBaseUrl?: string } = {}) {
     this.baseUrl = baseUrl.replace(/\/+$/, '')
+    this.surveyBaseUrl = options.surveyBaseUrl?.replace(/\/+$/, '')
   }
 
   // ---------------------------------------------------------------- fleet
@@ -320,19 +335,7 @@ export class HttpDataProvider implements DataProvider {
       latitude: village.latitude + jitter(`${customerId}:lat`),
       longitude: village.longitude + jitter(`${customerId}:lng`),
     }
-    // The persona record is survey-derived metadata — surface it as the
-    // onboarding SMS survey response.
-    const surveyResponses: SurveyResponse[] = [
-      {
-        id: `svy_${customerId}_onboarding`,
-        customerId,
-        campaign: 'onboarding',
-        channel: 'sms',
-        sentAt: DATASET_START,
-        respondedAt: DATASET_START,
-        answers: persona.answers,
-      },
-    ]
+    const surveyResponses = await this.surveyHistory(customerId, persona)
     return { customer, meter, tariff: OLOIKA_TARIFF, village, surveyResponses }
   }
 
@@ -532,6 +535,55 @@ export class HttpDataProvider implements DataProvider {
       },
       meterStatus: 'online' as const,
     }))
+  }
+
+  /**
+   * Real SMS-panel sessions (apps/survey) when the service is configured and
+   * knows this account; otherwise the persona record — which is
+   * survey-derived metadata — presented as the onboarding response.
+   */
+  private async surveyHistory(
+    customerId: string,
+    persona: PersonaProfile,
+  ): Promise<SurveyResponse[]> {
+    if (this.surveyBaseUrl) {
+      try {
+        const res = await fetch(
+          `${this.surveyBaseUrl}/api/respondents/${customerId}/responses`,
+          { headers: { Accept: 'application/json' } },
+        )
+        if (res.ok) {
+          const data = (await res.json()) as { responses: SurveyApiSession[] }
+          if (data.responses.length > 0) {
+            return data.responses
+              .map((s) => ({
+                id: `svy_${s.session_id}`,
+                customerId,
+                campaign: s.title || s.survey,
+                channel: 'sms' as const,
+                sentAt: s.started_at ?? DATASET_START,
+                respondedAt: s.completed_at,
+                answers: s.answers,
+              }))
+              .sort((a, b) => b.sentAt.localeCompare(a.sentAt))
+          }
+        }
+        // 404 = not enrolled in the panel; fall through to the persona record
+      } catch {
+        // survey service unreachable — persona fallback below
+      }
+    }
+    return [
+      {
+        id: `svy_${customerId}_onboarding`,
+        customerId,
+        campaign: 'onboarding',
+        channel: 'sms',
+        sentAt: DATASET_START,
+        respondedAt: DATASET_START,
+        answers: persona.answers,
+      },
+    ]
   }
 
   private async householdPersona(householdId: string): Promise<PersonaProfile> {

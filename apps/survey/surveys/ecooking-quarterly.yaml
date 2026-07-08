@@ -1,0 +1,100 @@
+# Quarterly module (months 3, 6, 9, 12): monthly spend block plus household
+# change, new economic activity, seasonality, willingness to pay and open
+# feedback. Q1 routing ("re-ask B1 next session") is handled in-session:
+# B1 is re-asked at the end when household size changed.
+
+slug: ecooking-quarterly
+title: Quarterly — change, seasonality, willingness to pay
+module: quarterly
+reward_kwh: 1.0
+
+questions:
+  - key: M1
+    var: m_spend_biomass
+    type: single
+    choices: 5
+    text:
+      en: "In the last 30 days, how much did your home spend on charcoal and firewood? 1=Nothing 2=Under 200 3=200-500 4=501-1000 5=Over 1000 (KSh)"
+      sw: "Siku 30 zilizopita, mlitumia pesa ngapi kwa makaa na kuni? 1=Hakuna 2=Chini ya 200 3=200-500 4=501-1000 5=Zaidi ya 1000 (KSh)"
+
+  - key: M2
+    var: m_spend_lpg
+    type: single
+    choices: 5
+    text:
+      en: "In the last 30 days, how much on LPG gas and kerosene? 1=Nothing 2=Under 200 3=200-500 4=501-1000 5=Over 1000 (KSh)"
+      sw: "Siku 30 zilizopita, mlitumia pesa ngapi kwa gesi na mafuta ya taa? 1=Hakuna 2=Chini ya 200 3=200-500 4=501-1000 5=Zaidi ya 1000 (KSh)"
+
+  - key: M3
+    var: m_wood_hours
+    type: single
+    choices: 5
+    text:
+      en: "How many hours a week does your household spend collecting firewood? 1=None 2=Under 2 3=2-5 4=6-10 5=Over 10"
+      sw: "Nyumba yako hutumia saa ngapi kwa wiki kutafuta kuni? 1=Hakuna 2=Chini ya 2 3=2-5 4=6-10 5=Zaidi ya 10"
+
+  - key: M4
+    var: m_satisfaction
+    type: single
+    choices: 5
+    text:
+      en: "How happy are you with cooking on electricity? 1=Very happy 2=Happy 3=In the middle 4=Unhappy 5=I have not tried"
+      sw: "Umeridhika kiasi gani kupika kwa umeme? 1=Nimefurahi sana 2=Nimefurahi 3=Wastani 4=Sijaridhika 5=Sijajaribu"
+
+  - key: Q1
+    var: q_hh_change
+    type: single
+    choices: 3
+    text:
+      en: "In the last 3 months, has the number of people in your home changed? 1=More people 2=Same 3=Fewer people"
+      sw: "Miezi 3 iliyopita, idadi ya watu nyumbani imebadilika? 1=Wameongezeka 2=Ni sawa 3=Wamepungua"
+
+  - key: Q2
+    var: q_new_activity
+    type: single
+    choices: 2
+    text:
+      en: "Have you started any new money-earning activity in the last 3 months? 1=Yes 2=No"
+      sw: "Umeanzisha shughuli mpya ya kipato miezi 3 iliyopita? 1=Ndiyo 2=Hapana"
+
+  - key: Q3
+    var: q_activity_type
+    type: single
+    choices: 5
+    ask_if: [{var: q_new_activity, equals: 1}]
+    text:
+      en: "What kind of activity? 1=Tailoring or sewing 2=Selling food or produce 3=Shop or kiosk 4=Farming for sale 5=Other"
+      sw: "Shughuli ya aina gani? 1=Kushona nguo 2=Kuuza chakula au mazao 3=Duka au kiosk 4=Kilimo cha kuuza 5=Nyingine"
+
+  - key: Q4
+    var: q_wood_season
+    type: single
+    choices: 3
+    text:
+      en: "Right now, is firewood harder or easier to find than 3 months ago? 1=Harder 2=Same 3=Easier"
+      sw: "Kwa sasa, kuni ni ngumu au rahisi kupata kuliko miezi 3 iliyopita? 1=Ngumu zaidi 2=Sawa 3=Rahisi zaidi"
+
+  - key: Q5
+    var: q_wtp_lunch
+    type: single
+    choices: 5
+    text:
+      en: "How much would you pay for the units to cook lunch for your family in the EPC? 1=Nothing 2=Under 10 3=10-20 4=21-40 5=Over 40 (KSh)"
+      sw: "Ungelipa pesa ngapi kwa units za kupika chakula cha mchana kwa EPC? 1=Hakuna 2=Chini ya 10 3=10-20 4=21-40 5=Zaidi ya 40 (KSh)"
+
+  - key: Q6
+    var: q_open_feedback
+    type: text
+    text:
+      en: "What ONE thing would make you cook with electricity more? Reply in your own words. Asante!"
+      sw: "Ni jambo gani MOJA lingekufanya upike kwa umeme zaidi? Jibu kwa maneno yako. Asante!"
+
+  - key: B1
+    var: hh_size
+    type: number
+    min: 1
+    max: 30
+    ask_if: [{var: q_hh_change, in: [1, 3]}]
+    text:
+      en: "How many people usually eat the evening meal in your home? Reply with a number, e.g. 5"
+      sw: "Kwa kawaida watu wangapi hula chakula cha jioni nyumbani kwako? Jibu kwa namba, mfano 5"

@@ -19,7 +19,9 @@ npm run build      # typecheck (tsc -b) + production build to dist/
 
 Setting `VITE_API_BASE_URL` (which is all `dev:api` / `dev:live` do) switches the
 app from the seeded mock dataset to a live [GridCook Oloika API](../api/) — see
-[Data sources](#data-sources) below.
+[Data sources](#data-sources) below. `VITE_SURVEY_API_BASE_URL` additionally
+points at the [SMS survey panel](../survey/) (`dev:api` assumes it on :8001,
+next to the GridCook API on :8000).
 
 ## Pages
 
@@ -60,6 +62,11 @@ or `src/components/` knows which implementation is behind it.
   billing-ledger `top_up` events are the payments/revenue; per-account
   daily-behavior and cooking sessions drive the consumption chart; and the
   household / commercial persona records surface as the SMS-survey profile.
+  When `VITE_SURVEY_API_BASE_URL` points at the [SMS panel service](../survey/)
+  and the account is enrolled there (`survey respondent import-gridcook`), the
+  customer page shows the account's *real* survey sessions from
+  `GET /api/respondents/{account_id}/responses` instead; if the service is
+  down or the account unenrolled, it falls back to the persona record.
   Time ranges are anchored to the newest telemetry hour (June 30 2025), not the
   wall clock. Fields the privacy-preserving dataset genuinely lacks (phone
   numbers, meter serials) are synthesized deterministically and flagged inline;
