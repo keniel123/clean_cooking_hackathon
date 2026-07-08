@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f5132" />
+  <meta
+    name="description"
+    content="GridCook mobile interface for selecting affordable clean-cooking time slots."
+  />
+  <title>GridCook Mobile</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+  <script src="api.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="phone-app" aria-label="GridCook mobile application">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">GridCook</p>
+          <h1>Plan your cooking</h1>
+        </div>
+
+        <button
+          class="profile-button"
+          id="profileButton"
+          type="button"
+          aria-label="Open user profile"
+          title="User profile"
+        >
+          <img
+            id="profilePhoto"
+            src="assets/profile-photo.svg"
+            alt="User profile"
+          />
+        </button>
+      </header>
+
+      <section class="user-card" aria-labelledby="userName">
+        <div class="user-heading">
+          <div>
+            <p class="muted-label">Welcome back</p>
+            <h2 id="userName">Amina Njeri</h2>
+            <p class="user-id">User ID: <span id="userId">KC-2048</span></p>
+          </div>
+
+          <span class="status-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            Connected
+          </span>
+        </div>
+
+        <div class="account-stats">
+          <article class="stat">
+            <p>Electricity usage</p>
+            <strong><span id="electricityUsage">42.6</span> kWh</strong>
+            <small>This month</small>
+          </article>
+
+          <article class="stat">
+            <p>Available credit</p>
+            <strong>KES <span id="creditBalance">1,250</span></strong>
+            <small>Current balance</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="planner-card" aria-labelledby="plannerTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow dark">Cooking planner</p>
+            <h2 id="plannerTitle">Choose your preferred hours</h2>
+          </div>
+          <button id="clearButton" class="text-button" type="button">
+            Clear
+          </button>
+        </div>
+
+        <p class="section-copy">
+          Select one or more hourly slots, then press <strong>GO</strong> to
+          compare expected cooking costs.
+        </p>
+
+        <div
+          class="time-grid"
+          id="timeGrid"
+          role="group"
+          aria-label="Choose cooking time slots"
+        ></div>
+
+        <p class="selection-summary" id="selectionSummary" aria-live="polite">
+          No time slots selected.
+        </p>
+
+        <button class="go-button" id="goButton" type="button" disabled>
+          <span>GO</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </section>
+
+      <section class="results-card is-hidden" id="resultsCard" aria-labelledby="resultsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow dark">Today's estimate</p>
+            <h2 id="resultsTitle">Best time to cook</h2>
+          </div>
+          <span class="results-badge" id="resultBadge">Calculated</span>
+        </div>
+
+        <div class="legend" aria-label="Cost colour legend">
+          <span><i class="legend-dot low"></i>Lower cost</span>
+          <span><i class="legend-dot medium"></i>Average cost</span>
+          <span><i class="legend-dot high"></i>Peak cost</span>
+        </div>
+
+        <article class="recommendation" id="recommendation">
+          <div class="recommendation-icon" aria-hidden="true">✓</div>
+          <div>
+            <p class="muted-label">Our recommendation</p>
+            <h3 id="recommendationTitle">Choose a green slot</h3>
+            <p id="recommendationText"></p>
+          </div>
+        </article>
+
+        <div class="selected-results" id="selectedResults"></div>
+
+        <p class="demo-note">
+          Demo prices are placeholders. They can later be supplied by the AI,
+          tariff, battery, or mini-grid services.
+        </p>
+      </section>
+
+      <footer class="app-footer">
+        <span>Clean cooking, smarter timing.</span>
+        <span>GridCook prototype</span>
+      </footer>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
