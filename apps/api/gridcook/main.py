@@ -318,27 +318,27 @@ def account_credit_balance(account_id: str) -> dict[str, Any]:
 
 @app.get(f"{API_PREFIX}/accounts/{{account_id}}/wallet", tags=["accounts"])
 def account_wallet(account_id: str) -> dict[str, Any]:
-    """Live earned-credit wallet: fractional credits accrue and realize at 1.0."""
+    """The account's credit wallet — the canonical credit_balances ledger, the
+    same source as /credit-balance, /customers, and the leaderboard (so they can
+    never disagree)."""
     _get_one("minigrid_accounts", "account_id", account_id, "Account")
-    rows = db.select_rows("credit_wallet", {"account_id": account_id}, limit=1)
+    rows = db.query(
+        "SELECT month, ending_balance_credits, total_reward_credits, "
+        "total_top_up_credits, total_spent_credits FROM credit_balances "
+        "WHERE account_id = ? ORDER BY month DESC LIMIT 1", (account_id,)
+    )
     if rows:
-        row = rows[0]
-        total = float(row["accumulated_credit"])
-        awarded = int(row["credits_awarded"])
+        r = rows[0]
         return {
             "account_id": account_id,
-            "accumulated_credit": round(total, 3),
-            "credits_awarded": awarded,
-            "progress_to_next_credit": round(total - awarded, 3),
-            "updated_at": row["updated_at"],
+            "month": r["month"],
+            "credits": r["ending_balance_credits"],
+            "total_rewarded": r["total_reward_credits"],
+            "total_topped_up": r["total_top_up_credits"],
+            "total_spent": r["total_spent_credits"],
         }
-    return {
-        "account_id": account_id,
-        "accumulated_credit": 0.0,
-        "credits_awarded": 0,
-        "progress_to_next_credit": 0.0,
-        "updated_at": None,
-    }
+    return {"account_id": account_id, "month": None, "credits": 0,
+            "total_rewarded": 0, "total_topped_up": 0, "total_spent": 0}
 
 
 @app.get(f"{API_PREFIX}/accounts/{{account_id}}/usage-summary", tags=["accounts"])
@@ -666,7 +666,6 @@ def record_session(session: SessionRecordRequest,
         "source": "live_api",
         "created_at": now,
     }
-    db.insert_row("cooking_sessions_live", record)
     _append_live_session_csv({
         **record,
         "entity_id": account.get("entity_id", session.account_id),
@@ -674,8 +673,19 @@ def record_session(session: SessionRecordRequest,
         "start_at": f"{session.date}T{session.start_hour_eat:02d}:00:00",
     })
 
-    # Fractional credit accrues to the account wallet; whole credits realize at 1.0.
-    wallet = db.award_session_credit(session.account_id, record["suggested_credit_gain"])
+    # Award the earned credit on Ezra's atomic ledger — one canonical wallet
+    # (credit_balances), shared with the leaderboard and /customers. (B) model:
+    # award-only, no energy charge. Skipped in the ephemeral in-memory mode.
+    billing = None
+    if oloika_write is not None and _os.environ.get("GRIDCOOK_DB_PATH"):
+        billing = _award_on_ledger(
+            session_id=record["session_id"], account_id=session.account_id,
+            kwh=record["kwh"], slot_color=record["slot_color"],
+            credits=record["suggested_credit_gain"], cooker_id=session.cooker_id,
+            shifted_daytime=shifted,
+            start_at=f"{session.date}T{session.start_hour_eat:02d}:00:00",
+            reason=record["credit_gain_basis"],
+        )
 
     count = db.bump_sessions_since_train(1)
     retrain_triggered = count >= RETRAIN_EVERY
@@ -686,7 +696,7 @@ def record_session(session: SessionRecordRequest,
     return {
         **record,
         "assessment": assessment,
-        "wallet": wallet,
+        "billing": billing,
         "sessions_since_train": 0 if retrain_triggered else count,
         "retrain_triggered": retrain_triggered,
     }
@@ -743,16 +753,6 @@ def list_credit_balances(
 # internally). Exceptions map to the HTTP codes named in the contract.
 # --------------------------------------------------------------------------- #
 
-class SessionCompleteRequest(BaseModel):
-    session_id: str
-    account_id: str
-    kwh: float = Field(..., ge=0)
-    slot_color: str = Field(..., pattern="^(green|orange|red)$")
-    cooker_id: str | None = None
-    shifted_daytime: int = Field(0, ge=0, le=1)
-    start_at: str | None = None
-
-
 class TopUpRequest(BaseModel):
     cash_kes: int = Field(..., gt=0)
 
@@ -782,37 +782,22 @@ def _http_for(exc: Exception) -> HTTPException:
     return HTTPException(status_code=400, detail=str(exc))
 
 
-@app.post(f"{API_PREFIX}/sessions/complete", status_code=201, tags=["writes"])
-def complete_cooking_session(req: SessionCompleteRequest) -> dict[str, Any]:
-    """Bill a finished cooking session: charge kWh + award the window reward +
-    update the wallet, atomically; then refresh the leaderboard."""
+def _award_on_ledger(**kwargs: Any) -> dict[str, Any]:
+    """Award session credit on Ezra's ledger and refresh the leaderboard, mapping
+    oloika_write exceptions to HTTP codes. Used by POST /sessions (the single,
+    combined session-record endpoint). award_session self-commits."""
     con = _writer()
     try:
-        result = oloika_write.complete_session(
-            con,
-            session_id=req.session_id,
-            account_id=req.account_id,
-            kwh=req.kwh,
-            slot_color=req.slot_color,
-            cooker_id=req.cooker_id,
-            shifted_daytime=req.shifted_daytime,
-            start_at=req.start_at,
-        )
-        con.commit()
-    except Exception as exc:  # noqa: BLE001 - re-raised as HTTP below
-        con.rollback()
-        con.close()
+        result = oloika_write.award_session(con, **kwargs)
+        try:
+            oloika_write.refresh_leaderboard(con)  # own txn; best-effort
+        except Exception:  # pragma: no cover
+            pass
+        return result
+    except Exception as exc:  # noqa: BLE001 - re-raised as HTTP
         raise _http_for(exc)
-    # Leaderboard refresh runs in its own transaction (contract: not inside
-    # complete_session). Best-effort — a stale board must not fail the cook.
-    try:
-        oloika_write.refresh_leaderboard(con)
-        con.commit()
-    except Exception:  # pragma: no cover
-        con.rollback()
     finally:
         con.close()
-    return result
 
 
 @app.post(f"{API_PREFIX}/accounts/{{account_id}}/top-up", status_code=201, tags=["writes"])

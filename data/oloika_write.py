@@ -266,6 +266,109 @@ def complete_session(
 
 
 # --------------------------------------------------------------------------
+def award_session(con: sqlite3.Connection, session_id: str, account_id: str,
+                  kwh: float, slot_color: str, credits: int, *,
+                  cooker_id: str | None = None, shifted_daytime: int = 0,
+                  start_at: str | None = None, reason: str | None = None) -> dict:
+    """Record a session and AWARD credits for it — award-only, no energy charge
+    (the incentive model). Atomic, on the same credit_balances ledger as
+    complete_session/top_up so there is one canonical wallet. Caller-supplied
+    ``credits`` is the reward to grant (e.g. the model's suggested_credit_gain).
+
+    Raises UnknownAccount / SessionAlreadyBilled (if already awarded) / WriteError.
+    """
+    if slot_color not in REWARD_EVENT:
+        raise WriteError(f"unknown slot_color {slot_color!r}")
+    if kwh < 0:
+        raise WriteError("kwh must be >= 0")
+    credits = int(credits)
+    now = _now()
+
+    con.execute("BEGIN IMMEDIATE")
+    try:
+        acct = con.execute(
+            "SELECT account_id, account_type, entity_id FROM minigrid_accounts "
+            "WHERE account_id = ?", (account_id,)
+        ).fetchone()
+        if acct is None:
+            raise UnknownAccount(account_id)
+
+        dup = con.execute(
+            "SELECT 1 FROM billing_ledger WHERE session_id = ? "
+            "AND event_type IN ('green_reward','orange_reward','cook_charge')",
+            (session_id,),
+        ).fetchone()
+        if dup:
+            raise SessionAlreadyBilled(session_id)
+
+        exists = con.execute(
+            "SELECT 1 FROM cooking_sessions WHERE session_id = ?", (session_id,)
+        ).fetchone()
+        if exists:
+            con.execute(
+                "UPDATE cooking_sessions SET kwh = ?, slot_color = ?, shifted_daytime = ? "
+                "WHERE session_id = ?", (kwh, slot_color, shifted_daytime, session_id),
+            )
+        else:
+            con.execute(
+                """INSERT INTO cooking_sessions
+                   (session_id, account_id, entity_id, account_type, cooker_id,
+                    start_at, end_at, date, kwh, slot_color, shifted_daytime, source)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,'app')""",
+                (session_id, account_id, acct["entity_id"], acct["account_type"],
+                 cooker_id, start_at or now, now, (start_at or now)[:10],
+                 kwh, slot_color, shifted_daytime),
+            )
+
+        month = _latest_balance_month(con, account_id, _month((start_at or now)[:10]))
+        bal_row = con.execute(
+            "SELECT ending_balance_credits FROM credit_balances "
+            "WHERE account_id = ? AND month = ?", (account_id, month)
+        ).fetchone()
+        old_balance = bal_row["ending_balance_credits"] if bal_row else 0
+
+        # Award uses the slot's reward event type — the schema's CHECK allows only
+        # green_reward / orange_reward / cook_charge / top_up. Red slots earn nothing.
+        reward_event = REWARD_EVENT[slot_color]
+        if reward_event and credits > 0:
+            balance = old_balance + credits
+            con.execute(
+                """INSERT INTO billing_ledger
+                   (ledger_id, account_id, event_type, session_id, credits_delta,
+                    cash_kes, balance_after, reason, created_at)
+                   VALUES (?,?,?,?,?,0,?,?,?)""",
+                (_ledger_id(), account_id, reward_event, session_id, credits, balance,
+                 reason or f"{slot_color} window reward", now),
+            )
+        else:
+            credits, balance = 0, old_balance
+
+        if bal_row:
+            con.execute(
+                "UPDATE credit_balances SET ending_balance_credits = ?, "
+                "total_reward_credits = total_reward_credits + ? "
+                "WHERE account_id = ? AND month = ?",
+                (balance, credits, account_id, month),
+            )
+        else:
+            con.execute(
+                """INSERT INTO credit_balances
+                   (account_id, account_type, entity_id, month, ending_balance_credits,
+                    total_top_up_credits, total_reward_credits, total_spent_credits, cash_paid_kes)
+                   VALUES (?,?,?,?,?,0,?,0,0)""",
+                (account_id, acct["account_type"], acct["entity_id"], month, balance, credits),
+            )
+        con.execute("COMMIT")
+    except Exception:
+        con.execute("ROLLBACK")
+        raise
+
+    return {"session_id": session_id, "account_id": account_id, "kwh": kwh,
+            "slot_color": slot_color, "credits_awarded": credits,
+            "balance_after": balance}
+
+
+# --------------------------------------------------------------------------
 def top_up(con: sqlite3.Connection, account_id: str, cash_kes: int,
            month: str | None = None) -> dict:
     """Buy credits with cash. Atomic. Always increases the balance."""
