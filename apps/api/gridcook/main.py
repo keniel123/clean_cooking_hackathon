@@ -410,9 +410,9 @@ def account_recommendation(
 
     # Overlay live shared-grid capacity so hours others already committed to are
     # down-weighted for this user.
-    all_windows = capacity.adjust_windows(base_windows, plan_date)
-    all_windows.sort(key=lambda window: window["hour_eat"])
-    windows = capacity.adjust_and_rank(base_windows, plan_date)[:top]
+    all_windows = _with_reward_credits(
+        sorted(capacity.adjust_windows(base_windows, plan_date), key=lambda w: w["hour_eat"]))
+    windows = _with_reward_credits(capacity.adjust_and_rank(base_windows, plan_date)[:top])
 
     best = windows[0]["window"] if windows else None
     return {
@@ -505,6 +505,28 @@ def grid_hourly(
     return _paginated("grid_hourly", filters, "timestamp_hour", limit, offset)
 
 
+# Per-hour reward a cook banks for that window, on the SAME rate table as the
+# credit ledger (oloika_write.reward_for: green 30 / orange 8 / red 0 per kWh),
+# so the planner shows what the wallet will actually award. Falls back to the
+# same rates if the write path isn't importable (in-memory mode).
+_REWARD_PER_KWH = {"green": 30, "orange": 8, "red": 0}
+
+
+def _reward_credits(kwh: Any, slot_color: str | None) -> int:
+    kwh = float(kwh or 0.0)
+    if oloika_write is not None:
+        return oloika_write.reward_for(kwh, slot_color or "")
+    return round(kwh * _REWARD_PER_KWH.get(slot_color or "", 0))
+
+
+def _with_reward_credits(windows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Annotate each window with reward_credits (ledger-rate reward for its kWh)."""
+    return [
+        {**w, "reward_credits": _reward_credits(w.get("expected_kwh"), w.get("slot_color"))}
+        for w in windows
+    ]
+
+
 @app.get(f"{API_PREFIX}/grid/daily-plan", tags=["grid"])
 def grid_daily_plan(
     date: str | None = Query(None, description="Plan date for shared-grid capacity; defaults to today"),
@@ -512,7 +534,7 @@ def grid_daily_plan(
     """Per hour-of-day cooking plan with live shared-grid capacity overlaid."""
     plan_date = date or _today()
     windows = capacity.adjust_windows(scoring.rank_cooking_windows(), plan_date)
-    by_hour = sorted(windows, key=lambda window: window["hour_eat"])
+    by_hour = _with_reward_credits(sorted(windows, key=lambda window: window["hour_eat"]))
     return {"date": plan_date, "count": len(by_hour), "results": by_hour}
 
 
@@ -560,7 +582,8 @@ def recommendations(
             raise HTTPException(status_code=404, detail=f"No customer for {identifier!r}")
         return account_recommendation(matches[0]["account_id"], top=top, date=date)
     plan_date = date or _today()
-    windows = capacity.adjust_and_rank(scoring.rank_cooking_windows(), plan_date)[:top]
+    windows = _with_reward_credits(
+        capacity.adjust_and_rank(scoring.rank_cooking_windows(), plan_date)[:top])
     return {"date": plan_date, "count": len(windows), "results": windows}
 
 

@@ -54,6 +54,10 @@
         hour,
         level: LEVEL_BY_COLOR[color] || "high",
         rateKesPerKwh: rateFor(p && p.favorability_score),
+        // credit the wallet awards for cooking this hour (ledger-rate, from API)
+        rewardCreditKes: p ? Math.round(Number(p.reward_credits) || 0) : 0,
+        // expected cooking energy for the window (drives the usage total)
+        estimatedKwh: p && p.expected_kwh != null ? Number(p.expected_kwh) : undefined,
       };
     });
     window.GridCookUI.setHourlyTariffs(tariffs); // 24 ordered items, validated by app.js
