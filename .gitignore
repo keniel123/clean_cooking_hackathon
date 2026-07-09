@@ -13,3 +13,19 @@ node_modules/
 # Python virtualenvs
 .venv/
 venv/
+
+# Generated SQLite databases — built from data/synthetic/*.csv by
+# data/load_oloika_dataset_sqlite.py; never commit (regenerated on deploy).
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+
+# API runtime state (live sessions appended at request time)
+data/runtime/
+
+# Retired static country-dashboard output
+aggregate_data.json
+
+# Expo
+.expo/
