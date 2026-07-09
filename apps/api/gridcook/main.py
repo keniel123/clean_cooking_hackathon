@@ -681,8 +681,7 @@ def record_session(session: SessionRecordRequest,
         billing = _award_on_ledger(
             session_id=record["session_id"], account_id=session.account_id,
             kwh=record["kwh"], slot_color=record["slot_color"],
-            credits=record["suggested_credit_gain"], cooker_id=session.cooker_id,
-            shifted_daytime=shifted,
+            cooker_id=session.cooker_id, shifted_daytime=shifted,
             start_at=f"{session.date}T{session.start_hour_eat:02d}:00:00",
             reason=record["credit_gain_basis"],
         )
