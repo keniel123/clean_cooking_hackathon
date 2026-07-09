@@ -267,13 +267,18 @@ def complete_session(
 
 # --------------------------------------------------------------------------
 def award_session(con: sqlite3.Connection, session_id: str, account_id: str,
-                  kwh: float, slot_color: str, credits: int, *,
+                  kwh: float, slot_color: str, *,
                   cooker_id: str | None = None, shifted_daytime: int = 0,
                   start_at: str | None = None, reason: str | None = None) -> dict:
     """Record a session and AWARD credits for it — award-only, no energy charge
     (the incentive model). Atomic, on the same credit_balances ledger as
-    complete_session/top_up so there is one canonical wallet. Caller-supplied
-    ``credits`` is the reward to grant (e.g. the model's suggested_credit_gain).
+    complete_session/top_up so there is one canonical wallet.
+
+    The reward is the ledger-native amount from the rate table
+    (``reward_for(kwh, slot_color)``): the model decides *when* to cook and the
+    slot colour, this ledger decides *how many* credits. The model's fractional
+    ``suggested_credit_gain`` stays on the session as a nudge score; it is not
+    the wallet amount (an integer ledger would truncate it to 0).
 
     Raises UnknownAccount / SessionAlreadyBilled (if already awarded) / WriteError.
     """
@@ -281,7 +286,7 @@ def award_session(con: sqlite3.Connection, session_id: str, account_id: str,
         raise WriteError(f"unknown slot_color {slot_color!r}")
     if kwh < 0:
         raise WriteError("kwh must be >= 0")
-    credits = int(credits)
+    credits = reward_for(kwh, slot_color)
     now = _now()
 
     con.execute("BEGIN IMMEDIATE")
