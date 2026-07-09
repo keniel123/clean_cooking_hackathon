@@ -438,6 +438,56 @@ def top_up(con: sqlite3.Connection, account_id: str, cash_kes: int,
 
 
 # --------------------------------------------------------------------------
+# Friendly display names.
+#
+# The dataset is privacy-preserving synthetic data (privacy_level
+# 'synthetic_id_only') — there are no real personal names in it. These lists are
+# cosmetic labels chosen deterministically from the account number, so HH-0007
+# always renders the same person (and BIZ-005 the same business) across the
+# mobile app, the dashboard, and the leaderboard. They are NOT stored PII: the
+# name is derived at leaderboard-refresh time from the (public) account id, never
+# persisted against a person. Community context: Oloika, a Maasai village by Lake
+# Magadi in Kajiado County — hence Maasai/Kenyan names.
+HOUSEHOLD_NAMES = [
+    "Naserian Sankale", "Lemayian Ole Kina", "Nasieku Parsaloi", "Saitoti Ncharo",
+    "Nanana Meitamei", "Kipeno Sironka", "Sironka Lenkume", "Naitore Lesairo",
+    "Semenya Ntutu", "Naipanoi Koikai", "Parmuat Lekishon", "Nashipae Mepukori",
+    "Sankale Tialal", "Naishorua Kiprop", "Meitamei Olol", "Nalotuesha Kimojino",
+    "Sekento Rakwa", "Naserian Kudate", "Lenana Sopiato", "Namunyak Leshan",
+    "Kaikai Lemomo", "Nkoitoi Saruni", "Resiato Munkasa", "Sadera Lekamario",
+    "Naanyu Toroge", "Loonkushu Nalang", "Nabulu Sironik", "Koinet Legei",
+    "Siameto Parsapaya", "Naisula Kantai", "Olkinos Merresho", "Namelok Sotua",
+    "Lemomo Kasaine", "Naitareu Poon", "Sanare Loile", "Neepe Katitia",
+    "Metito Osotua", "Nasieku Lengete", "Parsitau Melubo", "Naramat Lekuta",
+]
+BUSINESS_NAMES = [
+    "Mama Naserian Eatery", "Oloika Grill House", "Lake Magadi Kitchen",
+    "Sankale Hot Meals", "Nasieku Tea House", "Maasai Plains Bistro",
+    "Enkang Food Court", "Kajiado Bites", "Naretoi Restaurant",
+    "Ewaso Nyiro Grill", "Siyapei Cafe", "Ilkisonko Eatery",
+]
+
+
+def _name_case_sql(names: list[str], num_expr: str) -> str:
+    """SQL CASE mapping (num_expr % len) -> a name from ``names`` (deterministic)."""
+    whens = " ".join(
+        "WHEN {} THEN '{}'".format(i, name.replace("'", "''"))
+        for i, name in enumerate(names)
+    )
+    return "CASE (({}) % {}) {} ELSE '' END".format(num_expr, len(names), whens)
+
+
+# Numeric tail of the entity id: 'HH-0007' -> 7, 'BIZ-005' -> 5 (alias ``a``).
+_ENTITY_NUM_SQL = "CAST(substr(a.entity_id, instr(a.entity_id, '-') + 1) AS INTEGER)"
+DISPLAY_NAME_SQL = (
+    "CASE WHEN a.account_type = 'commercial' THEN "
+    + _name_case_sql(BUSINESS_NAMES, _ENTITY_NUM_SQL)
+    + " ELSE " + _name_case_sql(HOUSEHOLD_NAMES, _ENTITY_NUM_SQL)
+    + " END"
+)
+
+
+# --------------------------------------------------------------------------
 def refresh_leaderboard(con: sqlite3.Connection) -> int:
     """Rebuild the leaderboard from cooking_sessions + billing_ledger.
 
@@ -470,9 +520,7 @@ def refresh_leaderboard(con: sqlite3.Connection) -> int:
                     a.account_id,
                     a.entity_id,
                     a.account_type,
-                    CASE WHEN a.account_type = 'commercial'
-                         THEN 'Business ' || a.entity_id
-                         ELSE 'Household ' || a.entity_id END      AS display_name,
+                    {DISPLAY_NAME_SQL}                              AS display_name,
                     a.account_type                                  AS leaderboard_group,
                     COALESCE(s.n, 0)                                AS sessions,
                     ROUND(COALESCE(s.kwh, 0.0), 3)                  AS kwh,
