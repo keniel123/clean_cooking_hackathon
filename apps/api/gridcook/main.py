@@ -115,6 +115,14 @@ def _run_retrain_and_record() -> None:
         time.sleep(RETRAIN_POLL_INTERVAL_SECONDS)
 
 
+def _count_live_session_csv() -> int:
+    """Number of live sessions the API has fed the ML model (data rows in the CSV)."""
+    if not _LIVE_SESSIONS_PATH.exists():
+        return 0
+    with _LIVE_SESSIONS_PATH.open("r", encoding="utf-8") as handle:
+        return max(sum(1 for _ in handle) - 1, 0)  # minus the header row
+
+
 def _append_live_session_csv(row: dict[str, Any]) -> None:
     """Append one session to the ML-readable live sessions CSV (create header once)."""
     _LIVE_SESSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -714,7 +722,7 @@ def learning_state() -> dict[str, Any]:
         "retrain_every": RETRAIN_EVERY,
         "last_trained_version": state["last_trained_version"],
         "last_trained_at": state["last_trained_at"],
-        "live_sessions_recorded": db.count_rows("cooking_sessions_live"),
+        "live_sessions_recorded": _count_live_session_csv(),
         "ml_retrain": ml_client.retrain_status(),
     }
 
