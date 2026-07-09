@@ -1,0 +1,421 @@
+{
+  "initial_state": "Trigger",
+  "flags": {
+    "allow_concurrent_calls": true
+  },
+  "description": "A New Flow",
+  "states": [
+    {
+      "name": "Trigger",
+      "type": "trigger",
+      "transitions": [
+        {
+          "next": "split-command",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "incomingCall"
+        },
+        {
+          "event": "incomingConversationMessage"
+        },
+        {
+          "event": "incomingRequest"
+        },
+        {
+          "event": "incomingParent"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -193,
+          "y": -180
+        }
+      }
+    },
+    {
+      "name": "customers",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "customers-response",
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -175,
+          "y": 183
+        },
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "add_twilio_auth": false,
+        "url": "https://delft-api.flonat.com/api/v1/customers/{{trigger.message.From | remove: \"+\"}}"
+      }
+    },
+    {
+      "name": "customers-response",
+      "type": "send-message",
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -153,
+          "y": 417
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "to": "{{contact.channel.address}}",
+        "body": "\nYour GridCook Account ID: {{widgets.customers.parsed.account_id}}\n\nRemaining credits: {{widgets.customers.parsed.remaining_credits}}\n\nTotal energy usage: {{widgets.customers.parsed.total_kwh}}\n\nRecent sessions: \n{% for session in widgets.customers.parsed.recent_sessions %}\n- {{session.date}} / {{session.kwh}} / {{session.slot_color}}\n{% endfor %}"
+      }
+    },
+    {
+      "name": "split-command",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "event": "noMatch"
+        },
+        {
+          "next": "customers",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to summary",
+              "arguments": [
+                "{{trigger.message.Body}}"
+              ],
+              "type": "equal_to",
+              "value": "summary"
+            }
+          ]
+        },
+        {
+          "next": "recommendations",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to recommend",
+              "arguments": [
+                "{{trigger.message.Body}}"
+              ],
+              "type": "equal_to",
+              "value": "recommend"
+            }
+          ]
+        },
+        {
+          "next": "survey-qu-1",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to survey",
+              "arguments": [
+                "{{trigger.message.Body}}"
+              ],
+              "type": "equal_to",
+              "value": "survey"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{trigger.message.Body}}",
+        "offset": {
+          "x": -306,
+          "y": -46
+        }
+      }
+    },
+    {
+      "name": "recommendations",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "recommendations-response",
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 159,
+          "y": 184
+        },
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "add_twilio_auth": false,
+        "url": "https://delft-api.flonat.com/api/v1/recommendations?top=3&identifier={{trigger.message.From | remove: \"+\"}}"
+      }
+    },
+    {
+      "name": "recommendations-response",
+      "type": "send-message",
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 217,
+          "y": 435
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "to": "{{contact.channel.address}}",
+        "body": "\nYour GridCook Account ID: {{widgets.recommendations.parsed.account_id}}\n\nRecommendations: \n{% for window in widgets.recommendations.parsed.recommended_windows %}\n- {{window.window}} / +{{window.suggested_credit_gain}} / {{window.slot_color}}  / {{window.reason}}\n{% endfor %}"
+      }
+    },
+    {
+      "name": "survey-qu-1",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "language",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 612,
+          "y": 127
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "body": "GridCook: Habari! Kwa maswali kwa Kiswahili, jibu 1. For questions in English, reply 2.",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "survey-qu-2",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "survey-qu-3",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 604,
+          "y": 369
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "body": "Asante kwa kujiunga! Zawadi ni units za BURE za mchana, zinatumika 10am-3pm (saa 4 asubuhi - saa 9 alasiri) wakati nguvu ya jua iko juu. \n\nJe, wewe ndiye unayepika mara nyingi nyumbani? 1=Ndiyo 2=Napika mara kwa mara tu 3=Sipiki sana",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "survey-qu-3",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "send_end",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 606,
+          "y": 572
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "body": "Kwa kawaida watu wangapi hula chakula cha jioni nyumbani kwako? Jibu kwa namba, mfano 5",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "send_end",
+      "type": "send-message",
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 610,
+          "y": 762
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "to": "{{contact.channel.address}}",
+        "body": "Asante! Umepata units 5 za BURE zinazotumika [siku] 10am-3pm. Jaribu kupika chakula cha mchana kwa EPC au jiko lako!"
+      }
+    },
+    {
+      "name": "language",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "event": "noMatch"
+        },
+        {
+          "next": "survey-qu-2",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to 1",
+              "arguments": [
+                "{{widgets.survey-qu-1.inbound.Body}}"
+              ],
+              "type": "equal_to",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "next": "survey-qu-2-en",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to 2",
+              "arguments": [
+                "{{widgets.survey-qu-1.inbound.Body}}"
+              ],
+              "type": "equal_to",
+              "value": "2"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{widgets.survey-qu-1.inbound.Body}}",
+        "offset": {
+          "x": 914,
+          "y": 219
+        }
+      }
+    },
+    {
+      "name": "survey-qu-2-en",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "survey-qu-3-en",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 919,
+          "y": 446
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "body": "Thank you for joining! Rewards are FREE daytime units usable 10am-3pm when solar power is strongest. \n\nAre you the person who cooks most meals in your home? 1=Yes 2=I cook sometimes 3=I rarely cook",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "survey-qu-3-en",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "send_end_en",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 916,
+          "y": 612
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "body": "How many people usually eat the evening meal in your home? Reply with a number, e.g. 5",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "send_end_en",
+      "type": "send-message",
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 925,
+          "y": 797
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "to": "{{contact.channel.address}}",
+        "body": "Asante! You earned 5 FREE units valid [day] 10am-3pm. Try cooking lunch on your EPC or hob!"
+      }
+    }
+  ]
+}
