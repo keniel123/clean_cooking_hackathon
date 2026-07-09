@@ -54,8 +54,9 @@
         hour,
         level: LEVEL_BY_COLOR[color] || "high",
         rateKesPerKwh: rateFor(p && p.favorability_score),
-        // credit the wallet awards for cooking this hour (ledger-rate, from API)
-        rewardCreditKes: p ? Math.round(Number(p.reward_credits) || 0) : 0,
+        // the model's (nn-v5) precomputed credit for this hour, in KES, used
+        // as-is with decimals — no rate conversion (green ~0.17, orange/red 0)
+        rewardCreditKes: p ? Number(p.suggested_credit_gain) || 0 : 0,
         // expected cooking energy for the window (drives the usage total)
         estimatedKwh: p && p.expected_kwh != null ? Number(p.expected_kwh) : undefined,
       };
