@@ -14,6 +14,7 @@ Interactive docs are then available at http://127.0.0.1:8000/docs
 from __future__ import annotations
 
 import csv
+import logging
 import os
 import time
 import uuid
@@ -45,6 +46,8 @@ except Exception:  # pragma: no cover
     if _dbtools:
         raise
     oloika_write = None
+
+logger = logging.getLogger("gridcook")
 
 API_PREFIX = "/api/v1"
 DEFAULT_PAGE_SIZE = 50
@@ -137,6 +140,11 @@ def _append_live_session_csv(row: dict[str, Any]) -> None:
         if write_header:
             writer.writeheader()
         writer.writerow({column: row.get(column, "") for column in _LIVE_SESSION_COLUMNS})
+    if write_header:  # newly created — keep the session log owner-only
+        try:
+            _LIVE_SESSIONS_PATH.chmod(0o600)
+        except OSError:
+            pass
 
 app = FastAPI(
     title="GridCook Oloika API",
@@ -809,8 +817,10 @@ def _award_on_ledger(**kwargs: Any) -> dict[str, Any]:
         result = oloika_write.award_session(con, **kwargs)
         try:
             oloika_write.refresh_leaderboard(con)  # own txn; best-effort
-        except Exception:  # pragma: no cover
-            pass
+        except Exception:  # pragma: no cover - leaderboard is derived, not source of truth
+            logger.warning("leaderboard refresh failed after awarding session %s "
+                           "(rank may be briefly stale)", kwargs.get("session_id"),
+                           exc_info=True)
         return result
     except Exception as exc:  # noqa: BLE001 - re-raised as HTTP
         raise _http_for(exc)
