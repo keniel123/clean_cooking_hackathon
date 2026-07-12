@@ -298,9 +298,12 @@ def award_session(con: sqlite3.Connection, session_id: str, account_id: str,
         if acct is None:
             raise UnknownAccount(account_id)
 
+        # Award-only path: a session is "already billed" iff it already earned a
+        # reward. award_session never writes cook_charge, so the guard checks only
+        # the reward events it can produce.
         dup = con.execute(
             "SELECT 1 FROM billing_ledger WHERE session_id = ? "
-            "AND event_type IN ('green_reward','orange_reward','cook_charge')",
+            "AND event_type IN ('green_reward','orange_reward')",
             (session_id,),
         ).fetchone()
         if dup:
