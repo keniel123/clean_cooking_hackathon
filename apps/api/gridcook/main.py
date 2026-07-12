@@ -39,6 +39,11 @@ if _dbtools and _dbtools not in _sys.path:
 try:
     import oloika_write  # type: ignore
 except Exception:  # pragma: no cover
+    # If GRIDCOOK_DBTOOLS is set, the write path is expected — a failed import is
+    # a real misconfiguration, so fail fast rather than silently skipping billing.
+    # With no dbtools configured (in-memory mode) writes are intentionally off.
+    if _dbtools:
+        raise
     oloika_write = None
 
 API_PREFIX = "/api/v1"
@@ -780,6 +785,8 @@ def _writer():
 
 
 def _http_for(exc: Exception) -> HTTPException:
+    if oloika_write is None:
+        return HTTPException(status_code=503, detail="Write path unavailable (oloika_write not loaded).")
     mapping = [
         ("InsufficientCredits", 402),
         ("SessionAlreadyBilled", 409),
@@ -816,11 +823,10 @@ def account_top_up(account_id: str, req: TopUpRequest) -> dict[str, Any]:
     """Add prepaid credit to an account's wallet (atomic)."""
     con = _writer()
     try:
-        result = oloika_write.top_up(con, account_id, req.cash_kes)
-        con.commit()
-        return result
+        # oloika_write.top_up owns its transaction (BEGIN IMMEDIATE + COMMIT, or
+        # ROLLBACK on error), matching _award_on_ledger — no external commit here.
+        return oloika_write.top_up(con, account_id, req.cash_kes)
     except Exception as exc:  # noqa: BLE001
-        con.rollback()
         raise _http_for(exc)
     finally:
         con.close()
