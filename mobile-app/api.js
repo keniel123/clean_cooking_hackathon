@@ -26,9 +26,18 @@
   }
 
   async function getJson(path) {
-    const res = await fetch(API_BASE + path, { headers: { Accept: "application/json" } });
-    if (!res.ok) throw new Error(path + " -> HTTP " + res.status);
-    return res.json();
+    let res;
+    try {
+      res = await fetch(API_BASE + path, { headers: { Accept: "application/json" } });
+    } catch (e) {
+      throw new Error(path + " -> network error: " + e.message); // offline / DNS / CORS
+    }
+    if (!res.ok) throw new Error(path + " -> HTTP " + res.status); // reached server, bad status
+    try {
+      return await res.json();
+    } catch (e) {
+      throw new Error(path + " -> invalid JSON: " + e.message); // 200 but unparseable body
+    }
   }
 
   async function loadUser() {
@@ -69,13 +78,15 @@
       console.warn("[gridcook] GridCookUI not ready; is app.js loaded first?");
       return;
     }
-    try {
-      await Promise.all([loadUser(), loadTariffs()]);
+    // Independent fetches: a failing user card shouldn't block the tariffs (or
+    // vice versa). Each falls back to its placeholder on its own rejection.
+    const [user, tariffs] = await Promise.allSettled([loadUser(), loadTariffs()]);
+    if (user.status === "rejected")
+      console.warn("[gridcook] user card unavailable, using placeholder:", user.reason?.message);
+    if (tariffs.status === "rejected")
+      console.warn("[gridcook] tariffs unavailable, using placeholder:", tariffs.reason?.message);
+    if (user.status === "fulfilled" || tariffs.status === "fulfilled")
       console.log("[gridcook] wired to", API_BASE, "as", ACCOUNT);
-    } catch (err) {
-      // Leave the prototype's placeholder data in place on any failure.
-      console.warn("[gridcook] live API unavailable, using placeholder data:", err.message);
-    }
   }
 
   // app.js is loaded first (also `defer`), so GridCookUI already exists here.
